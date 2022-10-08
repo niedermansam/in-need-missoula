@@ -1,9 +1,10 @@
 import { defineStore } from 'pinia';
 import { ResourceSchema } from '@/schemas/ResourceSchemas';
 import { TagPriority } from '@/schemas/TagSchemas';
+import { useAPI } from '@/hooks';
 import { useCategoryStore, useTagStore, useUserStore } from './index'; // eslint-disable-line
 
-const resourceAPI = 'http://127.0.0.1:3000/resources';
+const resourceAPI = useAPI('/resources'); // 'http://127.0.0.1:3000/resources';
 
 const useResourceStore = defineStore('resourceStore', {
   state: () => ({

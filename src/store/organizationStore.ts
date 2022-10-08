@@ -1,7 +1,8 @@
 import { defineStore } from 'pinia';
 import { OrganizationSchema } from '@/schemas/OrganizationSchemas';
+import { useAPI } from '@/hooks';
 
-const organizationAPI = 'http://127.0.0.1:3000/organizations';
+const organizationAPI = useAPI('/organizations');
 
 const useOrganizationStore = defineStore('organizationStore', {
   state: () => ({

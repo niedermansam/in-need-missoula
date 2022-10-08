@@ -1,7 +1,8 @@
 import { defineStore } from 'pinia';
 import { FileInterface } from '@/schemas';
+import { useAPI } from '@/hooks';
 
-const fileAPI = 'http://127.0.0.1:3000/files';
+const fileAPI = useAPI('/files');
 
 const useFileStore = defineStore('fileStore', {
   state: () => ({
