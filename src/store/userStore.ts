@@ -7,7 +7,7 @@ const useUserStore = defineStore('userStore', () => {
   const tagStore = useTagStore();
 
   const tagSettings = ref({
-    sortTags: true,
+    sortTags: false,
   });
 
   const searchString = ref('');

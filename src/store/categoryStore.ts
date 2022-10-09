@@ -4,7 +4,7 @@ import { ref, computed } from 'vue';
 import useTagStore from './tagStore'; // eslint-disable-line
 
 const useCategoryStore = defineStore('categoryFilterStore', () => {
-  const filters = ref(['']);
+  const filters = ref(['Academics', 'Legal', 'Misc']);
 
   const tagStore = useTagStore();
 

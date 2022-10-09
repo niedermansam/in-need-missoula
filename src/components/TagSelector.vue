@@ -51,7 +51,7 @@ export default defineComponent({
       </h2>
       <div
         id="flush-collapseOne"
-        class="accordion-collapse"
+        class="accordion-collapse collapse"
         aria-labelledby="flush-headingOne"
         data-bs-parent="#accordionFlushExample"
       >
