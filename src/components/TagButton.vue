@@ -216,6 +216,7 @@ export default defineComponent({
 
 .tag-main-btn {
   align-content: flex-start;
+  text-align: left;
 }
 
 .tag-utility-btn {

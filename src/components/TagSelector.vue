@@ -55,7 +55,7 @@ export default defineComponent({
         aria-labelledby="flush-headingOne"
         data-bs-parent="#accordionFlushExample"
       >
-        <div class="accordion-body tag-container">
+        <div class="accordion-body">
 
           <button
             @click="tagFilterStore.resetPriorityAll"
@@ -73,8 +73,8 @@ export default defineComponent({
             <BIconLock v-else/>
             {{ userStore.tagSettings.sortTags ? 'Lock Tags' : 'Sort Tags'}}
           </button>
-
-          <TransitionGroup
+          <div class="tag-container" :style="`--n-tags: ${tagFilterStore.activeCategoryTags.length}`">
+            <TransitionGroup
           tag="div"
           name="fade"
           class="tag-container"
@@ -84,7 +84,8 @@ export default defineComponent({
             :key="tag || 'tag'"
             :tag="tag"
           />
-        </TransitionGroup>
+            </TransitionGroup>
+          </div>
         </div>
       </div>
     </div>
@@ -92,11 +93,54 @@ export default defineComponent({
 </template>
 
 <style scoped>
-.tag-container {
+.tag-containerold {
   display: flex;
-  justify-content: space-evenly;
   align-content: space-around;
   flex-wrap: wrap;
+  flex-direction:column;
+  max-height: 700px;
+}
+.tag-container {
+  display: grid;
+  grid-template-rows: repeat( calc( var(--n-tags) ), auto);
+  grid-gap: 10px;
+  grid-auto-flow: column;
+  justify-content: center;
+}
+@media screen and (min-width: 700px) {
+  .tag-container{
+    grid-template-rows: repeat( calc( (var(--n-tags) / 2) + 1) , auto);
+  }
+}
+
+@media screen and (min-width: 1100px) {
+  .tag-container{
+    grid-template-rows: repeat( calc( (var(--n-tags) / 3) + 1), auto);
+  }
+}
+
+@media screen and (min-width: 1400px) {
+  .tag-container{
+    grid-template-rows: repeat( calc( (var(--n-tags) / 4) + 1), auto);
+  }
+}
+
+@media screen and (min-width: 1700px) {
+  .tag-container{
+    grid-template-rows: repeat( calc( (var(--n-tags) / 5) + 1), auto);
+  }
+}
+
+@media screen and (min-width: 2000px) {
+  .tag-container{
+    grid-template-rows: repeat( calc( (var(--n-tags) / 6) + 1), auto);
+  }
+}
+
+@media screen and (min-width: 2300px) {
+  .tag-container{
+    grid-template-rows: repeat( calc( (var(--n-tags) / 7) + 1), auto);
+  }
 }
 
 /* 1. declare transition */
