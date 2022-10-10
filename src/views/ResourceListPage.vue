@@ -43,8 +43,7 @@ export default defineComponent({
           tag="div"
           name="fade"
           v-if="resourceStore.filteredArray"
-          style="display: flex;
-                 flex-wrap: wrap;">
+          class="resources-container">
             <ResourceCard
               v-for="(resource) in resourceStore.filteredArray"
 
@@ -57,7 +56,11 @@ export default defineComponent({
   </template>
 
 <style scoped>
-
+.resources-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
 /* 1. declare transition */
 .fade-move,
 .fade-enter-active,

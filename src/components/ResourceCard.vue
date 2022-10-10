@@ -113,7 +113,8 @@ export default {
 }
 
 .resource-card {
-  width: 45vw;
+  width: 100%;
+  max-width: 400px;
 }
 
 </style>
