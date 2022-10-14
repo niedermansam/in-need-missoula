@@ -41,6 +41,7 @@ export default defineComponent({
           <router-link class="nav-link" aria-current="page" :to="{name: 'organizations'}">Organizations</router-link>
 
           <router-link class="nav-link" :to="{name: 'resources'}">Resources</router-link>
+          <router-link class="nav-link" :to="{name: 'favorites'}">Favorites</router-link>
 
         </div>
       <!--</div>-->

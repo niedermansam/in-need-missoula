@@ -6,6 +6,7 @@ import ResourceList from '../views/ResourceListPage.vue';
 import SearchPage from '../views/SearchPage.vue';
 import OrganizationDetails from '../views/OrganizationDetailsPage.vue';
 import ResourceDetails from '../views/ResourceDetailsPage.vue';
+import FavoritesPage from '../views/FavoritesPage.vue';
 
 const Org = defineComponent({
   template: '<div style="width: 100%; height: 1vh; background-color:black;">Hello world</div>',
@@ -40,6 +41,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/search/',
     name: 'search',
     component: SearchPage,
+  },
+  {
+    path: '/favorites/',
+    name: 'favorites',
+    component: FavoritesPage,
   },
 ];
 
