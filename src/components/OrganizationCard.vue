@@ -24,6 +24,12 @@ export default {
       :style="{ backgroundColor: providesChipStyles(organization.Expertise).color }">
         {{providesChipStyles(organization.Expertise).emoji}} {{organization.Expertise}}
       </span>
+      <p class="card-text" v-if="organization.Phone">
+        {{ organization.Phone }}
+      </p>
+      <p class="card-text" v-if="organization.Email">
+        {{ organization.Email }}
+      </p>
 
       <p class="card-text">
         {{ organization.Notes }}
