@@ -10,6 +10,8 @@ export interface OrganizationSchema {
     id: string;
     Contacts?: string[];
     Notes?: string;
+    Phone?: string;
+    Email?: string;
     'Affiliated Organizations'?: string[];
 }
 
