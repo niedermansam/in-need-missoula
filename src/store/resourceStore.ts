@@ -1,30 +1,29 @@
-import { defineStore } from 'pinia';
-import { ResourceSchema } from '@/schemas/ResourceSchemas';
-import { TagPriority } from '@/schemas/TagSchemas';
-import { useAPI } from '@/hooks';
+import { defineStore } from "pinia";
+import type { ResourceSchema } from "@/schemas/ResourceSchemas";
+import { TagPriority } from "@/schemas/TagSchemas";
+import { useAPI } from "@/hooks";
 import { useCategoryStore, useTagStore, useUserStore } from './index'; // eslint-disable-line
 
-const resourceAPI = useAPI('/resources'); // 'http://127.0.0.1:3000/resources';
+const resourceAPI = useAPI("/resources"); // 'http://127.0.0.1:3000/resources';
 
-const useResourceStore = defineStore('resourceStore', {
+const useResourceStore = defineStore("resourceStore", {
   state: () => ({
-
     /** @type {boolean} true if resource data has been loaded, otherwise false.
      * @default false
-    */
+     */
     dataLoaded: false as boolean,
 
     /** @type {boolean} true if resource data is currently loading, otherwise false.
      * @default false
-    */
+     */
     loading: false as boolean,
 
     /** @type {string} error to pass on to user.
      *  @default '' */
-    error: '',
+    error: "",
 
     arr: [] as ResourceSchema[] | null,
-    lookup: {} as { [key:string]: ResourceSchema},
+    lookup: {} as { [key: string]: ResourceSchema },
   }),
   actions: {
     /** Loads all resources into the client. */
@@ -32,15 +31,13 @@ const useResourceStore = defineStore('resourceStore', {
       if (this.dataLoaded === true) return; // exit function if data is already loaded
       this.loading = true;
 
-      try { // Get data from API
-        const response = await fetch(
-          resourceAPI,
-          {
-            headers: {
-              accept: 'application/json',
-            },
+      try {
+        // Get data from API
+        const response = await fetch(resourceAPI, {
+          headers: {
+            accept: "application/json",
           },
-        );
+        });
         if (response.ok === true) {
           // if response is good, handle incoming data
           const json = await response.json();
@@ -52,7 +49,7 @@ const useResourceStore = defineStore('resourceStore', {
           this.loading = false;
         } else {
           // if the API throws an error, handle the error
-          this.error = 'Error fetching data';
+          this.error = "Error fetching data";
           this.loading = false;
         }
       } catch (error: any) {
@@ -94,7 +91,10 @@ const useResourceStore = defineStore('resourceStore', {
       const tagStore = useTagStore();
       this.arr.forEach((resource) => {
         // compute resource priority by summing the priority of each tag associated with the resource
-        const newPrioritySum = resource.Tags.reduce((prev, tag) => prev + tagStore.tagLookup[tag].priority, 0);
+        const newPrioritySum = resource.Tags.reduce(
+          (prev, tag) => prev + tagStore.tagLookup[tag].priority,
+          0
+        );
         this.changeResourcePriority(resource, newPrioritySum);
       });
       /* from tagStore
@@ -109,7 +109,7 @@ const useResourceStore = defineStore('resourceStore', {
     },
   },
   getters: {
-    filteredArray: (state):ResourceSchema[] => {
+    filteredArray: (state): ResourceSchema[] => {
       if (!state.arr) return [];
 
       const categoryStore = useCategoryStore();
@@ -146,19 +146,23 @@ const useResourceStore = defineStore('resourceStore', {
       // console.log(state.arr)
       const filteredArray = state.arr.filter((resource) => {
         const searchString = `${resource.Name} 
-          ${resource.Provides} ${resource.Tags.join(' ')}
+          ${resource.Provides} ${resource.Tags.join(" ")}
           ${resource.Notes}`;
         // console.log(searchString);
         return regex.test(searchString);
       });
       return filteredArray;
     },
-    getByTag: (state):(tag:string) => ResourceSchema[] | undefined => (tag:string) => {
-      if (!state.arr) return;
-      const outArr = state.arr.filter((resource) => resource.Tags.indexOf(tag) !== -1);
-      console.log(outArr);
+    getByTag:
+      (state): ((tag: string) => ResourceSchema[] | undefined) =>
+      (tag: string) => {
+        if (!state.arr) return;
+        const outArr = state.arr.filter(
+          (resource) => resource.Tags.indexOf(tag) !== -1
+        );
+        console.log(outArr);
       return outArr;// eslint-disable-line
-    },
+      },
   },
 });
 

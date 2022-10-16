@@ -1,31 +1,29 @@
-import { defineStore } from 'pinia';
-import { OrganizationSchema } from '@/schemas/OrganizationSchemas';
-import { useAPI } from '@/hooks';
+import { defineStore } from "pinia";
+import type { OrganizationSchema } from "@/schemas/OrganizationSchemas";
+import { useAPI } from "@/hooks";
 
-const organizationAPI = useAPI('/organizations');
+const organizationAPI = useAPI("/organizations");
 
-const useOrganizationStore = defineStore('organizationStore', {
+const useOrganizationStore = defineStore("organizationStore", {
   state: () => ({
     loaded: false as boolean,
     loading: false as boolean,
-    error: '',
+    error: "",
     arr: [] as OrganizationSchema[] | null,
-    lookup: {} as { [key:string]: OrganizationSchema},
+    lookup: {} as { [key: string]: OrganizationSchema },
   }),
   actions: {
     async loadData() {
       if (this.loaded) return; // exit function if data is already loaded
       this.loading = true;
 
-      try { // Get data from API
-        const response = await fetch(
-          organizationAPI,
-          {
-            headers: {
-              accept: 'application/json',
-            },
+      try {
+        // Get data from API
+        const response = await fetch(organizationAPI, {
+          headers: {
+            accept: "application/json",
           },
-        );
+        });
         if (response.ok) {
           // if response is good, handle incoming data
           const json = await response.json();
@@ -37,7 +35,7 @@ const useOrganizationStore = defineStore('organizationStore', {
           this.loading = false;
         } else {
           // if the API throws an error, handle the error
-          this.error = 'Error fetching data';
+          this.error = "Error fetching data";
           this.loading = false;
         }
       } catch (error: any) {
@@ -57,7 +55,6 @@ const useOrganizationStore = defineStore('organizationStore', {
       });
     },
   },
-
 });
 
 export default useOrganizationStore;

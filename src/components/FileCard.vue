@@ -1,19 +1,18 @@
 <script lang="ts">
-import { categoryChipStyles } from '@/hooks';
-import { FileInterface } from '@/schemas';
-import { useFileStore } from '@/store';
-import { ref } from '@vue/reactivity';
+import { categoryChipStyles } from "../hooks/index";
+import { useFileStore } from "../store";
+import { ref } from "vue";
 
 export default {
   props: {
     id: { type: String },
   },
-  setup(props:{id?:string}) {
+  setup(props: { id?: string }) {
     const providesChipStyles = categoryChipStyles;
 
     const fileStore = useFileStore();
 
-    const file = ref(fileStore.lookup[props.id || '']);
+    const file = ref(fileStore.lookup[props.id || ""]);
 
     return { providesChipStyles, fileStore, file };
   },
@@ -21,12 +20,13 @@ export default {
 </script>
 
 <template>
-  <div class="card file-card" style="width: 35vw;">
+  <div class="card file-card" style="width: 35vw">
     <div v-if="file && file.Attachments" class="thumb-holder">
-    <img
-      :src="file.Attachments[0].thumbnails.large.url"
-      class="card-img-top file-thumb"
-      alt="..."/>
+      <img
+        :src="file.Attachments[0].thumbnails.large.url"
+        class="card-img-top file-thumb"
+        alt="..."
+      />
     </div>
     <div v-if="file" class="card-body">
       <h5 class="card-title">{{ file.Name }}</h5>
@@ -35,17 +35,14 @@ export default {
         {{ file.Description }}
       </p>
 
-      <button
-      class="btn btn-primary">
-      Open File</button>
+      <button class="btn btn-primary">Open File</button>
     </div>
   </div>
 </template>
 
 <style scoped>
-
 .card-title {
-  font-size: .95em;
+  font-size: 0.95em;
 }
 .file-card {
   margin: 10px;

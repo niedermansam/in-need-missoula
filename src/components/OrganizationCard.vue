@@ -1,6 +1,6 @@
 <script lang="ts">
-import { categoryChipStyles } from '@/hooks/categoryHooks';
-import { OrganizationSchema } from '@/schemas/OrganizationSchemas';
+import { categoryChipStyles } from "../hooks/categoryHooks";
+import type { OrganizationSchema } from "../schemas/OrganizationSchemas";
 
 export default {
   props: {
@@ -20,9 +20,13 @@ export default {
       <h5 class="card-title">{{ organization.Name }}</h5>
 
       <span
-      class="badge rounded-pill"
-      :style="{ backgroundColor: providesChipStyles(organization.Expertise).color }">
-        {{providesChipStyles(organization.Expertise).emoji}} {{organization.Expertise}}
+        class="badge rounded-pill"
+        :style="{
+          backgroundColor: providesChipStyles(organization.Expertise).color,
+        }"
+      >
+        {{ providesChipStyles(organization.Expertise).emoji }}
+        {{ organization.Expertise }}
       </span>
       <p class="card-text" v-if="organization.Phone">
         {{ organization.Phone }}
@@ -35,9 +39,12 @@ export default {
         {{ organization.Notes }}
       </p>
 
-      <router-link :to="'/organizations/' + organization.id"
-      class="btn btn-primary">
-      More Information</router-link>
+      <router-link
+        :to="'/organizations/' + organization.id"
+        class="btn btn-primary"
+      >
+        More Information</router-link
+      >
     </div>
   </div>
 </template>

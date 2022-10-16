@@ -1,15 +1,24 @@
 <script lang="ts">
-import { defineComponent, PropType, TransitionGroup } from 'vue';
-import { useTagStore, useResourceStore, useUserStore } from '@/store';
-import { BIconArrowDownUp, BIconLock, BIconArrowRepeat } from 'bootstrap-icons-vue';
-import TagButton from './TagButton.vue';
+import { defineComponent, TransitionGroup } from "vue";
+import type { PropType } from "vue";
+import { useTagStore, useResourceStore, useUserStore } from "../store";
+import {
+  BIconArrowDownUp,
+  BIconLock,
+  BIconArrowRepeat,
+} from "bootstrap-icons-vue";
+import TagButton from "./TagButton.vue";
 
 export default defineComponent({
   props: {
     tagArray: Array as PropType<string[]>,
   },
   components: {
-    TagButton, TransitionGroup, BIconArrowDownUp, BIconLock, BIconArrowRepeat,
+    TagButton,
+    TransitionGroup,
+    BIconArrowDownUp,
+    BIconLock,
+    BIconArrowRepeat,
   },
   setup() {
     const resourceStore = useResourceStore();
@@ -25,7 +34,7 @@ export default defineComponent({
 
     tagStore.updateActiveCategoryTags();
 
-    function sortTagList(a:string, b:string) {
+    function sortTagList(a: string, b: string) {
       const tagA = tagStore.tagLookup[a].priority;
       const tagB = tagStore.tagLookup[b].priority;
 
@@ -59,11 +68,11 @@ export default defineComponent({
         data-bs-parent="#accordionFlushExample"
       >
         <div class="accordion-body">
-
           <button
             @click="tagStore.resetPriorityAll"
             type="button"
-            class="btn btn-outline-secondary">
+            class="btn btn-outline-secondary"
+          >
             <BIconArrowRepeat />
             Reset Tags
           </button>
@@ -71,22 +80,24 @@ export default defineComponent({
           <button
             @click="userStore.toggleSortTags"
             type="button"
-            class="btn btn-outline-secondary">
+            class="btn btn-outline-secondary"
+          >
             <BIconArrowDownUp v-if="!userStore.tagSettings.sortTags" />
-            <BIconLock v-else/>
-            {{ userStore.tagSettings.sortTags ? 'Lock Tags' : 'Sort Tags'}}
+            <BIconLock v-else />
+            {{ userStore.tagSettings.sortTags ? "Lock Tags" : "Sort Tags" }}
           </button>
           <div class="tag-container" :style="`--n-tags: ${tagArray.length}`">
             <TransitionGroup
-          tag="div"
-          name="fade"
-          class="tag-container"
-          v-if="tagArray[0]" >
-          <TagButton
-            v-for="tag in tagArray"
-            :key="tag || 'tag'"
-            :tag="tag"
-          />
+              tag="div"
+              name="fade"
+              class="tag-container"
+              v-if="tagArray[0]"
+            >
+              <TagButton
+                v-for="tag in tagArray"
+                :key="tag || 'tag'"
+                :tag="tag"
+              />
             </TransitionGroup>
           </div>
         </div>
@@ -100,49 +111,49 @@ export default defineComponent({
   display: flex;
   align-content: space-around;
   flex-wrap: wrap;
-  flex-direction:column;
+  flex-direction: column;
   max-height: 700px;
 }
 .tag-container {
   display: grid;
-  grid-template-rows: repeat( calc( var(--n-tags) ), auto);
+  grid-template-rows: repeat(calc(var(--n-tags)), auto);
   grid-gap: 10px;
   grid-auto-flow: column;
   justify-content: center;
 }
 @media screen and (min-width: 700px) {
-  .tag-container{
-    grid-template-rows: repeat( calc( (var(--n-tags) / 2) + 1) , auto);
+  .tag-container {
+    grid-template-rows: repeat(calc((var(--n-tags) / 2) + 1), auto);
   }
 }
 
 @media screen and (min-width: 1000px) {
-  .tag-container{
-    grid-template-rows: repeat( calc( (var(--n-tags) / 3) + 1), auto);
+  .tag-container {
+    grid-template-rows: repeat(calc((var(--n-tags) / 3) + 1), auto);
   }
 }
 
 @media screen and (min-width: 1400px) {
-  .tag-container{
-    grid-template-rows: repeat( calc( (var(--n-tags) / 4) + 1), auto);
+  .tag-container {
+    grid-template-rows: repeat(calc((var(--n-tags) / 4) + 1), auto);
   }
 }
 
 @media screen and (min-width: 1700px) {
-  .tag-container{
-    grid-template-rows: repeat( calc( (var(--n-tags) / 5) + 1), auto);
+  .tag-container {
+    grid-template-rows: repeat(calc((var(--n-tags) / 5) + 1), auto);
   }
 }
 
 @media screen and (min-width: 2000px) {
-  .tag-container{
-    grid-template-rows: repeat( calc( (var(--n-tags) / 6) + 1), auto);
+  .tag-container {
+    grid-template-rows: repeat(calc((var(--n-tags) / 6) + 1), auto);
   }
 }
 
 @media screen and (min-width: 2300px) {
-  .tag-container{
-    grid-template-rows: repeat( calc( (var(--n-tags) / 7) + 1), auto);
+  .tag-container {
+    grid-template-rows: repeat(calc((var(--n-tags) / 7) + 1), auto);
   }
 }
 
@@ -165,5 +176,4 @@ export default defineComponent({
 .fade-leave-active {
   position: absolute;
 }
-
 </style>

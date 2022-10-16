@@ -1,8 +1,9 @@
-import onlyUnique from '@/hooks/onlyUnique';
-import { TagArray, TagLookupInterface, TagStatus } from '@/schemas';
-import { TagPriority } from '@/schemas/TagSchemas';
-import { defineStore } from 'pinia';
-import { computed, ref } from 'vue';
+import onlyUnique from "@/hooks/onlyUnique";
+import type { TagArray, TagLookupInterface } from "@/schemas";
+import { TagStatus } from "../schemas";
+import { TagPriority } from "@/schemas/TagSchemas";
+import { defineStore } from "pinia";
+import { computed, ref } from "vue";
 import { useCategoryStore, useResourceStore, useUserStore } from './index'; // eslint-disable-line
 
 enum SpliceUtils { // eslint-disable-line
@@ -17,24 +18,24 @@ enum SortUtils { // eslint-disable-line
 enum IndexUtils { // eslint-disable-line
   doesntexist = -1,
 }
-const useTagStore = defineStore('tagStore', () => {
+const useTagStore = defineStore("tagStore", () => {
   // * General Properties
   // Bring in data for orgs and resources
   const categoryStore = useCategoryStore();
   const resourceStore = useResourceStore();
   const userStore = useUserStore();
-  const allTags = ref<string[]>(['']);
+  const allTags = ref<string[]>([""]);
 
   /** Create a look table for all tags
    * @property {object} tag - All tag names
    * @property {TagStatus} tag.status - Status of the current tag {@link TagStatus}.
    * @property {TagPriority} tag.priority - Priority of the current tag {@link TagPriority}
    * @details Creates a ref object tag names representing keys.
-  */
-  const tagLookup = ref<{[key:string]:TagLookupInterface}>({});
+   */
+  const tagLookup = ref<{ [key: string]: TagLookupInterface }>({});
 
   /** Object where the key is a category (e.g. Provides, Expertise), and the value is an array of tags that appear in that category. */
-  const tagCategoryKey = ref<{[key:string]:TagArray}>({});
+  const tagCategoryKey = ref<{ [key: string]: TagArray }>({});
 
   /** loadAllTags does 3 things:
   1. create allTags array
@@ -51,40 +52,54 @@ const useTagStore = defineStore('tagStore', () => {
   async function loadAllTags() {
     await resourceStore.loadData();
     //* Create an array of all tags
-    const tagArr = resourceStore
-      .arr?.reduce((outputArr:string[], currentResource) => {
+    const tagArr = resourceStore.arr?.reduce(
+      (outputArr: string[], currentResource) => {
         // Make a lookup table where the key is a Category, and the value is an array of tags
         // ? Should I do this somewhere else?
-        if (!currentResource.Tags) return [''];
-        if (!tagCategoryKey.value) return [''];
+        if (!currentResource.Tags) return [""];
+        if (!tagCategoryKey.value) return [""];
         const catExists = tagCategoryKey.value[currentResource.Provides];
 
         // If it doesn't, create it
-        if (!catExists && currentResource && currentResource.Tags) tagCategoryKey.value[currentResource.Provides] = [...currentResource.Tags];
+        if (!catExists && currentResource && currentResource.Tags)
+          tagCategoryKey.value[currentResource.Provides] = [
+            ...currentResource.Tags,
+          ];
         // if it does, add the current items to the array
-        else if (currentResource && currentResource.Tags) tagCategoryKey.value[currentResource.Provides].push(...currentResource.Tags);
+        else if (currentResource && currentResource.Tags)
+          tagCategoryKey.value[currentResource.Provides].push(
+            ...currentResource.Tags
+          );
         // For each tag in the current resource
         currentResource.Tags.forEach((x) => {
           // add tag to tag lookup table
-          if (!tagLookup.value[x]) { // if tag record doesn't exist, create it
+          if (!tagLookup.value[x]) {
+            // if tag record doesn't exist, create it
             tagLookup.value[x] = {
               categories: [currentResource.Provides],
               status: TagStatus.none,
               priority: TagPriority.none,
             };
-          } else { // if it does exist, update it
-            tagLookup.value[x].categories = [currentResource.Provides, ...tagLookup.value[x].categories];
+          } else {
+            // if it does exist, update it
+            tagLookup.value[x].categories = [
+              currentResource.Provides,
+              ...tagLookup.value[x].categories,
+            ];
           }
           // finish if the tag in already in the all tags
           if (outputArr.indexOf(x) !== -1) return;
           // put any new tags in output array
           outputArr.push(x);
         });
-        return outputArr || [''];
-      }, [] as string[]); //! end loop making tag array
+        return outputArr || [""];
+      },
+      [] as string[]
+    ); //! end loop making tag array
     // ? Filter duplicated out of the tag-category lookup table
     Object.keys(tagCategoryKey.value).forEach((category) => {
-      tagCategoryKey.value[category] = tagCategoryKey.value[category].filter(onlyUnique);
+      tagCategoryKey.value[category] =
+        tagCategoryKey.value[category].filter(onlyUnique);
     });
     // console.log('tag Lookup: ', tagLookup.value);
     if (!tagArr) return;
@@ -97,13 +112,13 @@ const useTagStore = defineStore('tagStore', () => {
    * @see {@link removeFilter} Changes priority & status, calls {@link removeFromFilterArray}.
    * @see {@link isFiltered} Returns true if user is less interested in tag, false if not.
    */
-  const filters = ref(['']);
+  const filters = ref([""]);
 
   /** Remove selected tag from {@link filters}
    * @param  {string} tag Tag to be removed.
    * @see {@link removeFilter} Changes priority & status, and calls {@link removeFromFilterArray}.
    */
-  function removeFromFilterArray(tag:string) {
+  function removeFromFilterArray(tag: string) {
     const index = filters.value.indexOf(tag);
     if (index === IndexUtils.doesntexist) return; // end if tag isn't in filters
     filters.value.splice(index, 1);
@@ -115,13 +130,13 @@ const useTagStore = defineStore('tagStore', () => {
    * @see {@link removeFavorite} Changes priority & status, calls removeFromFavoriteArray()
    * @see {@link isFavorite} Returns true if user is less interested in tag, false if not.
    */
-  const favorites = ref(['']);
+  const favorites = ref([""]);
 
   /** Remove selected tag from {@link favorites}
    * @param  {string} tag Tag to be removed.
    * @see {@link removeFavorite} Changes priority & status, calls {@link removeFromFavoriteArray}.
    */
-  function removeFromFavoriteArray(tag:string) {
+  function removeFromFavoriteArray(tag: string) {
     const index = favorites.value.indexOf(tag);
     if (index === IndexUtils.doesntexist) return; // end if tag isn't in favorites
     favorites.value.splice(index, 1);
@@ -134,13 +149,13 @@ const useTagStore = defineStore('tagStore', () => {
    * @see {@link removeLessInterested} Changes priority & status, and calls {@link removeFromLessInterestedArray}
    * @see {@link isLessInterested} Returns true if user is less interested in tag, false if not.
    */
-  const lessInterested = ref(['']);
+  const lessInterested = ref([""]);
 
   /** Remove selected tag from {@link lessInterested}
    * @param  {string} tag Tag to be removed.
    * @see {@link removeLessInterested} Changes priority & status, and calls {@link removeFromLessInterestedArray}.
    */
-  function removeFromLessInterestedArray(tag:string) {
+  function removeFromLessInterestedArray(tag: string) {
     const index = lessInterested.value.indexOf(tag);
     if (index === IndexUtils.doesntexist) return; // end if tag isn't in favorites
     lessInterested.value.splice(index, 1);
@@ -148,7 +163,7 @@ const useTagStore = defineStore('tagStore', () => {
   }
 
   /**  List of tags associated with active categories */
-  const activeCategoryTags = ref<string[]>(['']);
+  const activeCategoryTags = ref<string[]>([""]);
 
   /**
    * Handles UI for the tag selectors.
@@ -159,45 +174,71 @@ const useTagStore = defineStore('tagStore', () => {
    * previous and current tag priority.
    */
   function arrangeByPriority(
-    tag:string,
-    oldPriority:TagPriority,
-    newPriority:TagPriority,
+    tag: string,
+    oldPriority: TagPriority,
+    newPriority: TagPriority
   ) {
     if (userStore.tagSettings.sortTags === false) return;
     // remove current tag from array
     const shuffleTagIndex = activeCategoryTags.value.indexOf(tag);
     activeCategoryTags.value.splice(shuffleTagIndex, SpliceUtils.removeOne);
 
-    const priorityArray = activeCategoryTags.value.map((currentTag:string) => tagLookup.value[currentTag].priority, []);
+    const priorityArray = activeCategoryTags.value.map(
+      (currentTag: string) => tagLookup.value[currentTag].priority,
+      []
+    );
 
     if (newPriority === TagPriority.lessInterested) {
-      const indexOfLessInterested = priorityArray.indexOf(TagPriority.lessInterested);
+      const indexOfLessInterested = priorityArray.indexOf(
+        TagPriority.lessInterested
+      );
       const indexOfFirstFiltered = priorityArray.indexOf(TagPriority.filtered);
       let insertIndex = priorityArray.length;
 
-      if (indexOfLessInterested !== IndexUtils.doesntexist) insertIndex = indexOfLessInterested;
-      else if (indexOfFirstFiltered !== IndexUtils.doesntexist) insertIndex = indexOfFirstFiltered;
+      if (indexOfLessInterested !== IndexUtils.doesntexist)
+        insertIndex = indexOfLessInterested;
+      else if (indexOfFirstFiltered !== IndexUtils.doesntexist)
+        insertIndex = indexOfFirstFiltered;
 
       activeCategoryTags.value.splice(insertIndex, SpliceUtils.deleteNone, tag);
       // end less interested
     } else if (newPriority === TagPriority.filtered) {
       const indexOfFirstFiltered = priorityArray.indexOf(TagPriority.filtered);
-      const insertIndex = indexOfFirstFiltered > IndexUtils.doesntexist ? indexOfFirstFiltered : priorityArray.length;
+      const insertIndex =
+        indexOfFirstFiltered > IndexUtils.doesntexist
+          ? indexOfFirstFiltered
+          : priorityArray.length;
       activeCategoryTags.value.splice(insertIndex, SpliceUtils.deleteNone, tag);
       // end filtered
     } else if (newPriority === TagPriority.favorite) {
-      const indexOfLastFavorite = priorityArray.lastIndexOf(TagPriority.favorite) + SpliceUtils.insertAfer;
-      if (indexOfLastFavorite === IndexUtils.doesntexist) activeCategoryTags.value.unshift(tag);
-      else activeCategoryTags.value.splice(indexOfLastFavorite, SpliceUtils.deleteNone, tag);
+      const indexOfLastFavorite =
+        priorityArray.lastIndexOf(TagPriority.favorite) +
+        SpliceUtils.insertAfer;
+      if (indexOfLastFavorite === IndexUtils.doesntexist)
+        activeCategoryTags.value.unshift(tag);
+      else
+        activeCategoryTags.value.splice(
+          indexOfLastFavorite,
+          SpliceUtils.deleteNone,
+          tag
+        );
       // end favorite
     } else if (newPriority === TagPriority.none) {
       const firstNoPriorityIndex = priorityArray.indexOf(TagPriority.none);
       const lastNoPriorityIndex = priorityArray.lastIndexOf(TagPriority.none);
 
       if (oldPriority === TagPriority.favorite) {
-        activeCategoryTags.value.splice(firstNoPriorityIndex, SpliceUtils.deleteNone, tag);
+        activeCategoryTags.value.splice(
+          firstNoPriorityIndex,
+          SpliceUtils.deleteNone,
+          tag
+        );
       } else {
-        activeCategoryTags.value.splice(lastNoPriorityIndex + SpliceUtils.insertAfer, SpliceUtils.deleteNone, tag);
+        activeCategoryTags.value.splice(
+          lastNoPriorityIndex + SpliceUtils.insertAfer,
+          SpliceUtils.deleteNone,
+          tag
+        );
       }
       // end no priority
     } else {
@@ -211,14 +252,14 @@ const useTagStore = defineStore('tagStore', () => {
    * @param  {string} tagB Second tag to be compared.
    * @details Tags are first sorted by priority, then alphabetically.
    */
-  const sortTags = (tagA:string, tagB:string) => {
+  const sortTags = (tagA: string, tagB: string) => {
     const aPriori = tagLookup.value[tagA].priority;
     const bPriori = tagLookup.value[tagB].priority;
 
     if (aPriori > bPriori) return SortUtils.after;
     if (aPriori < bPriori) return SortUtils.before;
 
-    return (tagA.localeCompare(tagB));
+    return tagA.localeCompare(tagB);
   };
 
   /** Filter out tags that are no in active categories, and sort remaining tags based on priority.
@@ -233,15 +274,19 @@ const useTagStore = defineStore('tagStore', () => {
 
     // object with filtered tags removed
     let activeTags = Object.entries(tagCategoryKey.value) // get all tags that appear in active categories
-      .filter((keyValueArray) => { // filter out any tags that do not appear in active categories
+      .filter((keyValueArray) => {
+        // filter out any tags that do not appear in active categories
         const currentTagKey = keyValueArray[0];
         return activeFilters.indexOf(currentTagKey) === IndexUtils.doesntexist;
-      }).flatMap((remainingKeyValues) => { // return an array of the remaining tags
+      })
+      .flatMap((remainingKeyValues) => {
+        // return an array of the remaining tags
         const tagValues = remainingKeyValues[1];
         return tagValues;
-      }).filter(onlyUnique); // This looked pretty when it was all on one line, but I had no idea what was going on
+      })
+      .filter(onlyUnique); // This looked pretty when it was all on one line, but I had no idea what was going on
 
-    if (!activeTags) activeTags = ['No Active Categories :('];
+    if (!activeTags) activeTags = ["No Active Categories :("];
     activeCategoryTags.value = activeTags.sort(sortTags); // sort tags & update the state of this store
   } // end updateTagDisplay()
 
@@ -250,8 +295,9 @@ const useTagStore = defineStore('tagStore', () => {
    */
   function getFilterRegex() {
     const currentFilters = [...filters.value];
-    if (currentFilters.indexOf('') !== IndexUtils.doesntexist) currentFilters.splice(currentFilters.indexOf(''), 1);
-    return new RegExp(currentFilters.join('|').replace('^\\|', ''));
+    if (currentFilters.indexOf("") !== IndexUtils.doesntexist)
+      currentFilters.splice(currentFilters.indexOf(""), 1);
+    return new RegExp(currentFilters.join("|").replace("^\\|", ""));
   } //* returns /filter1|filter2|filter3|etc/
 
   /** Resets the priority of specifified tag.
@@ -259,7 +305,7 @@ const useTagStore = defineStore('tagStore', () => {
    * @details Sets tag priority to {@link TagPriority.none}, and status to {@link TagStatus.none}.
    * Removes the tag from the {@link filters}, {@link favorites}, and {@link lessInterested} arrays.
    */
-  function resetPriority(tag:string) {
+  function resetPriority(tag: string) {
     const priorityBefore = Number(tagLookup.value[tag].priority) as TagPriority;
 
     tagLookup.value[tag].status = TagStatus.none;
@@ -291,7 +337,7 @@ const useTagStore = defineStore('tagStore', () => {
    * @see {@link updateTagDisplay} sorts the tag list dipsplayed to user.
    * @see {@link resourceStore.updateAllPriorities} calculates the priority for each resource, which typically have multiple tags.
    */
-  function handlePriorityChange(tag:string, newPriority:TagPriority) {
+  function handlePriorityChange(tag: string, newPriority: TagPriority) {
     switch (newPriority) {
       case TagPriority.favorite:
         tagLookup.value[tag].status = TagStatus.favorite;
@@ -306,7 +352,7 @@ const useTagStore = defineStore('tagStore', () => {
         tagLookup.value[tag].status = TagStatus.filtered;
         break;
       default:
-        console.error('Default case in tagStore.priorityToStatus() triggered.');
+        console.error("Default case in tagStore.priorityToStatus() triggered.");
         tagLookup.value[tag].status = TagStatus.none;
         tagLookup.value[tag].priority = TagPriority.none;
     } // end switch statement
@@ -316,10 +362,11 @@ const useTagStore = defineStore('tagStore', () => {
    * @param  {string} tag Tag to bump
    * @description Moves priority up one (filtered -> lessInterested -> none -> favorite)
    */
-  function bumpPriority(tag:string) {
+  function bumpPriority(tag: string) {
     const priorityBefore = Number(tagLookup.value[tag].priority) as TagPriority;
     let priorityAfter = priorityBefore + 1;
-    if (priorityAfter > TagPriority.favorite) priorityAfter = TagPriority.favorite;
+    if (priorityAfter > TagPriority.favorite)
+      priorityAfter = TagPriority.favorite;
 
     tagLookup.value[tag].priority = priorityAfter;
 
@@ -332,10 +379,11 @@ const useTagStore = defineStore('tagStore', () => {
    * @param  {string} tag Tag to bump
    * @description Moves priority down one (favorite -> none -> lessInterested -> filtered)
    */
-  function dropPriority(tag:string) {
+  function dropPriority(tag: string) {
     const priorityBefore = Number(tagLookup.value[tag].priority) as TagPriority;
     let priorityAfter = priorityBefore - 1;
-    if (priorityAfter < TagPriority.filtered) priorityAfter = TagPriority.filtered;
+    if (priorityAfter < TagPriority.filtered)
+      priorityAfter = TagPriority.filtered;
 
     tagLookup.value[tag].priority = priorityAfter;
 
@@ -350,7 +398,7 @@ const useTagStore = defineStore('tagStore', () => {
    * Removes tag from {@link filter} and {@link lessInterested} arrays.
    * Updates order of resources using {@link resourceStore.updateAllPriorities}
    */
-  function addFavorite(tag:string) {
+  function addFavorite(tag: string) {
     const priorityBefore = Number(tagLookup.value[tag].priority) as TagPriority;
     tagLookup.value[tag].status = TagStatus.favorite;
     tagLookup.value[tag].priority = TagPriority.favorite;
@@ -371,12 +419,12 @@ const useTagStore = defineStore('tagStore', () => {
    * @param  {string} tag Tag to unfavorite.
    * @description Removes tag from {@link favorites} array and calls {@link resetPriority}.
    */
-  function removeFavorite(tag:string) {
+  function removeFavorite(tag: string) {
     removeFromFavoriteArray(tag);
     resetPriority(tag);
   }
 
-  function toggleFavorite(tag:string) {
+  function toggleFavorite(tag: string) {
     // console.log('before change ', tagLookup.value[tag].status);
     if (tagLookup.value[tag].status === TagStatus.favorite) removeFavorite(tag);
     else addFavorite(tag);
@@ -384,19 +432,21 @@ const useTagStore = defineStore('tagStore', () => {
     // console.log('after change ', tagLookup.value[tag].status);
   }
 
-  const isFavorite = computed(() => (tag:string) => favorites.value.indexOf(tag) !== -1);
+  const isFavorite = computed(
+    () => (tag: string) => favorites.value.indexOf(tag) !== -1
+  );
 
-  const isFilterInArray = computed(() => (tags:string[]) => {
+  const isFilterInArray = computed(() => (tags: string[]) => {
     if (!tags) return false;
     if (filters.value.length <= 1) return false;
-    const currentTagsString = tags.reduce((prev, cur) => `${prev} ${cur}`, '');
+    const currentTagsString = tags.reduce((prev, cur) => `${prev} ${cur}`, "");
     const searchExpression = getFilterRegex();
 
     return searchExpression.test(currentTagsString);
   });
 
   // * Filter Functions
-  function addFilter(tag:string) {
+  function addFilter(tag: string) {
     const priorityBefore = Number(tagLookup.value[tag].priority) as TagPriority;
     filters.value = [...filters.value, tag];
 
@@ -408,19 +458,21 @@ const useTagStore = defineStore('tagStore', () => {
     arrangeByPriority(tag, priorityBefore, TagPriority.filtered);
   }
 
-  function removeFilter(tag:string) {
+  function removeFilter(tag: string) {
     resetPriority(tag);
     removeFromFilterArray(tag);
     // console.log(filters.value);
   }
 
-  function toggleFilter(tag:string) {
+  function toggleFilter(tag: string) {
     const tagIsFiltered = tagLookup.value[tag].status === TagStatus.filtered;
     if (tagIsFiltered) removeFilter(tag);
     else addFilter(tag);
   }
 
-  const isFiltered = computed(() => (tag:string) => filters.value.indexOf(tag) !== -1);
+  const isFiltered = computed(
+    () => (tag: string) => filters.value.indexOf(tag) !== -1
+  );
 
   // * Less interested functions
   /**
@@ -429,7 +481,8 @@ const useTagStore = defineStore('tagStore', () => {
    * @details Changes tag status & priority, removes tag from favorite array and filter array, adds
    * tag to less interested array, and sorts tag list and resource list.
    */
-  function addLessInterested(tag:string) { // !
+  function addLessInterested(tag: string) {
+    // !
     const priorityBefore = Number(tagLookup.value[tag].priority) as TagPriority;
     tagLookup.value[tag].status = TagStatus.lessInterested;
     tagLookup.value[tag].priority = TagPriority.lessInterested;
@@ -445,21 +498,24 @@ const useTagStore = defineStore('tagStore', () => {
     resourceStore.updateAllPriorities();
   }
 
-  function removeLessInterested(tag:string) {
+  function removeLessInterested(tag: string) {
     resetPriority(tag);
     removeFromLessInterestedArray(tag);
   }
 
-  function togglelessInterested(tag:string) {
-    if (tagLookup.value[tag].status === TagStatus.lessInterested) removeLessInterested(tag);
+  function togglelessInterested(tag: string) {
+    if (tagLookup.value[tag].status === TagStatus.lessInterested)
+      removeLessInterested(tag);
     else addLessInterested(tag);
   }
 
-  const isLessInterested = computed(() => (tag:string) => lessInterested.value.indexOf(tag) !== -1);
+  const isLessInterested = computed(
+    () => (tag: string) => lessInterested.value.indexOf(tag) !== -1
+  );
 
   /** Get all tags related to the tagOfInterest parameter */
-  const getRelatedTags = computed(() => (tagOfInterest:string) => {
-    let outArr:string[] = [];
+  const getRelatedTags = computed(() => (tagOfInterest: string) => {
+    let outArr: string[] = [];
     resourceStore.arr?.forEach((resource) => {
       if (resource.Tags.indexOf(tagOfInterest) === -1) return; // do nothing if the resource does not have the tag of interest
       outArr = [...outArr, ...resource.Tags];
@@ -468,17 +524,37 @@ const useTagStore = defineStore('tagStore', () => {
     return outArr.filter(onlyUnique).filter((tag) => tag !== tagOfInterest);
   });
 
-  const getTagUrl = computed(() => (tag:string) => tag.toLowerCase().replaceAll(' ', '_'));
+  const getTagUrl = computed(
+    () => (tag: string) => tag.toLowerCase().replace(/ /g, "_")
+  );
 
   /* eslint-disable object-property-newline */
   return {
-    allTags, loadAllTags, tagLookup,
-    activeCategoryTags, updateActiveCategoryTags: updateTagDisplay,
-    addFavorite, removeFavorite, toggleFavorite, isFavorite,
-    filters, isFiltered, isFilterInArray, toggleFilter, addFilter, removeFilter,
-    removeLessInterested, addLessInterested, togglelessInterested, isLessInterested,
-    resetPriorityAll, resetPriority, bumpPriority, dropPriority,
-    getRelatedTags, getTagUrl,
+    allTags,
+    loadAllTags,
+    tagLookup,
+    activeCategoryTags,
+    updateActiveCategoryTags: updateTagDisplay,
+    addFavorite,
+    removeFavorite,
+    toggleFavorite,
+    isFavorite,
+    filters,
+    isFiltered,
+    isFilterInArray,
+    toggleFilter,
+    addFilter,
+    removeFilter,
+    removeLessInterested,
+    addLessInterested,
+    togglelessInterested,
+    isLessInterested,
+    resetPriorityAll,
+    resetPriority,
+    bumpPriority,
+    dropPriority,
+    getRelatedTags,
+    getTagUrl,
   };
 });
 

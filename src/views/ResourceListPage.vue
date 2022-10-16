@@ -1,17 +1,20 @@
 <script lang="ts">
-import { defineComponent, TransitionGroup } from 'vue';
+import { defineComponent, TransitionGroup } from "vue";
 import {
   useResourceStore,
   useOrganizationStore,
   useCategoryStore,
   useTagStore,
-} from '@/store';
-import { CategorySelector, TagSelector, ResourceCard } from '@/components';
+} from "../store";
+import { CategorySelector, TagSelector, ResourceCard } from "../components";
 
 export default defineComponent({
-  name: 'ResourcesView',
+  name: "ResourcesView",
   components: {
-    ResourceCard, CategorySelector, TagSelector, TransitionGroup,
+    ResourceCard,
+    CategorySelector,
+    TagSelector,
+    TransitionGroup,
   },
   setup() {
     const resourceStore = useResourceStore();
@@ -32,28 +35,31 @@ export default defineComponent({
 </script>
 
 <template>
-    <div class="resourceStore">
-      <h1>Resources</h1>
-      <CategorySelector />
-      <TagSelector :tagArray="tagStore.activeCategoryTags" />
-      <div>
-        <h3 v-if="resourceStore.loading">Loading...</h3>
-        <h3 v-if='!resourceStore.loading && resourceStore.error'>{{resourceStore.error}}</h3>
-        <TransitionGroup
-          tag="div"
-          name="fade"
-          v-if="resourceStore.filteredArray"
-          class="resources-container">
-            <ResourceCard
-              v-for="(resource) in resourceStore.filteredArray"
-
-              style = "margin: 5px;"
-              :key="resource.id"
-              :resource="resource"/>
-          </TransitionGroup>
-      </div>
+  <div class="resourceStore">
+    <h1>Resources</h1>
+    <CategorySelector />
+    <TagSelector :tagArray="tagStore.activeCategoryTags" />
+    <div>
+      <h3 v-if="resourceStore.loading">Loading...</h3>
+      <h3 v-if="!resourceStore.loading && resourceStore.error">
+        {{ resourceStore.error }}
+      </h3>
+      <TransitionGroup
+        tag="div"
+        name="fade"
+        v-if="resourceStore.filteredArray"
+        class="resources-container"
+      >
+        <ResourceCard
+          v-for="resource in resourceStore.filteredArray"
+          style="margin: 5px"
+          :key="resource.id"
+          :resource="resource"
+        />
+      </TransitionGroup>
     </div>
-  </template>
+  </div>
+</template>
 
 <style scoped>
 .resources-container {

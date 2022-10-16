@@ -1,17 +1,17 @@
 <script lang="ts">
-import { defineComponent, reactive } from 'vue';
-import { useRoute } from 'vue-router';
+import { defineComponent, reactive } from "vue";
+import { useRoute } from "vue-router";
 
-import { FileCard } from '@/components';
-import { categoryChipStyles } from '@/hooks';
-import { useResourceStore, useFileStore } from '@/store';
+import { FileCard } from "../components";
+import { categoryChipStyles } from "../hooks";
+import { useResourceStore, useFileStore } from "../store";
 
 export default defineComponent({
   components: { FileCard },
   props: {
     id: { type: String },
   },
-  name: 'ResourceDetails',
+  name: "ResourceDetails",
 
   setup() {
     const route = useRoute();
@@ -31,8 +31,8 @@ export default defineComponent({
     loadAllData();
 
     function getFileData() {
-      if (resource.value && resource.value['Forms & Files']) {
-        resource.value['Forms & Files']?.forEach((x) => {
+      if (resource.value && resource.value["Forms & Files"]) {
+        resource.value["Forms & Files"]?.forEach((x) => {
           // console.log(fileStore.lookup[x]);
         });
       }
@@ -41,7 +41,13 @@ export default defineComponent({
     getFileData();
 
     return {
-      getFileData, fileStore, route, currentId, resourceStore, resource, chipStyles,
+      getFileData,
+      fileStore,
+      route,
+      currentId,
+      resourceStore,
+      resource,
+      chipStyles,
     };
   },
 });
@@ -49,29 +55,35 @@ export default defineComponent({
 
 <template>
   <div class="resource container" v-if="resource.value">
-    <h1>{{resource.value.Name}}</h1>
+    <h1>{{ resource.value.Name }}</h1>
 
     <span
-    class="badge rounded-pill"
-    :style="{ backgroundColor: chipStyles(resource.value.Provides).color }">
-      {{chipStyles(resource.value.Provides).emoji}} {{resource.value.Provides}}
+      class="badge rounded-pill"
+      :style="{ backgroundColor: chipStyles(resource.value.Provides).color }"
+    >
+      {{ chipStyles(resource.value.Provides).emoji }}
+      {{ resource.value.Provides }}
     </span>
 
     <p class="card-text">
       {{ resource.value.Notes }}
     </p>
 
-    <div v-if="resource.value['Forms & Files'] && fileStore.loaded" class="file-container">
+    <div
+      v-if="resource.value['Forms & Files'] && fileStore.loaded"
+      class="file-container"
+    >
       <FileCard
-        v-for="(file) in resource.value['Forms & Files']"
+        v-for="file in resource.value['Forms & Files']"
         :key="file"
-        :id="file" />
+        :id="file"
+      />
     </div>
   </div>
 </template>
 
 <style scoped>
-.file-container{
+.file-container {
   display: flex;
   flex-wrap: true;
 }

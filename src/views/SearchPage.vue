@@ -1,11 +1,11 @@
 <script lang="ts">
-import { useOrganizationStore, useResourceStore, useUserStore } from '@/store';
-import { ResourceCard } from '@/components';
-import { defineComponent, ref } from 'vue';
-import { useRoute } from 'vue-router';
+import { useOrganizationStore, useResourceStore, useUserStore } from "../store";
+import { ResourceCard } from "../components";
+import { defineComponent, ref } from "vue";
+import { useRoute } from "vue-router";
 
 export default defineComponent({
-  name: 'SearchPage',
+  name: "SearchPage",
   components: {
     ResourceCard,
   },
@@ -17,7 +17,7 @@ export default defineComponent({
     const route = useRoute();
     const query = route.query.q;
 
-    if (typeof query !== 'string' && query) {
+    if (typeof query !== "string" && query) {
       query?.toString();
     }
 
@@ -37,7 +37,9 @@ export default defineComponent({
     console.log(resourceSearchResults.value);
 
     return {
-      resourceStore, resourceSearchResults, userStore,
+      resourceStore,
+      resourceSearchResults,
+      userStore,
     };
   },
 });
@@ -48,20 +50,22 @@ export default defineComponent({
     <div class="search">
       <h1>Search Results</h1>
     </div>
-        <h3 v-if="resourceStore.loading">Loading...</h3>
-        <h3 v-if='!resourceStore.loading && resourceStore.error'>{{resourceStore.error}}</h3>
-        <TransitionGroup
-          tag="div"
-          name="fade"
-          v-if="resourceStore"
-          style="display: flex;
-                 flex-wrap: wrap;">
-            <ResourceCard
-              v-for="(resource) in resourceStore.userSearchResults()"
-
-              style = "margin: 5px;"
-              :key="resource.id"
-              :resource="resource"/>
-          </TransitionGroup>
-      </div>
+    <h3 v-if="resourceStore.loading">Loading...</h3>
+    <h3 v-if="!resourceStore.loading && resourceStore.error">
+      {{ resourceStore.error }}
+    </h3>
+    <TransitionGroup
+      tag="div"
+      name="fade"
+      v-if="resourceStore"
+      style="display: flex; flex-wrap: wrap"
+    >
+      <ResourceCard
+        v-for="resource in resourceStore.userSearchResults()"
+        style="margin: 5px"
+        :key="resource.id"
+        :resource="resource"
+      />
+    </TransitionGroup>
+  </div>
 </template>
