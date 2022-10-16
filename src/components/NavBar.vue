@@ -1,16 +1,25 @@
 <script lang="ts">
-import { defineComponent } from 'vue';
-import MainSearchBar from './MainSearchBar.vue';
+import { defineComponent } from "vue";
+import MainSearchBar from "./MainSearchBar.vue";
 
 export default defineComponent({
   components: { MainSearchBar },
   setup() {
-  // Thank god for stack overflow
+    // Thank god for stack overflow
     //  https://stackoverflow.com/questions/55233713/match-sub-string-within-a-string-with-tolerance-of-1-character-mismatch-in-js
-    const txtToSearch = 'dog';
-    function useLooseSearch(inputText:string, textToSearch:string) {
+    const txtToSearch = "dog";
+    function useLooseSearch(inputText: string, textToSearch: string) {
       // generate regex for all possibilities. for this case, it will generate "d?.?og|do?.?g|dog?.?" -> double .? are for 1 char insertion
-      const re = new RegExp(inputText.split('').map((a, b, c) => `${inputText.substr(0, b) + a}?.?${inputText.substr(b + 1)}`).join('|'), 'gi');
+      const re = new RegExp(
+        inputText
+          .split("")
+          .map(
+            (a, b, c) =>
+              `${inputText.substr(0, b) + a}?.?${inputText.substr(b + 1)}`
+          )
+          .join("|"),
+        "gi"
+      );
       return textToSearch.match(re) != null;
     }
   },
@@ -22,7 +31,7 @@ export default defineComponent({
     <div class="container-fluid">
       <a class="navbar-brand" href="#">Need Help Missoula</a>
 
-      <MainSearchBar style="max-width:300px;" />
+      <MainSearchBar style="max-width: 300px" />
       <!--
       <button
         class="navbar-toggler"
@@ -36,16 +45,22 @@ export default defineComponent({
       </button>
 
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">-->
-        <div class="navbar-nav">
+      <div class="navbar-nav">
+        <router-link
+          class="nav-link"
+          aria-current="page"
+          :to="{ name: 'organizations' }"
+          >Organizations</router-link
+        >
 
-          <router-link class="nav-link" aria-current="page" :to="{name: 'organizations'}">Organizations</router-link>
-
-          <router-link class="nav-link" :to="{name: 'resources'}">Resources</router-link>
-          <router-link class="nav-link" :to="{name: 'favorites'}">Favorites</router-link>
-
-        </div>
+        <router-link class="nav-link" :to="{ name: 'resources' }"
+          >Resources</router-link
+        >
+        <router-link class="nav-link" :to="{ name: 'favorites' }"
+          >Favorites</router-link
+        >
+      </div>
       <!--</div>-->
-
     </div>
   </nav>
 </template>

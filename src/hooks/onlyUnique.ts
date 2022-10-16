@@ -1,3 +1,7 @@
-export default function onlyUnique(value: string, index: number, self: string[]) {
+export default function onlyUnique(
+  value: string,
+  index: number,
+  self: string[]
+) {
   return self.indexOf(value) === index;
 }

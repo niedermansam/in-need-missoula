@@ -1,18 +1,19 @@
 <script lang="ts">
-import { defineComponent, TransitionGroup } from 'vue';
+import { defineComponent, TransitionGroup } from "vue";
 import {
   useResourceStore,
   useOrganizationStore,
   useCategoryStore,
   useTagStore,
   useUserStore,
-} from '@/store';
-import { ResourceCard } from '@/components';
+} from "@/store";
+import { ResourceCard } from "@/components";
 
 export default defineComponent({
-  name: 'FavoritesView',
+  name: "FavoritesView",
   components: {
-    ResourceCard, TransitionGroup,
+    ResourceCard,
+    TransitionGroup,
   },
   setup() {
     const resourceStore = useResourceStore();
@@ -29,34 +30,45 @@ export default defineComponent({
     const tagStore = useTagStore();
 
     return {
-      resourceStore, categoryFilters, tagStore, userStore,
+      resourceStore,
+      categoryFilters,
+      tagStore,
+      userStore,
     };
   },
 });
 </script>
 
 <template>
-    <div class="resourceStore">
-      <h1>Favorite Resources</h1>
-      <div>
-        <h3 v-if="resourceStore.loading">Loading...</h3>
-        <h3 v-if='!resourceStore.loading && resourceStore.error'>{{resourceStore.error}}</h3>
-        <TransitionGroup
-          tag="div"
-          name="fade"
-          v-if="userStore.favoriteResources.length > 0 && resourceStore.arr"
-          class="resources-container">
-            <ResourceCard
-              v-for="(resource) in resourceStore.arr.filter(x => userStore.favoriteResources.indexOf(x.id) !== -1)"
-
-              style = "margin: 5px;"
-              :key="resource.id"
-              :resource="resource"/>
-          </TransitionGroup>
-        <p v-else>Select the star button on resources on the Resources Page to display them here.</p>
-      </div>
+  <div class="resourceStore">
+    <h1>Favorite Resources</h1>
+    <div>
+      <h3 v-if="resourceStore.loading">Loading...</h3>
+      <h3 v-if="!resourceStore.loading && resourceStore.error">
+        {{ resourceStore.error }}
+      </h3>
+      <TransitionGroup
+        tag="div"
+        name="fade"
+        v-if="userStore.favoriteResources.length > 0 && resourceStore.arr"
+        class="resources-container"
+      >
+        <ResourceCard
+          v-for="resource in resourceStore.arr.filter(
+            (x) => userStore.favoriteResources.indexOf(x.id) !== -1
+          )"
+          style="margin: 5px"
+          :key="resource.id"
+          :resource="resource"
+        />
+      </TransitionGroup>
+      <p v-else>
+        Select the star button on resources on the Resources Page to display
+        them here.
+      </p>
     </div>
-  </template>
+  </div>
+</template>
 
 <style scoped>
 .resources-container {

@@ -1,56 +1,58 @@
-import { defineComponent } from 'vue';
-import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
-import HomePage from '../views/HomePage.vue';
-import OrganizationPage from '../views/OrganizationListPage.vue';
-import ResourceList from '../views/ResourceListPage.vue';
-import SearchPage from '../views/SearchPage.vue';
-import OrganizationDetails from '../views/OrganizationDetailsPage.vue';
-import ResourceDetails from '../views/ResourceDetailsPage.vue';
-import FavoritesPage from '../views/FavoritesPage.vue';
-import TagPage from '../views/TagPage.vue';
+import { defineComponent } from "vue";
+import { createRouter, createWebHashHistory} from "vue-router";
+import type {RouteRecordRaw } from "vue-router";
+import HomePage from "../views/HomePage.vue";
+import OrganizationPage from "../views/OrganizationListPage.vue";
+import ResourceList from "../views/ResourceListPage.vue";
+import SearchPage from "../views/SearchPage.vue";
+import OrganizationDetails from "../views/OrganizationDetailsPage.vue";
+import ResourceDetails from "../views/ResourceDetailsPage.vue";
+import FavoritesPage from "../views/FavoritesPage.vue";
+import TagPage from "../views/TagPage.vue";
 
 const Org = defineComponent({
-  template: '<div style="width: 100%; height: 1vh; background-color:black;">Hello world</div>',
+  template:
+    '<div style="width: 100%; height: 1vh; background-color:black;">Hello world</div>',
 });
 const routes: Array<RouteRecordRaw> = [
   {
-    path: '/',
-    name: 'home',
+    path: "/",
+    name: "home",
     component: HomePage,
   },
   {
-    path: '/organizations/:id',
-    name: 'org',
+    path: "/organizations/:id",
+    name: "org",
     component: OrganizationDetails,
   },
   {
-    path: '/organizations/',
-    name: 'organizations',
+    path: "/organizations/",
+    name: "organizations",
     component: OrganizationPage,
   },
   {
-    path: '/resources/',
-    name: 'resources',
+    path: "/resources/",
+    name: "resources",
     component: ResourceList,
   },
   {
-    path: '/resource/:id',
-    name: 'resource-details',
+    path: "/resource/:id",
+    name: "resource-details",
     component: ResourceDetails,
   },
   {
-    path: '/search/',
-    name: 'search',
+    path: "/search/",
+    name: "search",
     component: SearchPage,
   },
   {
-    path: '/favorites/',
-    name: 'favorites',
+    path: "/favorites/",
+    name: "favorites",
     component: FavoritesPage,
   },
   {
-    path: '/tag/:id',
-    name: 'tag',
+    path: "/tag/:id",
+    name: "tag",
     component: TagPage,
   },
 ];

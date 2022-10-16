@@ -1,34 +1,34 @@
-import { getCategoryOptions } from '@/hooks/categoryHooks';
-import { defineStore } from 'pinia';
-import { ref, computed } from 'vue';
+import { getCategoryOptions } from "@/hooks/categoryHooks";
+import { defineStore } from "pinia";
+import { ref, computed } from "vue";
 import useTagStore from './tagStore'; // eslint-disable-line
 
-const useCategoryStore = defineStore('categoryFilterStore', () => {
-  const filters = ref(['Academics', 'Legal', 'Misc']);
+const useCategoryStore = defineStore("categoryFilterStore", () => {
+  const filters = ref(["Academics", "Legal", "Misc"]);
 
   const tagStore = useTagStore();
 
-  const getFilter = computed(() => new RegExp(filters.value.join('|')));
+  const getFilter = computed(() => new RegExp(filters.value.join("|")));
 
-  function isFiltered(category:string) {
+  function isFiltered(category: string) {
     const index = filters.value.indexOf(category);
     if (index === -1) return false;
     return true;
   }
 
-  function addFilter(category:string) {
+  function addFilter(category: string) {
     filters.value = [...filters.value, category];
     tagStore.updateActiveCategoryTags();
   }
 
-  function removeFilter(category:string) {
+  function removeFilter(category: string) {
     const index = filters.value.indexOf(category);
     if (index < -1) return;
     filters.value.splice(index, 1);
     tagStore.updateActiveCategoryTags();
   }
 
-  function toggleFilter(category:string) {
+  function toggleFilter(category: string) {
     const alreadyFiltered = filters.value.indexOf(category) !== -1;
 
     if (alreadyFiltered) return removeFilter(category);
@@ -36,7 +36,7 @@ const useCategoryStore = defineStore('categoryFilterStore', () => {
   }
 
   function clearFilters() {
-    filters.value = [''];
+    filters.value = [""];
     tagStore.updateActiveCategoryTags();
   }
 

@@ -1,10 +1,10 @@
 // eslint-disable-next-line
 export enum TagStatus {
-    favorite = 'fav',
-    filtered = 'filter',
-    lessInterested = 'down',
-    none = 'none'
-  }
+  favorite = "fav",
+  filtered = "filter",
+  lessInterested = "down",
+  none = "none",
+}
 
 // eslint-disable-next-line
 export enum TagPriority {
@@ -15,9 +15,9 @@ export enum TagPriority {
 }
 
 export interface TagLookupInterface {
-    categories: string[];
-    status: string;
-    priority: number;
-  }
+  categories: string[];
+  status: string;
+  priority: number;
+}
 
 export type TagArray = string[];

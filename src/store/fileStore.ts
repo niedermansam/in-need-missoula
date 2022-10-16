@@ -1,31 +1,29 @@
-import { defineStore } from 'pinia';
-import { FileInterface } from '@/schemas';
-import { useAPI } from '@/hooks';
+import { defineStore } from "pinia";
+import type { FileInterface } from "@/schemas";
+import { useAPI } from "@/hooks";
 
-const fileAPI = useAPI('/files');
+const fileAPI = useAPI("/files");
 
-const useFileStore = defineStore('fileStore', {
+const useFileStore = defineStore("fileStore", {
   state: () => ({
     loaded: false as boolean,
     loading: false as boolean,
-    error: '',
+    error: "",
     arr: [] as FileInterface[] | null,
-    lookup: {} as { [key:string]: FileInterface},
+    lookup: {} as { [key: string]: FileInterface },
   }),
   actions: {
     async loadData() {
       if (this.loaded) return; // exit function if data is already loaded
       this.loading = true;
 
-      try { // Get data from API
-        const response = await fetch(
-          fileAPI,
-          {
-            headers: {
-              accept: 'application/json',
-            },
+      try {
+        // Get data from API
+        const response = await fetch(fileAPI, {
+          headers: {
+            accept: "application/json",
           },
-        );
+        });
         if (response.ok) {
           // if response is good, handle incoming data
           const json = await response.json();
@@ -37,7 +35,7 @@ const useFileStore = defineStore('fileStore', {
           this.loading = false;
         } else {
           // if the API throws an error, handle the error
-          this.error = 'Error fetching data';
+          this.error = "Error fetching data";
           this.loading = false;
         }
       } catch (error: any) {
@@ -57,7 +55,6 @@ const useFileStore = defineStore('fileStore', {
       });
     },
   },
-
 });
 
 export default useFileStore;
