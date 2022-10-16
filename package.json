@@ -1,6 +1,7 @@
 {
   "name": "newclient",
   "version": "0.0.0",
+  "homepage": "https://github.com/niedermansam/need-help-missoula",
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check build-only",
