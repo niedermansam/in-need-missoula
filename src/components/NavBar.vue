@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent } from "vue";
-import MainSearchBar from "./MainSearchBar.vue";
+import MainSearchBar from "@/components/MainSearchBar.vue";
 
 export default defineComponent({
   components: { MainSearchBar },

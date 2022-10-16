@@ -1,7 +1,7 @@
 <script lang="ts">
 import { defineComponent, ref } from "vue";
 import { BIconSearch } from "bootstrap-icons-vue";
-import { useUserStore } from "../store";
+import { useUserStore } from "@/store";
 
 export default defineComponent({
   components: { BIconSearch },

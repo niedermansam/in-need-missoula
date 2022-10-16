@@ -4,8 +4,8 @@ import {
   useCategoryStore,
   useOrganizationStore,
   useResourceStore,
-} from "../store";
-import { categoryChipStyles, getCategoryOptions } from "../hooks";
+} from "@/store";
+import { categoryChipStyles, getCategoryOptions } from "@/hooks";
 
 export default defineComponent({
   components: {},

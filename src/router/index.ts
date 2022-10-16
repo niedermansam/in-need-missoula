@@ -1,14 +1,14 @@
 import { defineComponent } from "vue";
 import { createRouter, createWebHashHistory} from "vue-router";
 import type {RouteRecordRaw } from "vue-router";
-import HomePage from "../views/HomePage.vue";
-import OrganizationPage from "../views/OrganizationListPage.vue";
-import ResourceList from "../views/ResourceListPage.vue";
-import SearchPage from "../views/SearchPage.vue";
-import OrganizationDetails from "../views/OrganizationDetailsPage.vue";
-import ResourceDetails from "../views/ResourceDetailsPage.vue";
-import FavoritesPage from "../views/FavoritesPage.vue";
-import TagPage from "../views/TagPage.vue";
+import HomePage from "@/views/HomePage.vue";
+import OrganizationPage from "@/views/OrganizationListPage.vue";
+import ResourceList from "@/views/ResourceListPage.vue";
+import SearchPage from "@/views/SearchPage.vue";
+import OrganizationDetails from "@/views/OrganizationDetailsPage.vue";
+import ResourceDetails from "@/views/ResourceDetailsPage.vue";
+import FavoritesPage from "@/views/FavoritesPage.vue";
+import TagPage from "@/views/TagPage.vue";
 
 const Org = defineComponent({
   template:

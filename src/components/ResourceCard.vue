@@ -1,9 +1,9 @@
 <script lang="ts">
 import { reactive, ref } from "vue";
-import { TagStatus } from "../schemas";
-import type { ResourceSchema } from "../schemas";
-import { categoryChipStyles } from "../hooks";
-import { useOrganizationStore, useTagStore, useUserStore } from "../store";
+import { TagStatus } from "@/schemas";
+import type { ResourceSchema } from "@/schemas";
+import { categoryChipStyles } from "@/hooks";
+import { useOrganizationStore, useTagStore, useUserStore } from "@/store";
 import { BIconStarFill } from "bootstrap-icons-vue";
 // import { LayoutPlugin } from 'bootrap-vue';
 

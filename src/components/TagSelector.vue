@@ -1,13 +1,13 @@
 <script lang="ts">
 import { defineComponent, TransitionGroup } from "vue";
 import type { PropType } from "vue";
-import { useTagStore, useResourceStore, useUserStore } from "../store";
+import { useTagStore, useResourceStore, useUserStore } from "@/store";
 import {
   BIconArrowDownUp,
   BIconLock,
   BIconArrowRepeat,
 } from "bootstrap-icons-vue";
-import TagButton from "./TagButton.vue";
+import TagButton from "@/components/TagButton.vue";
 
 export default defineComponent({
   props: {

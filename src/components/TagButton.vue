@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent, reactive, ref } from "vue";
-import { useTagStore } from "../store";
+import { useTagStore } from "@/store";
 import {
   BIconXLg,
   BIconArrowUp,
@@ -9,7 +9,7 @@ import {
   BIconArrowBarUp,
   BIconEye,
 } from "bootstrap-icons-vue";
-import { TagStatus } from "../schemas";
+import { TagStatus } from "@/schemas";
 
 type ButtonRef = null | HTMLHtmlElement;
 

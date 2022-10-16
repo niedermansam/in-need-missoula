@@ -1,6 +1,6 @@
 <script lang="ts">
-import { categoryChipStyles } from "../hooks/categoryHooks";
-import type { OrganizationSchema } from "../schemas/OrganizationSchemas";
+import { categoryChipStyles } from "@/hooks/categoryHooks";
+import type { OrganizationSchema } from "@/schemas/OrganizationSchemas";
 
 export default {
   props: {

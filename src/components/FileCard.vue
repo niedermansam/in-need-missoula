@@ -1,6 +1,6 @@
 <script lang="ts">
-import { categoryChipStyles } from "../hooks/index";
-import { useFileStore } from "../store";
+import { categoryChipStyles } from "@/hooks";
+import { useFileStore } from "@/store";
 import { ref } from "vue";
 
 export default {
