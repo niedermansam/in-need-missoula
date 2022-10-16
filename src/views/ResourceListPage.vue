@@ -16,6 +16,7 @@ export default defineComponent({
   setup() {
     const resourceStore = useResourceStore();
     const organizationStore = useOrganizationStore();
+    const tagStore = useTagStore();
 
     async function loadAllData() {
       await organizationStore.loadData();
@@ -24,7 +25,6 @@ export default defineComponent({
     loadAllData();
 
     const categoryFilters = useCategoryStore();
-    const tagStore = useTagStore();
 
     return { resourceStore, categoryFilters, tagStore };
   },
@@ -35,7 +35,7 @@ export default defineComponent({
     <div class="resourceStore">
       <h1>Resources</h1>
       <CategorySelector />
-      <TagSelector />
+      <TagSelector :tagArray="tagStore.activeCategoryTags" />
       <div>
         <h3 v-if="resourceStore.loading">Loading...</h3>
         <h3 v-if='!resourceStore.loading && resourceStore.error'>{{resourceStore.error}}</h3>
