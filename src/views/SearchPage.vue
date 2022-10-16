@@ -21,9 +21,6 @@ export default defineComponent({
       query?.toString();
     }
 
-    console.log(typeof query);
-    console.log(query);
-
     const resourceStore = useResourceStore();
     const organizationStore = useOrganizationStore();
     async function loadAllData() {
@@ -33,8 +30,6 @@ export default defineComponent({
     loadAllData();
 
     const resourceSearchResults = ref(resourceStore.userSearchResults());
-
-    console.log(resourceSearchResults.value);
 
     return {
       resourceStore,

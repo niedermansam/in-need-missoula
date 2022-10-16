@@ -36,7 +36,6 @@ const useUserStore = defineStore("userStore", () => {
     const isAlreadyFavorite = favoriteResources.value.indexOf(id) !== -1;
     if (isAlreadyFavorite) removeFavoriteResource(id);
     else addFavoriteResource(id);
-    console.log(favoriteResources.value);
   }
   return {
     tagSettings,
