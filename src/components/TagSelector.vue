@@ -1,41 +1,44 @@
 <script lang="ts">
-import { defineComponent, TransitionGroup } from 'vue';
+import { defineComponent, PropType, TransitionGroup } from 'vue';
 import { useTagStore, useResourceStore, useUserStore } from '@/store';
 import { BIconArrowDownUp, BIconLock, BIconArrowRepeat } from 'bootstrap-icons-vue';
 import TagButton from './TagButton.vue';
 
 export default defineComponent({
+  props: {
+    tagArray: Array as PropType<string[]>,
+  },
   components: {
     TagButton, TransitionGroup, BIconArrowDownUp, BIconLock, BIconArrowRepeat,
   },
   setup() {
-    const tagFilterStore = useTagStore();
     const resourceStore = useResourceStore();
     const userStore = useUserStore();
+    const tagStore = useTagStore();
 
     async function loadAllData() {
       await resourceStore.loadData();
-      await tagFilterStore.loadAllTags();
+      await tagStore.loadAllTags();
     }
 
     loadAllData();
 
-    tagFilterStore.updateActiveCategoryTags();
+    tagStore.updateActiveCategoryTags();
 
     function sortTagList(a:string, b:string) {
-      const tagA = tagFilterStore.tagLookup[a].priority;
-      const tagB = tagFilterStore.tagLookup[b].priority;
+      const tagA = tagStore.tagLookup[a].priority;
+      const tagB = tagStore.tagLookup[b].priority;
 
       return tagB - tagA;
     }
 
-    return { tagFilterStore, sortTagList, userStore };
+    return { sortTagList, userStore, tagStore };
   },
 });
 </script>
 
 <template>
-  <div v-if="tagFilterStore.allTags" class="accordion accordion-flush" id="tag-filter-menu">
+  <div v-if="tagArray" class="accordion accordion-flush" id="tag-filter-menu">
     <div class="accordion-item">
       <h2 class="accordion-header" id="flush-headingOne">
         <button
@@ -58,7 +61,7 @@ export default defineComponent({
         <div class="accordion-body">
 
           <button
-            @click="tagFilterStore.resetPriorityAll"
+            @click="tagStore.resetPriorityAll"
             type="button"
             class="btn btn-outline-secondary">
             <BIconArrowRepeat />
@@ -73,14 +76,14 @@ export default defineComponent({
             <BIconLock v-else/>
             {{ userStore.tagSettings.sortTags ? 'Lock Tags' : 'Sort Tags'}}
           </button>
-          <div class="tag-container" :style="`--n-tags: ${tagFilterStore.activeCategoryTags.length}`">
+          <div class="tag-container" :style="`--n-tags: ${tagArray.length}`">
             <TransitionGroup
           tag="div"
           name="fade"
           class="tag-container"
-          v-if="tagFilterStore.activeCategoryTags[0]" >
+          v-if="tagArray[0]" >
           <TagButton
-            v-for="tag in tagFilterStore.activeCategoryTags"
+            v-for="tag in tagArray"
             :key="tag || 'tag'"
             :tag="tag"
           />
