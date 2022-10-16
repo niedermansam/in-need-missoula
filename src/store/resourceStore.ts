@@ -153,6 +153,12 @@ const useResourceStore = defineStore('resourceStore', {
       });
       return filteredArray;
     },
+    getByTag: (state):(tag:string) => ResourceSchema[] | undefined => (tag:string) => {
+      if (!state.arr) return;
+      const outArr = state.arr.filter((resource) => resource.Tags.indexOf(tag) !== -1);
+      console.log(outArr);
+      return outArr;// eslint-disable-line
+    },
   },
 });
 

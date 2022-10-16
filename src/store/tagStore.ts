@@ -36,19 +36,19 @@ const useTagStore = defineStore('tagStore', () => {
   /** Object where the key is a category (e.g. Provides, Expertise), and the value is an array of tags that appear in that category. */
   const tagCategoryKey = ref<{[key:string]:TagArray}>({});
 
-  async function loadAllTags() {
-  /* FUNCTION INFO: The function loadAllTags does 3 things:
-  ? 1. create allTags array
+  /** loadAllTags does 3 things:
+  1. create allTags array
        Create an array of all (unique) tag names
        and stores it in the variable allTags
-  ? 2. Create tagLookup Object
+  2. Create tagLookup Object
       Create an object with tag names for keys,
       and more information about the user's interaction
       with that tag (favorite, filter, etc.)
-  ? 3. Initialize the activeCategoryTags Array
+  3. Initialize the activeCategoryTags Array
        This array keeps track of tags that are associated
        with currently active categories, so unnecessary tags
        aren't shown. */
+  async function loadAllTags() {
     await resourceStore.loadData();
     //* Create an array of all tags
     const tagArr = resourceStore
@@ -89,7 +89,7 @@ const useTagStore = defineStore('tagStore', () => {
     // console.log('tag Lookup: ', tagLookup.value);
     if (!tagArr) return;
     allTags.value = tagArr as string[];
-  } //! end of loadAllTags
+  } // end of loadAllTags
 
   /** Array of tags the user has filtered.
    * @see {@link addFilter} Adds element to array, changes status & priority.
@@ -457,6 +457,19 @@ const useTagStore = defineStore('tagStore', () => {
 
   const isLessInterested = computed(() => (tag:string) => lessInterested.value.indexOf(tag) !== -1);
 
+  /** Get all tags related to the tagOfInterest parameter */
+  const getRelatedTags = computed(() => (tagOfInterest:string) => {
+    let outArr:string[] = [];
+    resourceStore.arr?.forEach((resource) => {
+      if (resource.Tags.indexOf(tagOfInterest) === -1) return; // do nothing if the resource does not have the tag of interest
+      outArr = [...outArr, ...resource.Tags];
+    });
+
+    return outArr.filter(onlyUnique).filter((tag) => tag !== tagOfInterest);
+  });
+
+  const getTagUrl = computed(() => (tag:string) => tag.toLowerCase().replaceAll(' ', '_'));
+
   /* eslint-disable object-property-newline */
   return {
     allTags, loadAllTags, tagLookup,
@@ -465,6 +478,7 @@ const useTagStore = defineStore('tagStore', () => {
     filters, isFiltered, isFilterInArray, toggleFilter, addFilter, removeFilter,
     removeLessInterested, addLessInterested, togglelessInterested, isLessInterested,
     resetPriorityAll, resetPriority, bumpPriority, dropPriority,
+    getRelatedTags, getTagUrl,
   };
 });
 

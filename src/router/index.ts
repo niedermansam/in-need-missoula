@@ -7,6 +7,7 @@ import SearchPage from '../views/SearchPage.vue';
 import OrganizationDetails from '../views/OrganizationDetailsPage.vue';
 import ResourceDetails from '../views/ResourceDetailsPage.vue';
 import FavoritesPage from '../views/FavoritesPage.vue';
+import TagPage from '../views/TagPage.vue';
 
 const Org = defineComponent({
   template: '<div style="width: 100%; height: 1vh; background-color:black;">Hello world</div>',
@@ -46,6 +47,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/favorites/',
     name: 'favorites',
     component: FavoritesPage,
+  },
+  {
+    path: '/tag/:id',
+    name: 'tag',
+    component: TagPage,
   },
 ];
 
