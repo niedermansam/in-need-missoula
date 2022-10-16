@@ -3,6 +3,7 @@ import type { ResourceSchema } from "@/schemas/ResourceSchemas";
 import { TagPriority } from "@/schemas/TagSchemas";
 import { useAPI } from "@/hooks";
 import { useCategoryStore, useTagStore, useUserStore } from './index'; // eslint-disable-line
+import { useRoute } from "vue-router";
 
 const resourceAPI = useAPI("/resources"); // 'http://127.0.0.1:3000/resources';
 
@@ -154,14 +155,15 @@ const useResourceStore = defineStore("resourceStore", {
       return filteredArray;
     },
     getByTag:
-      (state): ((tag: string) => ResourceSchema[] | undefined) =>
-      (tag: string) => {
-        if (!state.arr) return;
+      (state): ResourceSchema[] => {
+        if (!state.arr) return [];
+        const tagParam = useRoute().params.tag as string
+        const tagStore = useTagStore();
         const outArr = state.arr.filter(
-          (resource) => resource.Tags.indexOf(tag) !== -1
+          (resource) => resource.Tags.indexOf(tagStore.fromUrl(tagParam)) !== -1
         );
         console.log(outArr);
-      return outArr;// eslint-disable-line
+      return outArr.sort((a, b) => b.priority - a.priority);// eslint-disable-line
       },
   },
 });

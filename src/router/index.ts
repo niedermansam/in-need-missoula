@@ -51,7 +51,7 @@ const routes: Array<RouteRecordRaw> = [
     component: FavoritesPage,
   },
   {
-    path: "/tag/:id",
+    path: "/tag/:tag",
     name: "tag",
     component: TagPage,
   },

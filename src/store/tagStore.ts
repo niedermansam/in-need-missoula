@@ -524,10 +524,12 @@ const useTagStore = defineStore("tagStore", () => {
     return outArr.filter(onlyUnique).filter((tag) => tag !== tagOfInterest);
   });
 
-  const getTagUrl = computed(
-    () => (tag: string) => tag.toLowerCase().replace(/ /g, "_")
+  const toUrl = computed(
+    () => (tag: string) => tag.replace(/ /g, "_").replace(/\//g,'+')
   );
-
+  const fromUrl = computed(
+    () => (tag: string) => tag.replace(/_/g, " ").replace(/\+/g,'/')
+  );
   /* eslint-disable object-property-newline */
   return {
     allTags,
@@ -554,7 +556,8 @@ const useTagStore = defineStore("tagStore", () => {
     bumpPriority,
     dropPriority,
     getRelatedTags,
-    getTagUrl,
+    toUrl,
+    fromUrl
   };
 });
 

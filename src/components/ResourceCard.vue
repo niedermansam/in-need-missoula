@@ -60,7 +60,7 @@ export default {
 
     return {
       categoryChipStyles,
-      tagList,
+      tagArr,
       tagStore,
       userStore,
       organizationStore,
@@ -107,8 +107,9 @@ export default {
       <div class="flex-container">
         <p>
           Tags:
-
-          <span>{{ tagList }} </span>
+          <span v-for="tag in tagArr.values()">
+            <routerLink :to="`../tag/${tagStore.toUrl(tag)}`"><button class="btn btn-link btn-small">{{ tag }}</button></routerLink>
+          </span>
         </p>
       </div>
       <p v-if="resource.Notes" class="card-text">

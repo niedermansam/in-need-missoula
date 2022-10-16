@@ -1,21 +1,27 @@
 <script lang="ts">
-import { useOrganizationStore, useResourceStore, useUserStore } from "../store";
+import { useOrganizationStore, useResourceStore, useTagStore, useUserStore } from "../store";
 import { ResourceCard } from "../components";
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, watch } from "vue";
 import { useRoute } from "vue-router";
+import TagSelector from "../components/TagSelector.vue";
 
 export default defineComponent({
   name: "TagPage",
   components: {
     ResourceCard,
-  },
-  props: {
-    tag: { type: String },
-  },
+    TagSelector
+},
   setup(state) {
-    const route = useRoute();
+    const $route = useRoute();
+    const tagStore = useTagStore()
 
-    const selectedTag = route.params.id;
+    const selectedTag = ref(($route.params.tag as string).replace(/_/g,' '));
+
+    function updateSelectedTag() {
+      selectedTag.value = ($route.params.tag as string).replace(/_/g,' ');
+    }
+
+    watch(() => $route.params.tag, updateSelectedTag)
 
     const resourceStore = useResourceStore();
     const organizationStore = useOrganizationStore();
@@ -27,7 +33,7 @@ export default defineComponent({
     loadAllData();
 
     return {
-      resourceStore,
+      resourceStore, selectedTag, tagStore
     };
   },
 });
@@ -36,8 +42,9 @@ export default defineComponent({
 <template>
   <div>
     <div class="tag-page">
-      <h1>Tag</h1>
+      <h1>Tag {{tagStore.fromUrl(selectedTag)}}</h1>
     </div>
+    <TagSelector :tagArray = "tagStore.getRelatedTags(selectedTag)" />
     <h3 v-if="resourceStore.loading">Loading...</h3>
     <h3 v-if="!resourceStore.loading && resourceStore.error">
       {{ resourceStore.error }}
@@ -49,7 +56,7 @@ export default defineComponent({
       style="display: flex; flex-wrap: wrap"
     >
       <ResourceCard
-        v-for="resource in resourceStore.userSearchResults()"
+        v-for="resource in resourceStore.getByTag"
         style="margin: 5px"
         :key="resource.id"
         :resource="resource"
@@ -57,3 +64,31 @@ export default defineComponent({
     </TransitionGroup>
   </div>
 </template>
+
+
+<style scoped>
+.resources-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+/* 1. declare transition */
+.fade-move,
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 0.5s cubic-bezier(0.55, 0, 0.1, 1);
+}
+
+/* 2. declare enter from and leave to state */
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+  transform: scaleY(0.01) translate(30px, 0);
+}
+
+/* 3. ensure leaving items are taken out of layout flow so that moving
+      animations can be calculated correctly. */
+.fade-leave-active {
+  position: absolute;
+}
+</style>
