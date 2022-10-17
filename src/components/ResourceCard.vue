@@ -5,6 +5,7 @@ import type { ResourceSchema } from "@/schemas";
 import { categoryChipStyles } from "@/hooks";
 import { useOrganizationStore, useTagStore, useUserStore } from "@/store";
 import { BIconStarFill } from "bootstrap-icons-vue";
+import TagLinks from "./TagLinks.vue";
 // import { LayoutPlugin } from 'bootrap-vue';
 
 export default {
@@ -13,7 +14,8 @@ export default {
   },
   components: {
     BIconStarFill,
-  },
+    TagLinks
+},
   setup(props: { resource?: ResourceSchema }) {
     const organizationStore = useOrganizationStore();
     const userStore = useUserStore();
@@ -109,9 +111,7 @@ export default {
           Tags:
         </p>
         <div>
-        <span v-for="tag in tagArr.values()">
-          <routerLink :to="`../tag/${tagStore.toUrl(tag)}`"><button class="btn btn-link btn-small tag-link">{{ tag }}</button></routerLink>
-        </span>
+          <TagLinks :tagArr="tagArr" />
       </div>
       </div>
       <p v-if="resource.Notes" class="card-text">

@@ -2,12 +2,12 @@
 import { defineComponent, reactive } from "vue";
 import { useRoute } from "vue-router";
 
-import { FileCard } from "../components";
+import { FileCard, TagLinks } from "../components";
 import { categoryChipStyles } from "../hooks";
 import { useResourceStore, useFileStore } from "../store";
 
 export default defineComponent({
-  components: { FileCard },
+  components: { FileCard, TagLinks },
   props: {
     id: { type: String },
   },
@@ -64,11 +64,11 @@ export default defineComponent({
       {{ chipStyles(resource.value.Provides).emoji }}
       {{ resource.value.Provides }}
     </span>
+    <TagLinks :tagArr="resource.value.Tags" />
 
     <p class="card-text">
       {{ resource.value.Notes }}
     </p>
-
     <div
       v-if="resource.value['Forms & Files'] && fileStore.loaded"
       class="file-container"
