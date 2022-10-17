@@ -1,10 +1,10 @@
 <script lang="ts">
-import { defineComponent, reactive } from "vue";
+import { defineComponent, reactive, ref } from "vue";
 import { useRoute } from "vue-router";
 
 import { FileCard, TagLinks } from "../components";
 import { categoryChipStyles } from "../hooks";
-import { useResourceStore, useFileStore } from "../store";
+import { useResourceStore, useFileStore, useOrganizationStore } from "../store";
 
 export default defineComponent({
   components: { FileCard, TagLinks },
@@ -17,18 +17,25 @@ export default defineComponent({
     const route = useRoute();
     const currentId = route.params.id as string;
 
-    const chipStyles = categoryChipStyles;
-
     const resourceStore = useResourceStore();
     const fileStore = useFileStore();
-    const resource = reactive({ value: resourceStore.lookup[currentId] });
-
+    const organizationStore = useOrganizationStore();
+    
     async function loadAllData() {
       await resourceStore.loadData();
+      await organizationStore.loadData();
       await fileStore.loadData();
       resource.value = resourceStore.lookup[currentId];
+      administeringOrg.value = resource.value && resource.value['Administering Org'] ? resource.value['Administering Org'][0] : undefined;
     }
     loadAllData();
+
+    const chipStyles = categoryChipStyles;
+
+    const resource = reactive({ value: resourceStore.lookup[currentId] });
+
+    const administeringOrg = ref(resource.value && resource.value['Administering Org'] ? resource.value['Administering Org'][0] : undefined);
+
 
     function getFileData() {
       if (resource.value && resource.value["Forms & Files"]) {
@@ -42,10 +49,12 @@ export default defineComponent({
 
     return {
       getFileData,
+      resourceStore,
+      organizationStore,
+      administeringOrg,
       fileStore,
       route,
       currentId,
-      resourceStore,
       resource,
       chipStyles,
     };
@@ -79,6 +88,11 @@ export default defineComponent({
         :id="file"
       />
     </div>
+
+    <a :href="resource.value.URL" target="_blank"><button class="btn btn-primary">Official Website</button></a>
+    <span v-if="administeringOrg">
+    <RouterLink :to="`/organizations/${resource.value['Administering Org']}`"><button class="btn btn-primary">{{organizationStore.lookup[administeringOrg].Name}}</button></RouterLink>
+    </span>
   </div>
 </template>
 
