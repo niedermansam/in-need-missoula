@@ -105,18 +105,20 @@ export default {
       </div>
       <!-- Tags section-->
       <div class="flex-container">
-        <p>
+        <p style="margin-bottom: 0;">
           Tags:
-          <span v-for="tag in tagArr.values()">
-            <routerLink :to="`../tag/${tagStore.toUrl(tag)}`"><button class="btn btn-link btn-small">{{ tag }}</button></routerLink>
-          </span>
         </p>
+        <div>
+        <span v-for="tag in tagArr.values()">
+          <routerLink :to="`../tag/${tagStore.toUrl(tag)}`"><button class="btn btn-link btn-small tag-link">{{ tag }}</button></routerLink>
+        </span>
+      </div>
       </div>
       <p v-if="resource.Notes" class="card-text">
         {{ resource.Notes.slice(0, 200).replace(/ \w+$| $/i, "...") }}
       </p>
 
-      <div v-if="resource['Organizations']">
+      <div v-if="organizationStore.loaded && resource['Organizations']">
         Get help from
         <router-link
           style="margin: 5px"
@@ -146,6 +148,12 @@ export default {
 
 .favorited-tag {
   order: -1;
+}
+
+.tag-link {
+  padding:0;
+  margin: 0px 5px 0px 5px;
+  width: max-content;
 }
 
 .resource-card {

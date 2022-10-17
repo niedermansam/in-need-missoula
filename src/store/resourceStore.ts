@@ -160,10 +160,14 @@ const useResourceStore = defineStore("resourceStore", {
         const tagParam = useRoute().params.tag as string
         const tagStore = useTagStore();
         const outArr = state.arr.filter(
-          (resource) => resource.Tags.indexOf(tagStore.fromUrl(tagParam)) !== -1
+          (resource) => {
+            const tagIsSelected = resource.Tags.indexOf(tagStore.fromUrl(tagParam)) !== -1;
+            const noTagsFiltered =  !tagStore.isFilterInArray(resource.Tags);
+            return tagIsSelected && noTagsFiltered;
+          }
         );
         console.log(outArr);
-      return outArr.sort((a, b) => b.priority - a.priority);// eslint-disable-line
+      return outArr.sort((a, b) => b.priority - a.priority);
       },
   },
 });

@@ -36,7 +36,7 @@ export default defineComponent({
     });
 
     function getButtonStyles() {
-      if (!tagStore.tagLookup[props.tag].status) return buttonStyles;
+      if (!tagStore.tagLookup[props.tag] || !tagStore.tagLookup[props.tag].status) return buttonStyles;
       switch (tagStore.tagLookup[props.tag].status) {
         case TagStatus.none:
           buttonStyles.background = "btn-light";

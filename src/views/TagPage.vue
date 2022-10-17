@@ -13,7 +13,14 @@ export default defineComponent({
 },
   setup(state) {
     const $route = useRoute();
-    const tagStore = useTagStore()
+    const tagStore = useTagStore();
+
+    const resourceStore = useResourceStore();
+
+    async function loadAllData() {
+      await resourceStore.loadData();
+    }
+    loadAllData();
 
     const selectedTag = ref(($route.params.tag as string).replace(/_/g,' '));
 
@@ -23,14 +30,6 @@ export default defineComponent({
 
     watch(() => $route.params.tag, updateSelectedTag)
 
-    const resourceStore = useResourceStore();
-    const organizationStore = useOrganizationStore();
-
-    async function loadAllData() {
-      await organizationStore.loadData();
-      await resourceStore.loadData();
-    }
-    loadAllData();
 
     return {
       resourceStore, selectedTag, tagStore
@@ -40,9 +39,9 @@ export default defineComponent({
 </script>
 
 <template>
-  <div>
+  <div v-if="tagStore.getRelatedTags(selectedTag)">
     <div class="tag-page">
-      <h1>Tag {{tagStore.fromUrl(selectedTag)}}</h1>
+      <h1>{{tagStore.fromUrl(selectedTag)}}</h1>
     </div>
     <TagSelector :tagArray = "tagStore.getRelatedTags(selectedTag)" />
     <h3 v-if="resourceStore.loading">Loading...</h3>
