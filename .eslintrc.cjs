@@ -9,6 +9,7 @@ module.exports = {
     "@vue/eslint-config-typescript",
     "@vue/eslint-config-prettier",
   ],
+  ignorePatterns: ["**/docs/*", "tailwind.config.js", "postcss.config.js"],
   parserOptions: {
     ecmaVersion: "latest",
   },

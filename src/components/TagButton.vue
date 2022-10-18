@@ -31,16 +31,20 @@ export default defineComponent({
     const currentFocus = ref<TagStatus>(TagStatus.favorite);
 
     const buttonStyles = reactive({
-      class: '',
+      class: "",
       background: "",
-      favorite: '',
-      lessFavorite: '',
-      filter: '',
+      favorite: "",
+      lessFavorite: "",
+      filter: "",
       text: "grey",
     });
 
     function getButtonStyles() {
-      if (!tagStore.tagLookup[props.tag] || !tagStore.tagLookup[props.tag].status) return buttonStyles;
+      if (
+        !tagStore.tagLookup[props.tag] ||
+        !tagStore.tagLookup[props.tag].status
+      )
+        return buttonStyles;
       switch (tagStore.tagLookup[props.tag].status) {
         case TagStatus.none:
           buttonStyles.background = "bg-gray-50";
@@ -182,7 +186,7 @@ export default defineComponent({
       class="w-8 flex justify-center items-center rounded-l"
       :class="`${getButtonStyles().favorite} ${getButtonStyles().text}`"
     >
-      <span v-if="tagStore.isFavorite(tag)" ><BIconArrowBarDown /></span>
+      <span v-if="tagStore.isFavorite(tag)"><BIconArrowBarDown /></span>
       <span v-else><BIconArrowUp /></span>
     </button>
 

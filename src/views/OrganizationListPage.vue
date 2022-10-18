@@ -24,7 +24,7 @@ export default defineComponent({
     loadAllData();
 
     const filterRegEx = catStore.getFilter;
-    return { orgStore, catStore , filterRegEx};
+    return { orgStore, catStore, filterRegEx };
   },
 });
 </script>

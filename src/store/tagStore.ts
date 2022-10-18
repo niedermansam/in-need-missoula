@@ -525,10 +525,10 @@ const useTagStore = defineStore("tagStore", () => {
   });
 
   const toUrl = computed(
-    () => (tag: string) => tag.replace(/ /g, "_").replace(/\//g,'+')
+    () => (tag: string) => tag.replace(/ /g, "_").replace(/\//g, "+")
   );
   const fromUrl = computed(
-    () => (tag: string) => tag.replace(/_/g, " ").replace(/\+/g,'/')
+    () => (tag: string) => tag.replace(/_/g, " ").replace(/\+/g, "/")
   );
   /* eslint-disable object-property-newline */
   return {
@@ -557,7 +557,7 @@ const useTagStore = defineStore("tagStore", () => {
     dropPriority,
     getRelatedTags,
     toUrl,
-    fromUrl
+    fromUrl,
   };
 });
 

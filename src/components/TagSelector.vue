@@ -53,66 +53,77 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="overflow-y-auto overflow-x-visible sticky top-0" style="height: 95vh; ">
-  <button 
-  class="p-3 bg-gray-100 sticky top-8 rounded-r-md flex items-center align-middle shadow-md border hover:bg-gray-300 ease-in-out transition-all duration-300 "
-  :class="userStore.tagSettings.showTags ? 'translate-x-0' : '-translate-x-full scale-0 p-0 h-0'"
-  @click="userStore.toggleShowTags">
-  <BIconFunnel class="m-1" />
-  Tags 
-  </button>
-  <aside
-    v-if="tagArray"
-    class="transform w-64 overflow-y-auto overflow-x-hidden bg-white ease-in-out transition-all duration-300 z-30 rounded-r border-r shadow"
-    id="tag-filter-menu"
-    :class="userStore.tagSettings.showTags ? 'w-0 h-0' : 'w-full'"
+  <div
+    class="overflow-y-auto overflow-x-visible sticky top-0"
+    style="height: 95vh"
   >
-  <div class="sticky top-0 left-0 bg-white overflow-y-scroll w-64 "></div>
-    <button 
-    class="w-full flex justify-center py-2 bg-red-500 mb-2 text-white text-lg hover:bg-red-300 sticky top-0 z-10"
-    @click="userStore.toggleShowTags">
-      <BIconXLg />
+    <button
+      class="p-3 bg-gray-100 sticky top-8 rounded-r-md flex items-center align-middle shadow-md border hover:bg-gray-300 ease-in-out transition-all duration-300"
+      :class="
+        userStore.tagSettings.showTags
+          ? 'translate-x-0'
+          : '-translate-x-full scale-0 p-0 h-0'
+      "
+      @click="userStore.toggleShowTags"
+    >
+      <BIconFunnel class="m-1" />
+      Tags
     </button>
-    <div class="flex justify-center mb-2 sticky top-8 bg-white z-10 shadow-sm py-2">
+    <aside
+      v-if="tagArray"
+      class="transform w-64 overflow-y-auto overflow-x-hidden bg-white ease-in-out transition-all duration-300 z-30 rounded-r border-r shadow"
+      id="tag-filter-menu"
+      :class="userStore.tagSettings.showTags ? 'w-0 h-0' : 'w-full'"
+    >
+      <div class="sticky top-0 left-0 bg-white overflow-y-scroll w-64"></div>
       <button
-        @click="tagStore.resetPriorityAll"
-        type="button"
-        class="flex border p-2 rounded items-center text-gray-500 mr-6"
+        class="w-full flex justify-center py-2 bg-red-500 mb-2 text-white text-lg hover:bg-red-300 sticky top-0 z-10"
+        @click="userStore.toggleShowTags"
       >
-        <BIconArrowRepeat />
-        Reset Tags
+        <BIconXLg />
       </button>
+      <div
+        class="flex justify-center mb-2 sticky top-8 bg-white z-10 shadow-sm py-2"
+      >
+        <button
+          @click="tagStore.resetPriorityAll"
+          type="button"
+          class="flex border p-2 rounded items-center text-gray-500 mr-6"
+        >
+          <BIconArrowRepeat />
+          Reset Tags
+        </button>
 
-      <button
-        @click="userStore.toggleSortTags"
-        type="button"
-        class="flex border p-2 rounded items-center text-gray-500"
-      >
-        <span class="mr-2">
-          <BIconArrowDownUp v-if="!userStore.tagSettings.sortTags" />
-          <BIconLock v-else />
-        </span>
-        <span>
-          {{ userStore.tagSettings.sortTags ? "Lock Tags" : "Sort Tags" }}
-        </span>
-      </button>
-    </div>
-    <div >
-      <TransitionGroup
-        tag="div"
-        name="fade"
-        class="flex flex-col item-self-stretch justify-items-stretch"
-        v-if="tagArray[0]"
-      >
-        <TagButton
-          v-for="tag in tagArray"
-          class="flex justify-self-stretch self-stretch my-1"
-          :key="tag || 'tag'"
-          :tag="tag"
-        />
-      </TransitionGroup>
-    </div>
-  </aside>
+        <button
+          @click="userStore.toggleSortTags"
+          type="button"
+          class="flex border p-2 rounded items-center text-gray-500"
+        >
+          <span class="mr-2">
+            <BIconArrowDownUp v-if="!userStore.tagSettings.sortTags" />
+            <BIconLock v-else />
+          </span>
+          <span>
+            {{ userStore.tagSettings.sortTags ? "Lock Tags" : "Sort Tags" }}
+          </span>
+        </button>
+      </div>
+      <div>
+        <TransitionGroup
+          tag="div"
+          name="fade"
+          class="flex flex-col item-self-stretch justify-items-stretch"
+          v-if="tagArray[0]"
+        >
+          <TagButton
+            v-for="tag in tagArray"
+            class="flex justify-self-stretch self-stretch my-1"
+            :key="tag || 'tag'"
+            :tag="tag"
+          />
+        </TransitionGroup>
+      </div>
+    </aside>
   </div>
 </template>
 

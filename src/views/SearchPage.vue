@@ -12,7 +12,7 @@ export default defineComponent({
   props: {
     q: { type: String },
   },
-  setup(state) {
+  setup() {
     const userStore = useUserStore();
     const route = useRoute();
     const query = route.query.q;

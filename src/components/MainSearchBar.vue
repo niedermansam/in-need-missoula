@@ -36,7 +36,10 @@ export default defineComponent({
       aria-label="Search Form"
     />
     <router-link :to="`/search/?q=${searchText}`">
-      <button type="button" class="border p-2 rounded-r hover:bg-gray-400 hover:text-white">
+      <button
+        type="button"
+        class="border p-2 rounded-r hover:bg-gray-400 hover:text-white"
+      >
         <BIconSearch />
       </button>
     </router-link>

@@ -20,18 +20,18 @@ export default {
   <div class="border rounded-sm m-2 p-2" style="width: 100%">
     <div v-if="organization" class="p-2">
       <div class="flex items-center mb-2">
-      <h5 class="text-2xl">{{ organization.Name }}</h5>
+        <h5 class="text-2xl">{{ organization.Name }}</h5>
 
-      <span class="ml-1 text-gray-500">
-        {{ providesChipStyles(organization.Expertise).emoji }}
-        {{ organization.Expertise }}
-      </span>
-    </div>
+        <span class="ml-1 text-gray-500">
+          {{ providesChipStyles(organization.Expertise).emoji }}
+          {{ organization.Expertise }}
+        </span>
+      </div>
       <p class="flex items-center" v-if="organization.Phone">
-        <BIconTelephone class="mr-1"/> {{ organization.Phone }}
+        <BIconTelephone class="mr-1" /> {{ organization.Phone }}
       </p>
       <p class="flex items-center" v-if="organization.Email">
-        <BIconEnvelope class="mr-1"/> {{ organization.Email }}
+        <BIconEnvelope class="mr-1" /> {{ organization.Email }}
       </p>
 
       <p class="mt-2 mb-4">

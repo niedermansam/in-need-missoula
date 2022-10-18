@@ -40,7 +40,7 @@ const useUserStore = defineStore("userStore", () => {
   function toggleFavoriteResource(id: string) {
     const isAlreadyFavorite = favoriteResources.value.indexOf(id) !== -1;
     if (isAlreadyFavorite) removeFavoriteResource(id);
-  else addFavoriteResource(id);
+    else addFavoriteResource(id);
   }
   return {
     tagSettings,

@@ -72,8 +72,12 @@ export default defineComponent({
     </router-link>
 
     <p class="p-2">
-      The <a href="/#/resources" class=" text-zinc-500 hover:text-blue-500">      resources page</a> a filterable database of
-      different services, programs, mutual aid efforts, and more.
+      The
+      <a href="/#/resources" class="text-zinc-500 hover:text-blue-500">
+        resources page</a
+      >
+      a filterable database of different services, programs, mutual aid efforts,
+      and more.
     </p>
 
     <router-link
@@ -81,13 +85,19 @@ export default defineComponent({
       aria-current="page"
       :to="{ name: 'organizations' }"
     >
-      <h3 class="p-2 text-xl text-zinc-500 hover:text-blue-500">Organizations</h3>
+      <h3 class="p-2 text-xl text-zinc-500 hover:text-blue-500">
+        Organizations
+      </h3>
     </router-link>
 
     <p class="p-2">
-      The <a href="/#/organizations" class=" text-zinc-500 hover:text-blue-500">organizations page</a> is your source for
-      information of different organizations in the Missoula area, where they
-      get their funding, who they serve, and how to contact them.
+      The
+      <a href="/#/organizations" class="text-zinc-500 hover:text-blue-500"
+        >organizations page</a
+      >
+      is your source for information of different organizations in the Missoula
+      area, where they get their funding, who they serve, and how to contact
+      them.
     </p>
   </div>
 </template>

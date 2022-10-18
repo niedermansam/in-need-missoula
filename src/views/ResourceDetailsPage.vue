@@ -20,13 +20,16 @@ export default defineComponent({
     const resourceStore = useResourceStore();
     const fileStore = useFileStore();
     const organizationStore = useOrganizationStore();
-    
+
     async function loadAllData() {
       await resourceStore.loadData();
       await organizationStore.loadData();
       await fileStore.loadData();
       resource.value = resourceStore.lookup[currentId];
-      administeringOrg.value = resource.value && resource.value['Administering Org'] ? resource.value['Administering Org'][0] : undefined;
+      administeringOrg.value =
+        resource.value && resource.value["Administering Org"]
+          ? resource.value["Administering Org"][0]
+          : undefined;
     }
     loadAllData();
 
@@ -34,13 +37,16 @@ export default defineComponent({
 
     const resource = reactive({ value: resourceStore.lookup[currentId] });
 
-    const administeringOrg = ref(resource.value && resource.value['Administering Org'] ? resource.value['Administering Org'][0] : undefined);
-
+    const administeringOrg = ref(
+      resource.value && resource.value["Administering Org"]
+        ? resource.value["Administering Org"][0]
+        : undefined
+    );
 
     function getFileData() {
       if (resource.value && resource.value["Forms & Files"]) {
         resource.value["Forms & Files"]?.forEach((x) => {
-          // console.log(fileStore.lookup[x]);
+          console.log(fileStore.lookup[x]);
         });
       }
     }
@@ -64,22 +70,21 @@ export default defineComponent({
 
 <template>
   <div class="resource container" v-if="resource.value">
-    <div  class="p-2">
+    <div class="p-2">
       <div class="flex items-center mb-2">
-      <h5 class="text-2xl">{{ resource.value.Name }}</h5>
+        <h5 class="text-2xl">{{ resource.value.Name }}</h5>
 
-      <span class="ml-1 text-gray-500">
-        {{ chipStyles(resource.value.Provides).emoji }}
-        {{ resource.value.Provides }}
-      </span>
+        <span class="ml-1 text-gray-500">
+          {{ chipStyles(resource.value.Provides).emoji }}
+          {{ resource.value.Provides }}
+        </span>
+      </div>
     </div>
-    </div>
-    <div>
-    </div>
+    <div></div>
 
     <div class="flex items-center">
-      <p class="m-2">Tags: </p>
-    <TagLinks :tagArr="resource.value.Tags" />
+      <p class="m-2">Tags:</p>
+      <TagLinks :tagArr="resource.value.Tags" />
     </div>
     <p class="p-2">
       {{ resource.value.Notes }}
@@ -95,9 +100,21 @@ export default defineComponent({
       />
     </div>
 
-    <a :href="resource.value.URL" target="_blank"><button class="p-2 m-2 rounded bg-blue-200 hover:bg-blue-400 hover:text-white">Official Website</button></a>
+    <a :href="resource.value.URL" target="_blank"
+      ><button
+        class="p-2 m-2 rounded bg-blue-200 hover:bg-blue-400 hover:text-white"
+      >
+        Official Website
+      </button></a
+    >
     <span v-if="administeringOrg">
-    <RouterLink :to="`/organizations/${resource.value['Administering Org']}`"><button class="p-2 rounded bg-blue-200 hover:bg-blue-400 hover:text-white">{{organizationStore.lookup[administeringOrg].Name}}</button></RouterLink>
+      <RouterLink :to="`/organizations/${resource.value['Administering Org']}`"
+        ><button
+          class="p-2 rounded bg-blue-200 hover:bg-blue-400 hover:text-white"
+        >
+          {{ organizationStore.lookup[administeringOrg].Name }}
+        </button></RouterLink
+      >
     </span>
   </div>
 </template>

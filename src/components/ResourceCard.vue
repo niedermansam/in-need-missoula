@@ -14,8 +14,8 @@ export default {
   },
   components: {
     BIconStarFill,
-    TagLinks
-},
+    TagLinks,
+  },
   setup(props: { resource?: ResourceSchema }) {
     const organizationStore = useOrganizationStore();
     const userStore = useUserStore();
@@ -24,7 +24,6 @@ export default {
     const tagArr = ref(
       props.resource && props.resource.Tags ? props.resource.Tags : [""]
     );
-    const tagList = tagArr.value.reduce((x, y) => `${x}, ${y}`);
 
     const isFavoriteTag = reactive<{ value: boolean }>({ value: false });
     const isFilteredTag = reactive<{ value: boolean }>({ value: false });
@@ -36,13 +35,11 @@ export default {
 
     function lookForTagChange() {
       let thereIsFilter = false;
-      let thereIsFavorite = false;
       tagArr.value.forEach((x) => {
         if (!tagStore.tagLookup[x]) return;
         // Handle favorite logic
         if (tagStore.tagLookup[x].status === TagStatus.favorite) {
           isFavoriteTag.value = true;
-          thereIsFavorite = true;
         } else isFavoriteTag.value = false;
 
         // Handle filtering logic
@@ -99,18 +96,19 @@ export default {
       <!-- <p>Priority: {{ resource.priority }}</p> -->
       <!-- Tags section-->
       <div class="flex">
-        <p class="my-1 py-1 mr-2">
-          Tags:
-        </p>
+        <p class="my-1 py-1 mr-2">Tags:</p>
         <div>
           <TagLinks :tagArr="tagArr" />
-      </div>
+        </div>
       </div>
       <p v-if="resource.Notes" class="card-text mb-3">
         {{ resource.Notes.slice(0, 200).replace(/ \w+$| $/i, "...") }}
       </p>
 
-      <div v-if="organizationStore.loaded && resource['Organizations']" class="mb-3">
+      <div
+        v-if="organizationStore.loaded && resource['Organizations']"
+        class="mb-3"
+      >
         Get help from
         <router-link
           v-for="org in resource['Organizations']"
@@ -121,7 +119,9 @@ export default {
         </router-link>
       </div>
       <router-link :to="'/resource/' + resource.id" class="mt-auto mb-0">
-        <button class="p-2 rounded bg-blue-500 hover:bg-blue-600 text-white">More Information</button>
+        <button class="p-2 rounded bg-blue-500 hover:bg-blue-600 text-white">
+          More Information
+        </button>
       </router-link>
     </div>
   </div>
@@ -142,7 +142,7 @@ export default {
 }
 
 .tag-link {
-  padding:0;
+  padding: 0;
   margin: 0px 5px 0px 5px;
   width: max-content;
 }
