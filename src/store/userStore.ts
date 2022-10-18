@@ -8,12 +8,17 @@ const useUserStore = defineStore("userStore", () => {
 
   const tagSettings = ref({
     sortTags: false,
+    showTags: true,
   });
 
   const searchString = ref("");
   const searchRegEx = computed(() =>
     RegExp(useLooseSearch(searchString.value) || "", "gi")
   );
+
+  function toggleShowTags() {
+    tagSettings.value.showTags = !tagSettings.value.showTags;
+  }
 
   function toggleSortTags() {
     tagSettings.value.sortTags = !tagSettings.value.sortTags;
@@ -35,10 +40,11 @@ const useUserStore = defineStore("userStore", () => {
   function toggleFavoriteResource(id: string) {
     const isAlreadyFavorite = favoriteResources.value.indexOf(id) !== -1;
     if (isAlreadyFavorite) removeFavoriteResource(id);
-    else addFavoriteResource(id);
+  else addFavoriteResource(id);
   }
   return {
     tagSettings,
+    toggleShowTags,
     toggleSortTags,
     searchString,
     updateSearchString,
