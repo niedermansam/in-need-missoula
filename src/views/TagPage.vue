@@ -39,15 +39,16 @@ export default defineComponent({
 </script>
 
 <template>
-  <div v-if="tagStore.getRelatedTags(selectedTag)">
+  <div v-if="tagStore.getRelatedTags(selectedTag)" class="grid" style="grid-template-columns: max-content 1fr">
+    <TagSelector :tagArray = "tagStore.getRelatedTags(selectedTag)"
+      class="relative w-fit" />
     <div class="tag-page">
-      <h1 class="text-3xl">{{tagStore.fromUrl(selectedTag)}}</h1>
-    </div>
-    <TagSelector :tagArray = "tagStore.getRelatedTags(selectedTag)" />
+      <h1 class="text-3xl p-3">{{tagStore.fromUrl(selectedTag)}}</h1>
     <h3 v-if="resourceStore.loading">Loading...</h3>
     <h3 v-if="!resourceStore.loading && resourceStore.error">
       {{ resourceStore.error }}
     </h3>
+    <div class="resourceStore w-full">
     <TransitionGroup
       tag="div"
       name="fade"
@@ -61,6 +62,8 @@ export default defineComponent({
         :resource="resource"
       />
     </TransitionGroup>
+  </div>
+    </div>
   </div>
 </template>
 
