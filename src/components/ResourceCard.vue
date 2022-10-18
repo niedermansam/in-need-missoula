@@ -76,11 +76,11 @@ export default {
 </script>
 
 <template>
-  <div v-if="!isFilteredTag.value" :class="`card resource-card`">
-    <div v-if="resource" class="card-body">
-      <span style="display: flex; justify-content: flex-start">
+  <div v-if="!isFilteredTag.value" class="w-2/5">
+    <div v-if="resource" class="border p-3 rounded h-auto w-full flex flex-col">
+      <span class="flex items-center mb-2">
         <bIconStarFill
-          class="favorite-resource-button"
+          class="my-0 mr-1"
           :style="`color: ${
             userStore.favoriteResources.indexOf(currentId) !== -1
               ? 'gold'
@@ -89,39 +89,30 @@ export default {
           @click="userStore.toggleFavoriteResource(currentId)"
         />
 
-        <h5 class="card-title">{{ resource.Name }}</h5>
+        <h5 class="text-lg">{{ resource.Name }}</h5>
+        <span class="ml-1 text-gray-500">
+          {{ categoryChipStyles(resource.Provides).emoji }}
+          {{ resource.Provides }}
+        </span>
       </span>
       <!-- Provides section-->
-      <p>Priority: {{ resource.priority }}</p>
-      <div class="flex-container">
-        <h6 class="provides-header">Provides:</h6>
-        <span
-          class="badge rounded-pill flex-container"
-          :style="{
-            backgroundColor: categoryChipStyles(resource.Provides).color,
-          }"
-        >
-          {{ resource.Provides }}
-          {{ categoryChipStyles(resource.Provides).emoji }}
-        </span>
-      </div>
+      <!-- <p>Priority: {{ resource.priority }}</p> -->
       <!-- Tags section-->
-      <div class="flex-container">
-        <p style="margin-bottom: 0;">
+      <div class="flex">
+        <p class="my-1 py-1 mr-2">
           Tags:
         </p>
         <div>
           <TagLinks :tagArr="tagArr" />
       </div>
       </div>
-      <p v-if="resource.Notes" class="card-text">
+      <p v-if="resource.Notes" class="card-text mb-3">
         {{ resource.Notes.slice(0, 200).replace(/ \w+$| $/i, "...") }}
       </p>
 
-      <div v-if="organizationStore.loaded && resource['Organizations']">
+      <div v-if="organizationStore.loaded && resource['Organizations']" class="mb-3">
         Get help from
         <router-link
-          style="margin: 5px"
           v-for="org in resource['Organizations']"
           :key="org"
           :to="'/organizations/' + org"
@@ -129,8 +120,8 @@ export default {
           {{ organizationStore.lookup[org].Name }}
         </router-link>
       </div>
-      <router-link :to="'/resource/' + resource.id">
-        <button class="btn btn-primary">More Information</button>
+      <router-link :to="'/resource/' + resource.id" class="mt-auto mb-0">
+        <button class="p-2 rounded bg-blue-500 hover:bg-blue-600 text-white">More Information</button>
       </router-link>
     </div>
   </div>

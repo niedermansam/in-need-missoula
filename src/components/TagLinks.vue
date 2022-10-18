@@ -14,6 +14,6 @@ export default defineComponent({
 </script>
 <template>
     <span v-for="tag in tagArr.values()">
-      <routerLink :to="`../tag/${tagStore.toUrl(tag)}`"><button class="btn btn-link btn-small tag-link">{{ tag }}</button></routerLink>
+      <routerLink :to="`../tag/${tagStore.toUrl(tag)}`"><button class="m-1 p-1 bg-gray-100 rounded">{{ tag }}</button></routerLink>
     </span>
 </template>

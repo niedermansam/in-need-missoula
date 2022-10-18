@@ -49,16 +49,16 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="home container">
-    <h1>Welcome to Need Help Missoula</h1>
+  <div class="home container p-2">
+    <h1 class="text-3xl">Welcome to Need Help Missoula</h1>
     <CategorySelector />
 
-    <p>
+    <p class="p-2">
       We hope to provide an accessible, easy to use portal to resources and
       organizations that help those in need in Missoula and Western Montana.
     </p>
-    <h2>How it's organized</h2>
-    <p>
+    <h2 class="p-2 text-2xl">How it's organized</h2>
+    <p class="p-2">
       The two main pages of this site are the Organizations page, and Resources
       page.
     </p>
@@ -68,11 +68,11 @@ export default defineComponent({
       aria-current="page"
       :to="{ name: 'resources' }"
     >
-      <h3>Resources</h3>
+      <h3 class="p-2 text-xl text-zinc-500 hover:text-blue-500">Resources</h3>
     </router-link>
 
-    <p>
-      The <a href="/#/resources">resources page</a> a filterable database of
+    <p class="p-2">
+      The <a href="/#/resources" class=" text-zinc-500 hover:text-blue-500">      resources page</a> a filterable database of
       different services, programs, mutual aid efforts, and more.
     </p>
 
@@ -81,11 +81,11 @@ export default defineComponent({
       aria-current="page"
       :to="{ name: 'organizations' }"
     >
-      <h3>Organizations</h3>
+      <h3 class="p-2 text-xl text-zinc-500 hover:text-blue-500">Organizations</h3>
     </router-link>
 
-    <p>
-      The <a href="/#/organizations">organizations page</a> is your source for
+    <p class="p-2">
+      The <a href="/#/organizations" class=" text-zinc-500 hover:text-blue-500">organizations page</a> is your source for
       information of different organizations in the Missoula area, where they
       get their funding, who they serve, and how to contact them.
     </p>

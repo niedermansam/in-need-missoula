@@ -64,18 +64,24 @@ export default defineComponent({
 
 <template>
   <div class="resource container" v-if="resource.value">
-    <h1>{{ resource.value.Name }}</h1>
+    <div  class="p-2">
+      <div class="flex items-center mb-2">
+      <h5 class="text-2xl">{{ resource.value.Name }}</h5>
 
-    <span
-      class="badge rounded-pill"
-      :style="{ backgroundColor: chipStyles(resource.value.Provides).color }"
-    >
-      {{ chipStyles(resource.value.Provides).emoji }}
-      {{ resource.value.Provides }}
-    </span>
+      <span class="ml-1 text-gray-500">
+        {{ chipStyles(resource.value.Provides).emoji }}
+        {{ resource.value.Provides }}
+      </span>
+    </div>
+    </div>
+    <div>
+    </div>
+
+    <div class="flex items-center">
+      <p class="m-2">Tags: </p>
     <TagLinks :tagArr="resource.value.Tags" />
-
-    <p class="card-text">
+    </div>
+    <p class="p-2">
       {{ resource.value.Notes }}
     </p>
     <div
@@ -89,9 +95,9 @@ export default defineComponent({
       />
     </div>
 
-    <a :href="resource.value.URL" target="_blank"><button class="btn btn-primary">Official Website</button></a>
+    <a :href="resource.value.URL" target="_blank"><button class="p-2 m-2 rounded bg-blue-200 hover:bg-blue-400 hover:text-white">Official Website</button></a>
     <span v-if="administeringOrg">
-    <RouterLink :to="`/organizations/${resource.value['Administering Org']}`"><button class="btn btn-primary">{{organizationStore.lookup[administeringOrg].Name}}</button></RouterLink>
+    <RouterLink :to="`/organizations/${resource.value['Administering Org']}`"><button class="p-2 rounded bg-blue-200 hover:bg-blue-400 hover:text-white">{{organizationStore.lookup[administeringOrg].Name}}</button></RouterLink>
     </span>
   </div>
 </template>

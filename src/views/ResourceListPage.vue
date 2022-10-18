@@ -35,28 +35,33 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="resourceStore">
-    <h1>Resources</h1>
-    <CategorySelector />
-    <TagSelector :tagArray="tagStore.activeCategoryTags" />
-    <div>
-      <h3 v-if="resourceStore.loading">Loading...</h3>
-      <h3 v-if="!resourceStore.loading && resourceStore.error">
-        {{ resourceStore.error }}
-      </h3>
-      <TransitionGroup
-        tag="div"
-        name="fade"
-        v-if="resourceStore.filteredArray"
-        class="resources-container"
-      >
-        <ResourceCard
-          v-for="resource in resourceStore.filteredArray"
-          style="margin: 5px"
-          :key="resource.id"
-          :resource="resource"
-        />
-      </TransitionGroup>
+  <div class="grid" style="grid-template-columns: max-content 1fr">
+    <TagSelector
+      class="relative w-fit"
+      :tagArray="tagStore.activeCategoryTags"
+    />
+    <div class="resourceStore w-full">
+      <h1 class="text-3xl p-2 ml-12">Resources</h1>
+      <CategorySelector class="justify-center text-center" />
+      <div>
+        <h3 v-if="resourceStore.loading">Loading...</h3>
+        <h3 v-if="!resourceStore.loading && resourceStore.error">
+          {{ resourceStore.error }}
+        </h3>
+        <TransitionGroup
+          tag="div"
+          name="fade"
+          v-if="resourceStore.filteredArray"
+          class="flex flex-wrap justify-start"
+        >
+          <ResourceCard
+            v-for="resource in resourceStore.filteredArray"
+            class="flex mx-auto my-3"
+            :key="resource.id"
+            :resource="resource"
+          />
+        </TransitionGroup>
+      </div>
     </div>
   </div>
 </template>

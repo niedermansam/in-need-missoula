@@ -43,7 +43,7 @@ export default defineComponent({
 <template>
   <div>
     <div class="search">
-      <h1>Search Results</h1>
+      <h1 class="text-3xl">Search Results</h1>
     </div>
     <h3 v-if="resourceStore.loading">Loading...</h3>
     <h3 v-if="!resourceStore.loading && resourceStore.error">

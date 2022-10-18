@@ -41,7 +41,7 @@ export default defineComponent({
 
 <template>
   <div class="resourceStore">
-    <h1>Favorite Resources</h1>
+    <h1 class="text-3xl p-2">Favorite Resources</h1>
     <div>
       <h3 v-if="resourceStore.loading">Loading...</h3>
       <h3 v-if="!resourceStore.loading && resourceStore.error">
@@ -57,12 +57,11 @@ export default defineComponent({
           v-for="resource in resourceStore.arr.filter(
             (x) => userStore.favoriteResources.indexOf(x.id) !== -1
           )"
-          style="margin: 5px"
           :key="resource.id"
           :resource="resource"
         />
       </TransitionGroup>
-      <p v-else>
+      <p class="p2 text-center text-md my-4" v-else>
         Select the star button on resources on the Resources Page to display
         them here.
       </p>

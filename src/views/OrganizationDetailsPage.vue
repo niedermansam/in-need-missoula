@@ -77,45 +77,45 @@ export default defineComponent({
 </script>
 
 <template>
-  <div v-if="organization" class="organization">
-    <h1>{{ organization.Name }}</h1>
-    <p v-if="organization.Phone">phone: {{organization.Phone}}</p>
-    <p v-if="organization.Email">email: {{organization.Email}}</p>
-    <p v-if="organization.URL">website: <a :href="organization.URL" target="_blank"> {{organization.URL}}</a></p>
+  <div v-if="organization" class="organization p-4">
+    <h1 class="text-3xl mb-3">{{ organization.Name }}</h1>
+    <p v-if="organization.Phone" class="p-1">phone: {{organization.Phone}}</p>
+    <p v-if="organization.Email" class="p-1">email: {{organization.Email}}</p>
+    <p v-if="organization.URL" class="p-1">website: <a :href="organization.URL" target="_blank"> {{organization.URL}}</a></p>
 
-    <div v-if="tagList.length > 0">
-    <p>Resource Tags:</p>
+    <div v-if="tagList.length" class="my-3 flex items-center" > 
+    <p class="text-lg7">Resource Tags:</p>
     <TagLinks :tagArr="tagList"/>
     </div>
 
-    <p class="card-text">
+    <p class="my-3">
       {{ organization.Notes }}
     </p>
 
     <div v-if="administersList.length > 0">
-    <h2>{{organization.Name}} offers the following resources:</h2>
+    <h2 class="text-xl">{{organization.Name}} offers the following resources:</h2>
     <div style="display:flex; flex-wrap: wrap;">
     <ResourceCard
           v-for="resource in administersList"
-          style="margin: 5px"
+          class="m-2"
           :key="resource.id"
           :resource="resource"
         />
     </div>
   </div>
     <div v-if="resourceList.length > 0">
-    <h2>{{organization.Name}} can help with:</h2>
+    <h2 class="text-xl">{{organization.Name}} can help with:</h2>
     <div style="display:flex; flex-wrap: wrap;">
     <ResourceCard
           v-for="resource in resourceList"
-          style="margin: 5px"
+          class="m-2"
           :key="resource.id"
           :resource="resource"
         />
     </div>
   </div>
 
-  <RouterLink to="/organizations/"><button class="btn btn-primary">See More Organizations</button></RouterLink>
+  <RouterLink to="/organizations/"><button class="p-2 rounded bg-blue-200 hover:bg-blue-400 hover:text-white">See More Organizations</button></RouterLink>
 
   </div>
 </template>

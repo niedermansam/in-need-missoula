@@ -31,7 +31,11 @@ export default defineComponent({
     const currentFocus = ref<TagStatus>(TagStatus.favorite);
 
     const buttonStyles = reactive({
-      background: "btn-light",
+      class: '',
+      background: "",
+      favorite: '',
+      lessFavorite: '',
+      filter: '',
       text: "grey",
     });
 
@@ -39,23 +43,35 @@ export default defineComponent({
       if (!tagStore.tagLookup[props.tag] || !tagStore.tagLookup[props.tag].status) return buttonStyles;
       switch (tagStore.tagLookup[props.tag].status) {
         case TagStatus.none:
-          buttonStyles.background = "btn-light";
-          buttonStyles.text = "grey";
+          buttonStyles.background = "bg-gray-50";
+          buttonStyles.favorite = "hover:bg-green-100";
+          buttonStyles.lessFavorite = "hover:bg-gray-100";
+          buttonStyles.filter = "hover:bg-red-100";
+          buttonStyles.text = "text-gray";
           break;
         case TagStatus.favorite:
-          buttonStyles.background = "btn-success";
-          buttonStyles.text = "white";
+          buttonStyles.background = "bg-green-600 hover:bg-green-500";
+          buttonStyles.favorite = "bg-green-600 hover:bg-green-500";
+          buttonStyles.lessFavorite = "bg-green-600 hover:bg-green-500";
+          buttonStyles.filter = "bg-green-600 hover:bg-green-500";
+          buttonStyles.text = "text-white";
           break;
         case TagStatus.filtered:
-          buttonStyles.background = "btn-danger";
-          buttonStyles.text = "white";
+          buttonStyles.background = "bg-red-500 hover:bg-red-400";
+          buttonStyles.favorite = "bg-red-500 hover:bg-red-400";
+          buttonStyles.lessFavorite = "bg-red-500 hover:bg-red-400";
+          buttonStyles.filter = "bg-red-500 hover:bg-red-400";
+          buttonStyles.text = "text-white";
           break;
         case TagStatus.lessInterested:
-          buttonStyles.background = "btn-secondary";
-          buttonStyles.text = "white";
+          buttonStyles.background = "bg-gray-400 hover:bg-gray-300";
+          buttonStyles.favorite = "bg-gray-400 hover:bg-gray-300";
+          buttonStyles.lessFavorite = "bg-gray-400 hover:bg-gray-300";
+          buttonStyles.filter = "bg-gray-400 hover:bg-gray-300";
+          buttonStyles.text = "text-white";
           break;
         default:
-          buttonStyles.background = "btn-light";
+          buttonStyles.background = "bg-gray-400";
           buttonStyles.text = "grey";
           break;
       }
@@ -142,7 +158,7 @@ export default defineComponent({
 
 <template>
   <div
-    class="btn-group tag-btn"
+    class="flex mx-3"
     role="group"
     ref="groupRef"
     @keydown.up="bumpPriority(tag)"
@@ -163,17 +179,18 @@ export default defineComponent({
       @keydown.left="focusFilter"
       tabIndex="0"
       ref="favoriteButton"
-      :class="`btn tag-utility-btn
-    ${getButtonStyles().background}`"
+      class="w-8 flex justify-center items-center rounded-l"
+      :class="`${getButtonStyles().favorite} ${getButtonStyles().text}`"
     >
-      <span v-if="tagStore.isFavorite(tag)"><BIconArrowBarDown /></span>
+      <span v-if="tagStore.isFavorite(tag)" ><BIconArrowBarDown /></span>
       <span v-else><BIconArrowUp /></span>
     </button>
 
     <button
       type="button"
+      class="self-stretch w-3/4"
       tabIndex="-1"
-      :class="`btn tag-main-btn ${getButtonStyles().background}`"
+      :class="`p-2  ${getButtonStyles().background} ${getButtonStyles().text}`"
       @click="tagStore.resetPriority(tag)"
     >
       {{ tag }}
@@ -186,7 +203,8 @@ export default defineComponent({
       @click="tagStore.togglelessInterested(tag)"
       @keydown.right="focusFilter"
       @keydown.left="focusFavorite"
-      :class="`btn tag-utility-btn ${getButtonStyles().background}`"
+      class="w-8 flex justify-center items-center"
+      :class="`${getButtonStyles().lessFavorite} ${getButtonStyles().text}`"
     >
       <span v-if="tagStore.isLessInterested(tag)"><BIconArrowBarUp /></span>
       <span v-else><BIconArrowDown /></span>
@@ -199,7 +217,8 @@ export default defineComponent({
       @click="tagStore.toggleFilter(tag)"
       @keydown.left="focusLessInterested"
       @keydown.right="focusFavorite"
-      :class="`btn tag-utility-btn ${getButtonStyles().background}`"
+      class="w-8 flex justify-center items-center rounded-r"
+      :class="`${getButtonStyles().filter} ${getButtonStyles().text}`"
     >
       <span v-if="tagStore.isFiltered(tag)"><BIconEye /></span>
       <span v-else><BIconXLg /></span>

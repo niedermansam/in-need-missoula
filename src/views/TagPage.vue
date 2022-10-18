@@ -41,7 +41,7 @@ export default defineComponent({
 <template>
   <div v-if="tagStore.getRelatedTags(selectedTag)">
     <div class="tag-page">
-      <h1>{{tagStore.fromUrl(selectedTag)}}</h1>
+      <h1 class="text-3xl">{{tagStore.fromUrl(selectedTag)}}</h1>
     </div>
     <TagSelector :tagArray = "tagStore.getRelatedTags(selectedTag)" />
     <h3 v-if="resourceStore.loading">Loading...</h3>

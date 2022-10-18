@@ -30,7 +30,7 @@ export default defineComponent({
 </script>
 <template>
   <div class="organizations">
-    <h1>Organizations</h1>
+    <h1 class="text-3xl">Organizations</h1>
     <CategorySelector />
     <div>
       <h3 v-if="orgStore.loading">Loading...</h3>

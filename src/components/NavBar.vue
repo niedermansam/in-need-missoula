@@ -27,40 +27,35 @@ export default defineComponent({
 </script>
 
 <template>
-  <nav class="navbar navbar-expand-lg bg-light">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Need Help Missoula</a>
+<div class="relative bg-white" style="grid-area: header;">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6">
+    <div class="flex items-center justify-between border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10">
+      <div class="flex justify-start lg:w-0 lg:flex-1">
+        <a href="#">
+          <img class="h-8 w-auto sm:h-10" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="">
+        </a>
+        <a class="self-center text-xl mx-2" href="#">Need Help Missoula</a>
+      </div>
+      <nav class="space-x-6 md:flex items-center">
+      <MainSearchBar class="" style="max-width: 300px" />
 
-      <MainSearchBar style="max-width: 300px" />
-      <!--
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarNavAltMarkup"
-        aria-controls="navbarNavAltMarkup"
-        aria-expanded="false"
-        aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">-->
-      <div class="navbar-nav">
         <router-link
-          class="nav-link"
+          class="text-base font-medium text-gray-500 hover:text-gray-900"
           aria-current="page"
           :to="{ name: 'organizations' }"
           >Organizations</router-link
         >
 
-        <router-link class="nav-link" :to="{ name: 'resources' }"
+        <router-link class="text-base font-medium text-gray-500 hover:text-gray-900" :to="{ name: 'resources' }"
           >Resources</router-link
         >
-        <router-link class="nav-link" :to="{ name: 'favorites' }"
+        <router-link class="text-base font-medium text-gray-500 hover:text-gray-900" :to="{ name: 'favorites' }"
           >Favorites</router-link
         >
-      </div>
-      <!--</div>-->
+
+      </nav>
     </div>
-  </nav>
+  </div>
+
+</div>
 </template>

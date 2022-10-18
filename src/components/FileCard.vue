@@ -20,22 +20,22 @@ export default {
 </script>
 
 <template>
-  <div class="card file-card" style="width: 35vw">
-    <div v-if="file && file.Attachments" class="thumb-holder">
+  <div class="border p-3 rounded file-card" style="width: 35vw">
+    <div v-if="file && file.Attachments" class="max-h-60 overflow-hidden">
       <img
         :src="file.Attachments[0].thumbnails.large.url"
-        class="card-img-top file-thumb"
+        class=""
         alt="..."
       />
     </div>
-    <div v-if="file" class="card-body">
-      <h5 class="card-title">{{ file.Name }}</h5>
+    <div v-if="file">
+      <h5 class="text-lg">{{ file.Name }}</h5>
 
-      <p class="card-text">
+      <p class="mb-2">
         {{ file.Description }}
       </p>
 
-      <button class="btn btn-primary">Open File</button>
+      <a :href="file.URL" target="_blank"><button class="bg-gray-200 p-1 rounded hover:bg-gray-100 hover:text-regal-blue">Open File</button></a>
     </div>
   </div>
 </template>

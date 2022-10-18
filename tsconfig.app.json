@@ -5,7 +5,8 @@
   "compilerOptions": {
     "target": "es5",
     "lib": [
-      "es2019"
+      "es2019",
+      "dom"
     ],
     "composite": true,
     "baseUrl": ".",

@@ -27,16 +27,16 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="input-group mb-3">
+  <div class="flex">
     <input
       ref="inputBar"
       @input="handleInput"
       type="search"
-      class="form-control"
+      class="border rounded-l"
       aria-label="Search Form"
     />
     <router-link :to="`/search/?q=${searchText}`">
-      <button type="button" class="input-group-text btn btn-outline-secondary">
+      <button type="button" class="border p-2 rounded-r hover:bg-gray-400 hover:text-white">
         <BIconSearch />
       </button>
     </router-link>

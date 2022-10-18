@@ -1,11 +1,13 @@
 <script lang="ts">
-import { defineComponent, TransitionGroup } from "vue";
+import { defineComponent, ref, TransitionGroup } from "vue";
 import type { PropType } from "vue";
 import { useTagStore, useResourceStore, useUserStore } from "@/store";
 import {
   BIconArrowDownUp,
   BIconLock,
   BIconArrowRepeat,
+  BIconXLg,
+  BIconFunnel,
 } from "bootstrap-icons-vue";
 import TagButton from "@/components/TagButton.vue";
 
@@ -18,7 +20,9 @@ export default defineComponent({
     TransitionGroup,
     BIconArrowDownUp,
     BIconLock,
+    BIconXLg,
     BIconArrowRepeat,
+    BIconFunnel,
   },
   setup() {
     const resourceStore = useResourceStore();
@@ -41,68 +45,74 @@ export default defineComponent({
       return tagB - tagA;
     }
 
-    return { sortTagList, userStore, tagStore };
+    const isOpen = ref(true);
+
+    return { sortTagList, userStore, tagStore, isOpen };
   },
 });
 </script>
 
 <template>
-  <div v-if="tagArray" class="accordion accordion-flush" id="tag-filter-menu">
-    <div class="accordion-item">
-      <h2 class="accordion-header" id="flush-headingOne">
-        <button
-          class="accordion-button collapsed"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#flush-collapseOne"
-          aria-expanded="false"
-          aria-controls="flush-collapseOne"
-        >
-          Tags
-        </button>
-      </h2>
-      <div
-        id="flush-collapseOne"
-        class="accordion-collapse collapse"
-        aria-labelledby="flush-headingOne"
-        data-bs-parent="#accordionFlushExample"
+  <div class="overflow-y-auto overflow-x-visible sticky top-0" style="height: 95vh; ">
+  <button 
+  class="p-3 bg-gray-100 sticky top-8 rounded-r-md flex items-center align-middle shadow-md border hover:bg-gray-300 ease-in-out transition-all duration-300 "
+  :class="isOpen ? 'translate-x-0' : '-translate-x-full scale-0 p-0 h-0'"
+  @click="isOpen = !isOpen">
+  <BIconFunnel class="m-1" />
+  Tags 
+  </button>
+  <aside
+    v-if="tagArray"
+    class="transform w-64 overflow-y-auto overflow-x-hidden bg-white ease-in-out transition-all duration-300 z-30 rounded-r border-r shadow"
+    id="tag-filter-menu"
+    :class="isOpen ? 'w-0 h-0' : 'w-full'"
+  >
+  <div class="sticky top-0 left-0 bg-white overflow-y-scroll w-64 "></div>
+    <button 
+    class="w-full flex justify-center py-2 bg-red-500 mb-2 text-white text-lg hover:bg-red-300 sticky top-0 z-10"
+    @click="isOpen = !isOpen">
+      <BIconXLg />
+    </button>
+    <div class="flex justify-center mb-2 sticky top-8 bg-white z-10 shadow-sm py-2">
+      <button
+        @click="tagStore.resetPriorityAll"
+        type="button"
+        class="flex border p-2 rounded items-center text-gray-500 mr-6"
       >
-        <div class="accordion-body">
-          <button
-            @click="tagStore.resetPriorityAll"
-            type="button"
-            class="btn btn-outline-secondary"
-          >
-            <BIconArrowRepeat />
-            Reset Tags
-          </button>
+        <BIconArrowRepeat />
+        Reset Tags
+      </button>
 
-          <button
-            @click="userStore.toggleSortTags"
-            type="button"
-            class="btn btn-outline-secondary"
-          >
-            <BIconArrowDownUp v-if="!userStore.tagSettings.sortTags" />
-            <BIconLock v-else />
-            {{ userStore.tagSettings.sortTags ? "Lock Tags" : "Sort Tags" }}
-          </button>
-          <div class="tag-container" :style="`--n-tags: ${tagArray.length}`">
-            <TransitionGroup
-              tag="div"
-              name="fade"
-              class="tag-container"
-              v-if="tagArray[0]"
-            >
-              <TagButton
-                v-for="tag in tagArray"
-                :key="tag || 'tag'"
-                :tag="tag"
-              />
-            </TransitionGroup>
-          </div>
-        </div>
-      </div>
+      <button
+        @click="userStore.toggleSortTags"
+        type="button"
+        class="flex border p-2 rounded items-center text-gray-500"
+      >
+        <span class="mr-2">
+          <BIconArrowDownUp v-if="!userStore.tagSettings.sortTags" />
+          <BIconLock v-else />
+        </span>
+        <span>
+          {{ userStore.tagSettings.sortTags ? "Lock Tags" : "Sort Tags" }}
+        </span>
+      </button>
     </div>
+    <div >
+      <TransitionGroup
+        tag="div"
+        name="fade"
+        class="flex flex-col item-self-stretch justify-items-stretch"
+        v-if="tagArray[0]"
+      >
+        <TagButton
+          v-for="tag in tagArray"
+          class="flex justify-self-stretch self-stretch my-1"
+          :key="tag || 'tag'"
+          :tag="tag"
+        />
+      </TransitionGroup>
+    </div>
+  </aside>
   </div>
 </template>
 
