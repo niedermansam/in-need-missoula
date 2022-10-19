@@ -53,22 +53,11 @@ export default defineComponent({
 </script>
 
 <template>
+
   <div
     class="overflow-y-auto overflow-x-visible sticky top-0"
-    style="height: 95vh"
+    style="height: 95vh;"
   >
-    <button
-      class="p-3 bg-gray-100 sticky top-8 rounded-r-md flex items-center align-middle shadow-md border hover:bg-gray-300 ease-in-out transition-all duration-300"
-      :class="
-        userStore.tagSettings.showTags
-          ? 'translate-x-0'
-          : '-translate-x-full scale-0 p-0 h-0'
-      "
-      @click="userStore.toggleShowTags"
-    >
-      <BIconFunnel class="m-1" />
-      Tags
-    </button>
     <aside
       v-if="tagArray"
       class="transform w-64 overflow-y-auto overflow-x-hidden bg-white ease-in-out transition-all duration-300 z-30 rounded-r border-r shadow"

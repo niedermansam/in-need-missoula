@@ -36,7 +36,7 @@ export const categoryChipStyles = (provides: string, opacity?: number) => {
       return {
         class: "text-white bg-blue-500 hover:bg-blue-600",
         color: "blue",
-        emoji: "",
+        emoji: "🤝",
       };
   }
 };

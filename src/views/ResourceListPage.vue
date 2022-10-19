@@ -5,8 +5,10 @@ import {
   useOrganizationStore,
   useCategoryStore,
   useTagStore,
+useUserStore,
 } from "../store";
 import { CategorySelector, TagSelector, ResourceCard } from "../components";
+import TagMenuToggle from "../components/TagMenuToggle.vue";
 
 export default defineComponent({
   name: "ResourcesView",
@@ -15,11 +17,13 @@ export default defineComponent({
     CategorySelector,
     TagSelector,
     TransitionGroup,
-  },
+    TagMenuToggle
+},
   setup() {
     const resourceStore = useResourceStore();
     const organizationStore = useOrganizationStore();
     const tagStore = useTagStore();
+    const userStore = useUserStore();
 
     async function loadAllData() {
       await organizationStore.loadData();
@@ -29,13 +33,15 @@ export default defineComponent({
 
     const categoryFilters = useCategoryStore();
 
-    return { resourceStore, categoryFilters, tagStore };
+    return { resourceStore, categoryFilters, tagStore, userStore, };
   },
 });
 </script>
 
 <template>
-  <div class="grid" style="grid-template-columns: max-content 1fr">
+  
+<TagMenuToggle />
+  <div class="grid" style="grid-template-columns: max-content 1fr; grid-template-rows: auto;">
     <TagSelector
       class="relative w-fit"
       :tagArray="tagStore.activeCategoryTags"

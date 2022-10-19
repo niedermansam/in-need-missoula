@@ -1,6 +1,6 @@
 <script lang="ts">
 import { useResourceStore, useTagStore } from "../store";
-import { ResourceCard } from "../components";
+import { ResourceCard, TagMenuToggle } from "../components";
 import { defineComponent, ref, watch } from "vue";
 import { useRoute } from "vue-router";
 import TagSelector from "../components/TagSelector.vue";
@@ -10,6 +10,7 @@ export default defineComponent({
   components: {
     ResourceCard,
     TagSelector,
+    TagMenuToggle,
   },
   setup() {
     const $route = useRoute();
@@ -40,6 +41,7 @@ export default defineComponent({
 </script>
 
 <template>
+  <TagMenuToggle />
   <div
     v-if="tagStore.getRelatedTags(selectedTag)"
     class="grid"
