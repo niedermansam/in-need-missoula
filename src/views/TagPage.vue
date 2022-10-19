@@ -1,9 +1,8 @@
 <script lang="ts">
 import { useResourceStore, useTagStore } from "../store";
-import { ResourceCard, TagMenuToggle } from "../components";
+import { ResourceCard, TagMenuToggle, TagSelector } from "../components";
 import { defineComponent, ref, watch } from "vue";
 import { useRoute } from "vue-router";
-import TagSelector from "../components/TagSelector.vue";
 
 export default defineComponent({
   name: "TagPage",
