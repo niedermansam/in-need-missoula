@@ -5,6 +5,7 @@ import NavLinks from "./NavLinks.vue";
 import { BIconList } from "bootstrap-icons-vue";
 
 const mobileMenuOpen = ref(false);
+const handleLinkClick = () => mobileMenuOpen.value = false
 </script>
 
 <template>
@@ -15,13 +16,13 @@ const mobileMenuOpen = ref(false);
       >
         <div class="flex justify-start lg:w-0 lg:flex-1">
           <a href="#">
-            <img class="h-8 w-auto sm:h-10" src="../assets/logo.png" alt="" />
+            <img class="h-8 w-auto sm:h-10" src="@/assets/logo.png" alt="" />
           </a>
           <a class="self-center text-xl mx-2" href="#">Need Help Missoula</a>
         </div>
         <div class="flex items-center">
         <button 
-          class="p-2 bg-gray-100 hover:bg-gray-300 border rounded block sm:hidden"
+          class="mobile-menu-toggle"
           @click="mobileMenuOpen = !mobileMenuOpen">
           <BIconList class="text-2xl text-gray-600" />
         </button>
@@ -32,13 +33,23 @@ const mobileMenuOpen = ref(false);
   </div>
         <Transition name="expand">
         <NavLinks 
-          class="flex flex-col mr-5 fixed right-0 bg-white sm:hidden rounded-b-lg border"
-          v-if="mobileMenuOpen"/>
+          class="mobile-menu"
+          v-model="mobileMenuOpen"
+          v-if="mobileMenuOpen"
+          @toggle="handleLinkClick"/>
         </Transition>
   </div>
 </template>
 
 <style scoped>
+.mobile-menu-toggle {
+  @apply p-2 hover:bg-gray-100 border rounded block sm:hidden;
+}
+
+.mobile-menu {
+  @apply flex flex-col mr-5 fixed right-0 bg-white sm:hidden rounded-b-lg border;
+}
+
 /* 1. declare transition */
 .expand-move,
 .expand-enter-active,
