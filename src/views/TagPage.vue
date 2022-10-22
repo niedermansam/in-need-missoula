@@ -1,8 +1,10 @@
 <script lang="ts">
 import { useResourceStore, useTagStore } from "../store";
-import { ResourceCard, TagMenuToggle, TagSelector } from "../components";
+import { PageHeader, ResourceCard, TagMenuToggle, TagSelector } from "../components";
 import { defineComponent, ref, watch } from "vue";
 import { useRoute } from "vue-router";
+import resourceStore from "@/store/resourceStore";
+import tagStore from "@/store/tagStore";
 
 export default defineComponent({
   name: "TagPage",
@@ -10,6 +12,7 @@ export default defineComponent({
     ResourceCard,
     TagSelector,
     TagMenuToggle,
+    PageHeader,
   },
   setup() {
     const $route = useRoute();
@@ -51,7 +54,7 @@ export default defineComponent({
       class="relative w-fit"
     />
     <div class="tag-page">
-      <h1 class="text-3xl p-3">{{ tagStore.fromUrl(selectedTag) }}</h1>
+      <PageHeader>{{ tagStore.fromUrl(selectedTag) }}</PageHeader>
       <h3 v-if="resourceStore.loading">Loading...</h3>
       <h3 v-if="!resourceStore.loading && resourceStore.error">
         {{ resourceStore.error }}

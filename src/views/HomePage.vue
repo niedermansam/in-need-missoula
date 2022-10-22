@@ -12,12 +12,13 @@ import type { Provides } from "../schemas/index";
 
 import { onlyUnique } from "../hooks/index";
 
-import { CategorySelector } from "../components/index";
+import { CategorySelector, PageHeader } from "../components";
 
 export default defineComponent({
   components: {
     CategorySelector,
-  },
+    PageHeader
+},
   setup() {
     const resourceStore = useResourceStore();
     const orgStore = useOrganizationStore();
@@ -49,8 +50,8 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="home container p-2">
-    <h1 class="text-3xl">Welcome to Need Help Missoula</h1>
+  <div class="home container p-2 w-full">
+    <PageHeader>Welcome to Need Help Missoula</PageHeader>
 
     <p class="p-2">
       

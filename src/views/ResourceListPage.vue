@@ -8,7 +8,8 @@ import {
 useUserStore,
 } from "../store";
 import { CategorySelector, TagSelector, ResourceCard } from "../components";
-import TagMenuToggle from "../components/TagMenuToggle.vue";
+import TagMenuToggle from "../components/Menu/TagMenuToggle.vue";
+import PageHeader from "../components/PageHeader.vue";
 
 export default defineComponent({
   name: "ResourcesView",
@@ -17,7 +18,8 @@ export default defineComponent({
     CategorySelector,
     TagSelector,
     TransitionGroup,
-    TagMenuToggle
+    TagMenuToggle,
+    PageHeader
 },
   setup() {
     const resourceStore = useResourceStore();
@@ -46,14 +48,14 @@ export default defineComponent({
       :tagArray="tagStore.activeCategoryTags"
     />
     <div class="resourceStore w-full">
-      <h1 class="text-3xl font-semibold p-4 ml-12 text-center">Resources</h1>
+      <PageHeader>Resources</PageHeader>
       <CategorySelector class="justify-center text-center" />
       <div>
         <h3 v-if="resourceStore.loading">Loading...</h3>
         <div v-if="!resourceStore.loading && resourceStore.error && !resourceStore.dataLoaded" class="text-center">
-          <h2 class="text-lg text-red-500">Sorry, something went wrong.</h2> 
-          <p>You probably just caught our server sleeping (it gets a bit grumpy when it first wakes up).</p>
-          <h2>Please refresh your browser</h2>
+          <h2 class="text-xl text-red-500">Sorry, something went wrong.</h2> 
+          <p class="text-gray-600">You probably just caught our server sleeping (it gets a bit grumpy when it first wakes up).</p>
+          <h2 class="text-xl">Please wait a few seconds, then refresh your browser.</h2>
         </div>
         <TransitionGroup
           tag="div"

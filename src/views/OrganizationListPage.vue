@@ -5,12 +5,13 @@ import {
   useResourceStore,
   useCategoryStore,
 } from "../store/index";
-import { CategorySelector, OrganizationCard } from "../components/index";
+import { CategorySelector, OrganizationCard, PageHeader } from "../components";
 
 export default defineComponent({
   components: {
     OrganizationCard,
     CategorySelector,
+    PageHeader,
   },
   setup() {
     const catStore = useCategoryStore();
@@ -30,7 +31,7 @@ export default defineComponent({
 </script>
 <template>
   <div class="organizations">
-    <h1 class="text-3xl">Organizations</h1>
+    <PageHeader>Organizations</PageHeader>
     <CategorySelector />
     <div>
       <h3 v-if="orgStore.loading">Loading...</h3>

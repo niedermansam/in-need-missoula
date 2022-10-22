@@ -1,6 +1,6 @@
 <script lang="ts">
 import { useOrganizationStore, useResourceStore, useUserStore } from "../store";
-import { ResourceCard } from "../components";
+import { PageHeader, ResourceCard } from "../components";
 import { defineComponent, ref } from "vue";
 import { useRoute } from "vue-router";
 
@@ -8,6 +8,7 @@ export default defineComponent({
   name: "SearchPage",
   components: {
     ResourceCard,
+    PageHeader
   },
   props: {
     q: { type: String },
@@ -43,7 +44,7 @@ export default defineComponent({
 <template>
   <div>
     <div class="search">
-      <h1 class="text-3xl">Search Results</h1>
+      <PageHeader>Search Results</PageHeader>
     </div>
     <h3 v-if="resourceStore.loading">Loading...</h3>
     <h3 v-if="!resourceStore.loading && resourceStore.error">

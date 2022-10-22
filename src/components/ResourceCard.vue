@@ -5,7 +5,7 @@ import type { ResourceSchema } from "@/schemas";
 import { categoryChipStyles } from "@/hooks";
 import { useOrganizationStore, useTagStore, useUserStore } from "@/store";
 import { BIconStarFill } from "bootstrap-icons-vue";
-import TagLinks from "./TagLinks.vue";
+import TagLinks from "./Tags/TagLinks.vue";
 // import { LayoutPlugin } from 'bootrap-vue';
 
 export default {

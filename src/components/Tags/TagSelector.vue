@@ -9,7 +9,7 @@ import {
   BIconXLg,
   BIconFunnel,
 } from "bootstrap-icons-vue";
-import TagButton from "@/components/TagButton.vue";
+import TagButton from "@/components/Tags/TagButton.vue";
 
 export default defineComponent({
   props: {

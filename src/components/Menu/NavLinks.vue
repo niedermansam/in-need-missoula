@@ -7,7 +7,6 @@
           <MainSearchBar style="max-width: 300px" />
           <router-link
             :class="linkStyle"
-            aria-current="page"
             :to="{ name: 'organizations' }"
             >Organizations</router-link
           >

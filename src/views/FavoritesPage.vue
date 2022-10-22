@@ -7,13 +7,14 @@ import {
   useTagStore,
   useUserStore,
 } from "@/store";
-import { ResourceCard } from "@/components";
+import { ResourceCard, PageHeader } from "@/components";
 
 export default defineComponent({
   name: "FavoritesView",
   components: {
     ResourceCard,
     TransitionGroup,
+    PageHeader,
   },
   setup() {
     const resourceStore = useResourceStore();
@@ -41,7 +42,7 @@ export default defineComponent({
 
 <template>
   <div class="resourceStore">
-    <h1 class="text-3xl p-2">Favorite Resources</h1>
+      <PageHeader>Favorites</PageHeader>
     <div>
       <h3 v-if="resourceStore.loading">Loading...</h3>
       <h3 v-if="!resourceStore.loading && resourceStore.error">

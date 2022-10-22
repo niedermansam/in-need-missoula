@@ -6,7 +6,7 @@ import { useRoute } from "vue-router";
 import type { ResourceSchema } from "@/schemas";
 import { ResourceCard } from "@/components";
 import { onlyUnique } from "@/hooks";
-import TagLinks from "../components/TagLinks.vue";
+import TagLinks from "../components/Tags/TagLinks.vue";
 
 export default defineComponent({
   props: {
