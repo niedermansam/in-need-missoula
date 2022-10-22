@@ -1,16 +1,10 @@
-<script lang="ts">
-import { defineComponent, ref, Transition } from "vue";
-import MainSearchBar from "@/components/MainSearchBar.vue";
+<script lang="ts" setup>
+import { ref, Transition } from "vue";
+// import MainSearchBar from "@/components/MainSearchBar.vue";
 import NavLinks from "./NavLinks.vue";
 import { BIconList } from "bootstrap-icons-vue";
 
-export default defineComponent({
-  components: { MainSearchBar, NavLinks, BIconList, Transition },
-  setup() {
-    const mobileMenuOpen = ref(false);
-    return { mobileMenuOpen }
-  }
-});
+const mobileMenuOpen = ref(false);
 </script>
 
 <template>
@@ -27,7 +21,7 @@ export default defineComponent({
         </div>
         <div class="flex items-center">
         <button 
-          class="p-2 hover:bg-gray-300 rounded block sm:hidden"
+          class="p-2 bg-gray-100 hover:bg-gray-300 border rounded block sm:hidden"
           @click="mobileMenuOpen = !mobileMenuOpen">
           <BIconList class="text-2xl text-gray-600" />
         </button>

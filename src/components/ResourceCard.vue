@@ -75,18 +75,24 @@ export default {
 <template>
   <div v-if="!isFilteredTag.value" class="w-full m-3 md:w-2/5 lg:w-1/3">
     <div v-if="resource" class="border p-3 m-3 rounded h-auto w-full flex flex-col">
-      <span class="flex items-center mb-2">
+      <span class="flex items-stretch mb-2">
+        <button
+          @click="userStore.toggleFavoriteResource(currentId)"
+          class="w-8">
         <bIconStarFill
-          class="my-0 mr-1"
+          class="my-0 mr-1 p-1 w-6 h-6"
           :style="`color: ${
             userStore.favoriteResources.indexOf(currentId) !== -1
               ? 'gold'
               : 'grey'
           }`"
-          @click="userStore.toggleFavoriteResource(currentId)"
         />
-
-        <h5 class="text-lg">{{ resource.Name }}</h5>
+        </button>
+      <router-link :to="'/resources/' + resource.id" class="mt-auto mb-0 hover:text-slate-600">
+        <h5 class="text-lg">
+          {{ resource.Name }}
+        </h5>
+      </router-link>
         <div class="ml-1 text-gray-500 flex">
           {{ categoryChipStyles(resource.Provides).emoji }}
           {{ resource.Provides }}
@@ -118,7 +124,7 @@ export default {
           {{ organizationStore.lookup[org].Name }}
         </router-link>
       </div>
-      <router-link :to="'/resource/' + resource.id" class="mt-auto mb-0">
+      <router-link :to="'/resources/' + resource.id" class="mt-auto mb-0">
         <button class="p-2 rounded bg-blue-500 hover:bg-blue-600 text-white">
           More Information
         </button>

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-    const linkStyle = "text-base font-medium text-gray-500 px-4 py-3 border-b w-full text-right hover:text-gray-700 hover:bg-gray-50";
+    const linkStyle = "text-base font-medium text-gray-500 px-4 py-3 sm:p-1 border-b sm:border-none w-full text-right hover:text-gray-700 hover:bg-gray-50 sm:hover:bg-white";
 </script>
 <template>
     <nav 
@@ -24,3 +24,9 @@
           >
         </nav>
 </template>
+
+<style scoped>
+.active-link {
+    font-weight: 600;
+}
+</style>

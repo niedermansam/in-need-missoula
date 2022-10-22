@@ -6551,7 +6551,7 @@ function Pf(e, t, n, r, o, s) {
                 : ee("", !0),
               H(
                 a,
-                { to: "/resource/" + n.resource.id, class: "mt-auto mb-0" },
+                { to: "/resources/" + n.resource.id, class: "mt-auto mb-0" },
                 { default: ke(() => [Rf]), _: 1 },
                 8,
                 ["to"]

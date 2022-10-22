@@ -51,6 +51,10 @@ export default defineComponent({
 <template>
   <div class="home container p-2">
     <h1 class="text-3xl">Welcome to Need Help Missoula</h1>
+
+    <p class="p-2">
+      
+    </p>
     <CategorySelector />
 
     <p class="p-2">

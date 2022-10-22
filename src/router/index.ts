@@ -31,7 +31,7 @@ const routes: Array<RouteRecordRaw> = [
     component: ResourceList,
   },
   {
-    path: "/resource/:id",
+    path: "/resources/:id",
     name: "resource-details",
     component: ResourceDetails,
   },
@@ -54,6 +54,8 @@ const routes: Array<RouteRecordRaw> = [
 
 const router = createRouter({
   history: createWebHashHistory(),
+  linkActiveClass: 'active-link',
+  linkExactActiveClass: 'exact-active-link',
   routes,
 });
 
