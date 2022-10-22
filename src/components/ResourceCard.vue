@@ -73,8 +73,8 @@ export default {
 </script>
 
 <template>
-  <div v-if="!isFilteredTag.value" class="w-2/5">
-    <div v-if="resource" class="border p-3 rounded h-auto w-full flex flex-col">
+  <div v-if="!isFilteredTag.value" class="w-full m-3 md:w-2/5 lg:w-1/3">
+    <div v-if="resource" class="border p-3 m-3 rounded h-auto w-full flex flex-col">
       <span class="flex items-center mb-2">
         <bIconStarFill
           class="my-0 mr-1"
@@ -87,10 +87,10 @@ export default {
         />
 
         <h5 class="text-lg">{{ resource.Name }}</h5>
-        <span class="ml-1 text-gray-500">
+        <div class="ml-1 text-gray-500 flex">
           {{ categoryChipStyles(resource.Provides).emoji }}
           {{ resource.Provides }}
-        </span>
+        </div>
       </span>
       <!-- Provides section-->
       <!-- <p>Priority: {{ resource.priority }}</p> -->

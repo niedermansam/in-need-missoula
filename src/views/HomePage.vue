@@ -68,7 +68,7 @@ export default defineComponent({
       aria-current="page"
       :to="{ name: 'resources' }"
     >
-      <h3 class="p-2 text-xl text-zinc-500 hover:text-blue-500">Resources</h3>
+      <h3 class="p-2 text-2xl text-zinc-500 hover:text-blue-500">Resources</h3>
     </router-link>
 
     <p class="p-2">
@@ -85,7 +85,7 @@ export default defineComponent({
       aria-current="page"
       :to="{ name: 'organizations' }"
     >
-      <h3 class="p-2 text-xl text-zinc-500 hover:text-blue-500">
+      <h3 class="p-2 text-2xl text-zinc-500 hover:text-blue-500">
         Organizations
       </h3>
     </router-link>

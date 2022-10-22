@@ -39,21 +39,22 @@ export default defineComponent({
 </script>
 
 <template>
-  
-<TagMenuToggle />
+  <TagMenuToggle />
   <div class="grid" style="grid-template-columns: max-content 1fr; grid-template-rows: auto;">
     <TagSelector
       class="relative w-fit"
       :tagArray="tagStore.activeCategoryTags"
     />
     <div class="resourceStore w-full">
-      <h1 class="text-3xl p-2 ml-12">Resources</h1>
+      <h1 class="text-3xl font-semibold p-4 ml-12 text-center">Resources</h1>
       <CategorySelector class="justify-center text-center" />
       <div>
         <h3 v-if="resourceStore.loading">Loading...</h3>
-        <h3 v-if="!resourceStore.loading && resourceStore.error">
-          {{ resourceStore.error }}
-        </h3>
+        <div v-if="!resourceStore.loading && resourceStore.error && !resourceStore.dataLoaded" class="text-center">
+          <h2 class="text-lg text-red-500">Sorry, something went wrong.</h2> 
+          <p>You probably just caught our server sleeping (it gets a bit grumpy when it first wakes up).</p>
+          <h2>Please refresh your browser</h2>
+        </div>
         <TransitionGroup
           tag="div"
           name="fade"
@@ -68,6 +69,7 @@ export default defineComponent({
           />
         </TransitionGroup>
       </div>
+      <p v-if="resourceStore.dataLoaded"></p>
     </div>
   </div>
 </template>
