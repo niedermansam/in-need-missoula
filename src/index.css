@@ -3,4 +3,9 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+    .btn {
+        @apply p-2 m-2 rounded;
+  }
+}
 html, body {height:100%;overflow:auto};
