@@ -4,8 +4,8 @@ import {
   useOrganizationStore,
   useResourceStore,
   useCategoryStore,
-} from "../store/index";
-import { CategorySelector, OrganizationCard, PageHeader } from "../components";
+} from "@/store";
+import { CategorySelector, OrganizationCard, PageHeader } from "@/components";
 
 export default defineComponent({
   components: {

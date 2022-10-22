@@ -1,6 +1,6 @@
 <script lang="ts">
-import { useOrganizationStore, useResourceStore, useUserStore } from "../store";
-import { PageHeader, ResourceCard } from "../components";
+import { useOrganizationStore, useResourceStore, useUserStore } from "@/store";
+import { PageHeader, ResourceCard } from "@/components";
 import { defineComponent, ref } from "vue";
 import { useRoute } from "vue-router";
 

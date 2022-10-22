@@ -1,10 +1,10 @@
-import onlyUnique from "@/hooks/onlyUnique";
+import{ onlyUnique } from "@/hooks";
 import type { TagArray, TagLookupInterface } from "@/schemas";
-import { TagStatus } from "../schemas";
+import { TagStatus } from "@/schemas";
 import { TagPriority } from "@/schemas/TagSchemas";
 import { defineStore } from "pinia";
 import { computed, ref } from "vue";
-import { useCategoryStore, useResourceStore, useUserStore } from './index'; // eslint-disable-line
+import { useCategoryStore, useResourceStore, useUserStore } from '@/store'; // eslint-disable-line
 
 enum SpliceUtils { // eslint-disable-line
   deleteNone = 0,

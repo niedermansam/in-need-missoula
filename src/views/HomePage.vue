@@ -6,13 +6,13 @@ import {
   useResourceStore,
   useCategoryStore,
   useTagStore,
-} from "../store/index";
+} from "@/store";
 
-import type { Provides } from "../schemas/index";
+import type { Provides } from "@/schemas";
 
-import { onlyUnique } from "../hooks/index";
+import { onlyUnique } from "@/hooks";
 
-import { CategorySelector, PageHeader } from "../components";
+import { CategorySelector, PageHeader } from "@/components";
 
 export default defineComponent({
   components: {

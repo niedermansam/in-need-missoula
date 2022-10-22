@@ -1,12 +1,11 @@
 <script lang="ts">
-import { categoryChipStyles } from "../hooks/categoryHooks";
-import { useOrganizationStore, useResourceStore } from "../store/index";
+import { categoryChipStyles } from "@/hooks";
+import { useOrganizationStore, useResourceStore } from "@/store";
 import { defineComponent, ref, watch } from "vue";
 import { useRoute } from "vue-router";
 import type { ResourceSchema } from "@/schemas";
-import { ResourceCard } from "@/components";
+import { ResourceCard, TagLinks } from "@/components";
 import { onlyUnique } from "@/hooks";
-import TagLinks from "../components/Tags/TagLinks.vue";
 
 export default defineComponent({
   props: {

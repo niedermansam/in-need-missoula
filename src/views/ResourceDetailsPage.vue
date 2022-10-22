@@ -2,9 +2,9 @@
 import { defineComponent, reactive, ref } from "vue";
 import { useRoute } from "vue-router";
 
-import { FileCard, TagLinks } from "../components";
-import { categoryChipStyles } from "../hooks";
-import { useResourceStore, useFileStore, useOrganizationStore } from "../store";
+import { FileCard, TagLinks } from "@/components";
+import { categoryChipStyles } from "@/hooks";
+import { useResourceStore, useFileStore, useOrganizationStore } from "@/store";
 
 export default defineComponent({
   components: { FileCard, TagLinks },

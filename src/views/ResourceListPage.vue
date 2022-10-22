@@ -6,10 +6,8 @@ import {
   useCategoryStore,
   useTagStore,
 useUserStore,
-} from "../store";
-import { CategorySelector, TagSelector, ResourceCard } from "../components";
-import TagMenuToggle from "../components/Menu/TagMenuToggle.vue";
-import PageHeader from "../components/PageHeader.vue";
+} from "@/store";
+import { CategorySelector, TagSelector, ResourceCard, TagMenuToggle, PageHeader } from "@/components";
 
 export default defineComponent({
   name: "ResourcesView",
