@@ -1,6 +1,5 @@
 import { defineStore } from "pinia";
-import type { ResourceSchema } from "@/schemas/ResourceSchemas";
-import { TagPriority } from "@/schemas/TagSchemas";
+import { type ResourceSchema, TagPriority } from "@/schemas";
 import { useAPI } from "@/hooks";
 import { useCategoryStore, useTagStore, useUserStore } from './index'; // eslint-disable-line
 import { useRoute } from "vue-router";

@@ -1,5 +1,4 @@
-import { createRouter, createWebHashHistory } from "vue-router";
-import type { RouteRecordRaw } from "vue-router";
+import { createRouter, createWebHashHistory, type RouteRecordRaw  } from "vue-router";
 import HomePage from "@/views/HomePage.vue";
 import OrganizationPage from "@/views/OrganizationListPage.vue";
 import ResourceList from "@/views/ResourceListPage.vue";

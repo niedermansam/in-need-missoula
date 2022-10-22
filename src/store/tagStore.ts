@@ -1,7 +1,5 @@
 import{ onlyUnique } from "@/hooks";
-import type { TagArray, TagLookupInterface } from "@/schemas";
-import { TagStatus } from "@/schemas";
-import { TagPriority } from "@/schemas/TagSchemas";
+import { TagStatus, TagPriority, type TagArray, type TagLookupInterface } from "@/schemas";
 import { defineStore } from "pinia";
 import { computed, ref } from "vue";
 import { useCategoryStore, useResourceStore, useUserStore } from '@/store'; // eslint-disable-line

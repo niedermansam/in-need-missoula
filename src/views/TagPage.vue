@@ -3,8 +3,6 @@ import { useResourceStore, useTagStore } from "@/store";
 import { PageHeader, ResourceCard, TagMenuToggle, TagSelector } from "@/components";
 import { defineComponent, ref, watch } from "vue";
 import { useRoute } from "vue-router";
-import resourceStore from "@/store/resourceStore";
-import tagStore from "@/store/tagStore";
 
 export default defineComponent({
   name: "TagPage",

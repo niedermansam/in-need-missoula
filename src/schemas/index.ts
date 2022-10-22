@@ -8,7 +8,7 @@ import type {
   Provides,
   EaseOfAid,
 } from "./ResourceSchemas";
-import type { TagArray, TagLookupInterface } from "./TagSchemas";
+import {  type TagArray, type  TagLookupInterface, TagPriority } from "./TagSchemas";
 import { TagStatus } from "./TagSchemas";
 import type { FileArray, FileInterface } from "./FileSchemas";
 
@@ -22,6 +22,7 @@ export {
   TagStatus,
   TagLookupInterface,
   TagArray,
+  TagPriority,
   FileInterface,
   FileArray,
   // * Other Schemas
