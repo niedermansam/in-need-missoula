@@ -9,7 +9,26 @@ const useUserStore = defineStore("userStore", () => {
   const tagSettings = ref({
     sortTags: false,
     showTags: true,
+    tempClose: false,
   });
+
+  const menuOpen = ref(false);
+
+  const handleMenuOpen = function() {
+    menuOpen.value = true;
+    tagSettings.value.tempClose = true;
+  }
+
+  const handleMenuClose = function() {
+    menuOpen.value = false;
+    tagSettings.value.tempClose = false;
+  }
+
+  const handleMenuToggle = function() {
+    if(menuOpen.value === true) handleMenuClose();
+    else handleMenuOpen();
+  }
+
 
   const searchString = ref("");
   const searchRegEx = computed(() =>
@@ -51,6 +70,10 @@ const useUserStore = defineStore("userStore", () => {
     searchRegEx,
     toggleFavoriteResource,
     favoriteResources,
+    menuOpen,
+    handleMenuClose,
+    handleMenuOpen,
+    handleMenuToggle
   };
 });
 
