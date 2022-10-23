@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
-import type { OrganizationSchema } from "@/schemas/OrganizationSchemas";
+import type { OrganizationSchema } from "@/schemas";
 import { useAPI } from "@/hooks";
+import useCategoryStore from "./categoryStore";
 
 const organizationAPI = useAPI("/organizations");
 
@@ -55,6 +56,18 @@ const useOrganizationStore = defineStore("organizationStore", {
       });
     },
   },
+  getters: {
+    getActive(state) {
+      if(state.arr === null) return;
+      const categoryStore = useCategoryStore();
+      const data = state.arr
+      
+      return data.filter((org) => {
+        return !categoryStore.isFiltered(org.Expertise);
+      })
+      
+    }
+  }
 });
 
 export default useOrganizationStore;
