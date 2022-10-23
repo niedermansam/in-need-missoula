@@ -8,6 +8,9 @@ import {
 useUserStore,
 } from "@/store";
 import { CategorySelector, TagSelector, ResourceCard, TagMenuToggle, PageHeader } from "@/components";
+import DataError from "../components/DataError.vue";
+import { BIconArrowUp } from "bootstrap-icons-vue";
+import SelectCategoryNotification from "../components/SelectCategoryNotification.vue";
 
 export default defineComponent({
   name: "ResourcesView",
@@ -17,7 +20,10 @@ export default defineComponent({
     TagSelector,
     TransitionGroup,
     TagMenuToggle,
-    PageHeader
+    PageHeader,
+    DataError,
+    BIconArrowUp,
+    SelectCategoryNotification
 },
   setup() {
     const resourceStore = useResourceStore();
@@ -50,11 +56,7 @@ export default defineComponent({
       <CategorySelector class="justify-center text-center" />
       <div>
         <h3 v-if="resourceStore.loading">Loading...</h3>
-        <div v-if="!resourceStore.loading && resourceStore.error && !resourceStore.dataLoaded" class="text-center">
-          <h2 class="text-xl text-red-500">Sorry, something went wrong.</h2> 
-          <p class="text-gray-600">You probably just caught our server sleeping (it gets a bit grumpy when it first wakes up).</p>
-          <h2 class="text-xl">Please wait a few seconds, then refresh your browser.</h2>
-        </div>
+        <DataError v-if="!resourceStore.loading && resourceStore.error && !resourceStore.dataLoaded" class="text-center" />
         <TransitionGroup
           tag="div"
           name="fade"
@@ -69,7 +71,7 @@ export default defineComponent({
           />
         </TransitionGroup>
       </div>
-      <p v-if="resourceStore.dataLoaded"></p>
+      <SelectCategoryNotification :show="'resources'" v-if="!resourceStore.loading && resourceStore.filteredArray !== undefined && resourceStore.filteredArray.length === 0" />
     </div>
   </div>
 </template>

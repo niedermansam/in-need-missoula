@@ -10,6 +10,7 @@ import {
   BIconFunnel,
 } from "bootstrap-icons-vue";
 import TagButton from "@/components/Tags/TagButton.vue";
+import SelectCategoryNotification from "../SelectCategoryNotification.vue";
 
 export default defineComponent({
   props: {
@@ -23,7 +24,8 @@ export default defineComponent({
     BIconXLg,
     BIconArrowRepeat,
     BIconFunnel,
-  },
+    SelectCategoryNotification
+},
   setup() {
     const resourceStore = useResourceStore();
     const userStore = useUserStore();
@@ -62,7 +64,7 @@ export default defineComponent({
       v-if="tagArray"
       class="transform w-64 overflow-y-auto overflow-x-hidden bg-white ease-in-out transition-all duration-300 z-30 rounded-r border-r shadow"
       id="tag-filter-menu"
-      :class="userStore.tagSettings.showTags ? 'w-0 h-0' : 'w-full'"
+      :class="userStore.tagSettings.showTags || userStore.tagSettings.tempClose ? 'w-0 h-0' : 'w-full'"
     >
       <div class="sticky top-0 left-0 bg-white overflow-y-scroll w-64"></div>
       <button
@@ -112,18 +114,12 @@ export default defineComponent({
           />
         </TransitionGroup>
       </div>
+      <SelectCategoryNotification v-if="tagArray.length === 0" show="tags" :arrow="false"/>
     </aside>
   </div>
 </template>
 
 <style scoped>
-.tag-containerold {
-  display: flex;
-  align-content: space-around;
-  flex-wrap: wrap;
-  flex-direction: column;
-  max-height: 700px;
-}
 .tag-container {
   display: grid;
   grid-template-rows: repeat(calc(var(--n-tags)), auto);

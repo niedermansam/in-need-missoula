@@ -8,6 +8,7 @@ import {
   useUserStore,
 } from "@/store";
 import { ResourceCard, PageHeader } from "@/components";
+import DataError from "../components/DataError.vue";
 
 export default defineComponent({
   name: "FavoritesView",
@@ -15,7 +16,8 @@ export default defineComponent({
     ResourceCard,
     TransitionGroup,
     PageHeader,
-  },
+    DataError
+},
   setup() {
     const resourceStore = useResourceStore();
     const organizationStore = useOrganizationStore();
@@ -45,9 +47,7 @@ export default defineComponent({
       <PageHeader>Favorites</PageHeader>
     <div>
       <h3 v-if="resourceStore.loading">Loading...</h3>
-      <h3 v-if="!resourceStore.loading && resourceStore.error">
-        {{ resourceStore.error }}
-      </h3>
+      <DataError v-if="!resourceStore.loading && resourceStore.error && !resourceStore.dataLoaded" class="text-center" />
       <TransitionGroup
         tag="div"
         name="fade"
