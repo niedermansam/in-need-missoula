@@ -73,7 +73,7 @@ export default {
 
 <template>
   <div v-if="!isFilteredTag.value" class="w-full m-3 md:w-2/5 lg:w-1/3">
-    <div v-if="resource" class="border p-3 m-3 rounded h-auto w-full flex flex-col">
+    <div v-if="resource" class="border p-3 m-3 rounded h-auto w-full flex flex-col shadow-md">
       <span class="flex items-stretch mb-2">
         <button
           @click="userStore.toggleFavoriteResource(currentId)"

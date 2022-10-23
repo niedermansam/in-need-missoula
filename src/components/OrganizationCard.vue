@@ -17,7 +17,7 @@ export default {
 </script>
 
 <template>
-  <div class="border rounded-sm m-2 p-2" style="width: 100%">
+  <div class="border rounded-sm m-2 p-2 shadow" style="width: 100%">
     <div v-if="organization" class="p-2">
       <div class="flex items-center mb-2">
         <h5 class="text-2xl">{{ organization.Name }}</h5>
