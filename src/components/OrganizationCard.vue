@@ -17,33 +17,55 @@ export default {
 </script>
 
 <template>
-  <div class="border rounded-sm m-2 p-2 shadow" style="width: 100%">
-    <div v-if="organization" class="p-2">
-      <div class="flex items-center mb-2">
+  <div class="card-container">
+    <div v-if="organization" class="card-body p-2">
+      <div class="organization-header">
         <h5 class="text-2xl">{{ organization.Name }}</h5>
 
-        <span class="ml-1 text-gray-500">
+        <span class="category-tag">
           {{ providesChipStyles(organization.Expertise).emoji }}
           {{ organization.Expertise }}
         </span>
       </div>
-      <p class="flex items-center" v-if="organization.Phone">
+      <p class="phone" v-if="organization.Phone">
         <BIconTelephone class="mr-1" /> {{ organization.Phone }}
       </p>
-      <p class="flex items-center" v-if="organization.Email">
+      <p class="email" v-if="organization.Email">
         <BIconEnvelope class="mr-1" /> {{ organization.Email }}
       </p>
 
-      <p class="mt-2 mb-4">
+      <p class="organization-details">
         {{ organization.Notes }}
       </p>
 
       <router-link
         :to="'/organizations/' + organization.id"
-        class="p-2 rounded bg-blue-500 hover:bg-blue-600 text-white"
+        class="btn-link-lg"
       >
         More Information</router-link
       >
     </div>
   </div>
 </template>
+
+<style scoped>
+.organization-card {
+  @apply border rounded-sm m-2 p-2 shadow;
+}
+
+.organization-header {
+  @apply flex items-center mb-2;
+}
+
+.category-tag {
+  @apply ml-1 text-gray-500;
+}
+
+.phone, .email {
+  @apply flex items-center;
+}
+
+.organization-details {
+  @apply mt-2 mb-4;
+}
+</style>

@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent} from "vue";
 import {
   useOrganizationStore,
   useResourceStore,
@@ -43,13 +43,16 @@ export default defineComponent({
       <h3 v-if="orgStore.loading">Loading...</h3>
       <DataError v-if="!orgStore.loading && orgStore.error && !orgStore.loaded" class="text-center" />
       <div v-if="orgStore.arr != null">
-        <div>
+        <TransitionGroup
+          tag="div"
+          name="fade"
+          class="card-group">
           <OrganizationCard
             v-for="organization in orgStore.getActive"
             :key="organization.id"
             :organization="organization"
           />
-        </div>
+        </TransitionGroup>
       </div>
       <SelectCategoryNotification :show="'organizations'"
         v-if="!orgStore.loading && orgStore.getActive !== undefined && orgStore.getActive.length === 0" />

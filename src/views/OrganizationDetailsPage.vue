@@ -89,7 +89,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <div v-if="organization" class="organization p-4">
+  <div v-if="organization" class="organization-page p-4">
     <h1 class="text-3xl mb-3">{{ organization.Name }}</h1>
     <p v-if="organization.Phone" class="p-1">phone: {{ organization.Phone }}</p>
     <p v-if="organization.Email" class="p-1">email: {{ organization.Email }}</p>
@@ -134,10 +134,14 @@ export default defineComponent({
 
     <RouterLink to="/organizations/"
       ><button
-        class="p-2 rounded bg-blue-200 hover:bg-blue-400 hover:text-white"
+        class="btn-link-lg"
       >
         See More Organizations
       </button></RouterLink
     >
   </div>
 </template>
+
+<style scoped>
+
+</style>

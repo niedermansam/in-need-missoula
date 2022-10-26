@@ -6,6 +6,50 @@
 @layer components {
     .btn {
         @apply p-2 m-2 rounded;
-  }
+    }
+
+    .btn-link-lg {
+      @apply p-2 rounded font-semibold text-white bg-slate-400 hover:bg-slate-500;
+    }
+
+    .link-text {
+      @apply text-slate-500 hover:text-slate-700;
+    }
+    .card-container {
+      @apply w-full p-2 md:w-2/5 lg:w-1/3;
+    }
+    .card-group {
+      @apply flex flex-wrap justify-start;
+    }
+    .card {
+      @apply flex mx-auto my-3;
+    }
+    .card-body {
+      @apply border rounded h-auto w-full flex flex-col shadow-md;
+    }
 }
+
+.active-link {
+  font-weight: 600;
+}
+/* 1. declare transition */
+.fade-move,
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 0.5s cubic-bezier(0.55, 0, 0.1, 1);
+}
+
+/* 2. declare enter from and leave to state */
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+  transform: scaleY(0.01) translate(30px, 0);
+}
+
+/* 3. ensure leaving items are taken out of layout flow so that moving
+      animations can be calculated correctly. */
+.fade-leave-active {
+  position: absolute;
+}
+
 html, body {height:100%;overflow:auto};

@@ -31,7 +31,4 @@ import { useUserStore } from '@/store';
 </template>
 
 <style scoped>
-.active-link {
-    font-weight: 600;
-}
 </style>

@@ -1,15 +1,15 @@
-import CategorySelector from "@/components/CategorySelector.vue";
-import NavBar from "@/components/Menu/NavBar.vue";
-import NavLinks from "./Menu/NavLinks.vue";
-import OrganizationCard from "@/components/OrganizationCard.vue";
-import ResourceCard from "@/components/ResourceCard.vue";
-import TagSelector from "@/components/Tags/TagSelector.vue";
-import TagMenuToggle from "@/components/Menu/TagMenuToggle.vue";
-import TagLinks from "@/components/Tags/TagLinks.vue";
-import FileCard from "@/components/FileCard.vue";
-import PageHeader from "@/components/PageHeader.vue";
+import CategorySelector from "./CategorySelector.vue";
+import NavBar from "./Nav/NavBar.vue";
+import NavLinks from "./Nav/NavLinks.vue";
+import OrganizationCard from "./OrganizationCard.vue";
+import ResourceCard from "./ResourceCard.vue";
+import TagSelector from "./Tags/TagSelector.vue";
+import TagMenuToggle from "./Nav/TagMenuToggle.vue";
+import TagLinks from "./Tags/TagLinks.vue";
+import FileCard from "./FileCard.vue";
+import PageHeader from "./PageHeader.vue";
 import DataError from "./DataError.vue";
-import SelectCategoryNotification from '@/components/SelectCategoryNotification.vue'
+import SelectCategoryNotification from './SelectCategoryNotification.vue'
 
 export {
   CategorySelector,

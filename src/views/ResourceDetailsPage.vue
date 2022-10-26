@@ -69,12 +69,12 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="resource container" v-if="resource.value">
-    <div class="p-2">
-      <div class="flex items-center mb-2">
+  <div class="resource-details-page" v-if="resource.value">
+    <div class="resource-header-container">
+      <div class="resource-header">
         <h5 class="text-2xl">{{ resource.value.Name }}</h5>
 
-        <span class="ml-1 text-gray-500">
+        <span class="category-tag">
           {{ chipStyles(resource.value.Provides).emoji }}
           {{ resource.value.Provides }}
         </span>
@@ -82,7 +82,7 @@ export default defineComponent({
     </div>
     <div></div>
 
-    <div class="flex items-center">
+    <div class="tag-link-container">
       <p class="m-2">Tags:</p>
       <TagLinks :tagArr="resource.value.Tags" />
     </div>
@@ -102,7 +102,7 @@ export default defineComponent({
 
     <a :href="resource.value.URL" target="_blank"
       ><button
-        class="p-2 m-2 rounded bg-blue-200 hover:bg-blue-400 hover:text-white"
+        class="btn-link-lg m-2"
       >
         Official Website
       </button></a
@@ -110,7 +110,7 @@ export default defineComponent({
     <span v-if="administeringOrg">
       <RouterLink :to="`/organizations/${resource.value['Administering Org']}`"
         ><button
-          class="p-2 rounded bg-blue-200 hover:bg-blue-400 hover:text-white"
+          class="btn-link-lg m-2"
         >
           {{ organizationStore.lookup[administeringOrg].Name }}
         </button></RouterLink
@@ -123,5 +123,20 @@ export default defineComponent({
 .file-container {
   display: flex;
   flex-wrap: true;
+}
+
+.resource-header-container{
+  @apply p-2;
+}
+
+.resource-header {
+  @apply flex items-center mb-2;
+}
+
+.category-tag {
+  @apply ml-1 text-gray-500;
+}
+.tag-link-container {
+  @apply flex items-center;
 }
 </style>

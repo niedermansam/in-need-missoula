@@ -15,9 +15,15 @@ export default defineComponent({
 <template>
   <span v-for="tag in tagArr.values()" :key="tag">
     <routerLink :to="`../tag/${tagStore.toUrl(tag)}`"
-      ><button class="m-1 p-1 bg-gray-100 rounded">
+      ><button class="tag-link">
         {{ tag }}
       </button></routerLink
     >
   </span>
 </template>
+
+<style scoped >
+.tag-link {
+  @apply m-1 p-1 bg-slate-100 hover:bg-slate-200 rounded
+}
+</style>

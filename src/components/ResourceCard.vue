@@ -24,6 +24,11 @@ export default {
       props.resource && props.resource.Tags ? props.resource.Tags : [""]
     );
 
+    const administeringOrg =
+      props.resource && props.resource["Administering Org"]
+        ? organizationStore.lookup[props.resource["Administering Org"][0]]
+        : null;
+
     const isFavoriteTag = reactive<{ value: boolean }>({ value: false });
     const isFilteredTag = reactive<{ value: boolean }>({ value: false });
 
@@ -61,6 +66,7 @@ export default {
       tagArr,
       tagStore,
       userStore,
+      administeringOrg,
       organizationStore,
       isFavoriteTag,
       isFilteredTag,
@@ -72,66 +78,147 @@ export default {
 </script>
 
 <template>
-  <div v-if="!isFilteredTag.value" class="w-full m-3 md:w-2/5 lg:w-1/3">
-    <div v-if="resource" class="border p-3 m-3 rounded h-auto w-full flex flex-col shadow-md">
-      <span class="flex items-stretch mb-2">
-        <button
-          @click="userStore.toggleFavoriteResource(currentId)"
-          class="w-8">
-        <bIconStarFill
-          class="my-0 mr-1 p-1 w-6 h-6"
-          :style="`color: ${
-            userStore.favoriteResources.indexOf(currentId) !== -1
-              ? 'gold'
-              : 'grey'
-          }`"
-        />
-        </button>
-      <router-link :to="'/resources/' + resource.id" class="mt-auto mb-0 hover:text-slate-600">
-        <h5 class="text-lg">
-          {{ resource.Name }}
-        </h5>
-      </router-link>
-        <div class="ml-1 text-gray-500 flex">
-          {{ categoryChipStyles(resource.Provides).emoji }}
-          {{ resource.Provides }}
+  <div v-if="!isFilteredTag.value" class="card-container">
+    <div v-if="resource" class="card-body">
+      <div class="card-header">
+        <div class="resource-name-container">
+          <button
+            @click="userStore.toggleFavoriteResource(currentId)"
+            class="favorite-toggle toggle-width"
+            :class="
+              userStore.favoriteResources.indexOf(currentId) !== -1
+                ? 'is-favorite'
+                : ''
+            "
+          >
+            <bIconStarFill
+              class="star-icon mr-0 drop-shadow"
+              :class="
+                userStore.favoriteResources.indexOf(currentId) !== -1 ? '' : ''
+              "
+            />
+          </button>
+          <router-link :to="'/resources/' + resource.id" class="resource-name">
+            <h5 class="text-lg text-slate-700 hover:text-slate-500">
+              {{ resource.Name }}
+            </h5>
+          </router-link>
         </div>
-      </span>
+        <div class="card-content">
+          <span class="administering-org link-text">
+            <router-link
+              v-if="administeringOrg"
+              :to="`/organizations/${administeringOrg.id}`"
+            >
+              {{ administeringOrg.Name }}
+            </router-link>
+          </span>
+          <span class="provides-emoji">
+            {{ categoryChipStyles(resource.Provides).emoji }}</span
+          >
+          <span class="resource-provides">
+            {{ resource.Provides }}
+          </span>
+        </div>
+      </div>
+
       <!-- Provides section-->
       <!-- <p>Priority: {{ resource.priority }}</p> -->
       <!-- Tags section-->
-      <div class="flex">
-        <p class="my-1 py-1 mr-2">Tags:</p>
+      <div class="tag-container">
+        <p class="tags-header">Tags:</p>
         <div>
           <TagLinks :tagArr="tagArr" />
         </div>
       </div>
-      <p v-if="resource.Notes" class="card-text mb-3">
+      <p v-if="resource.Notes" class="card-text">
         {{ resource.Notes.slice(0, 200).replace(/ \w+$| $/i, "...") }}
       </p>
 
       <div
         v-if="organizationStore.loaded && resource['Organizations']"
-        class="mb-3"
+        class="help-from-container"
       >
-        Get help from
+        <p>Get help from:</p>
+
         <router-link
-          v-for="org in resource['Organizations']"
+          v-for="(org, index) in resource['Organizations']"
+          class="mr-1 link-text"
           :key="org"
           :to="'/organizations/' + org"
         >
-          {{ organizationStore.lookup[org].Name }}
+          {{ organizationStore.lookup[org].Name
+          }}{{ index === resource.Organizations.length - 1 ? "" : "," }}
         </router-link>
       </div>
-      <router-link :to="'/resources/' + resource.id" class="mt-auto mb-0">
-        <button class="p-2 rounded bg-blue-500 hover:bg-blue-600 text-white">
-          More Information
-        </button>
+      <router-link
+        :to="'/resources/' + resource.id"
+        class="more-info-link"
+      >
+        <button class="btn-link-lg">More Information</button>
       </router-link>
     </div>
   </div>
 </template>
 <style scoped>
+
+
+
+.resource-name-container {
+  @apply flex items-stretch;
+}
+
+.toggle-width {
+  @apply w-10;
+}
+
+.favorite-toggle {
+  @apply p-1 rounded-tl rounded-br flex justify-center items-center bg-slate-100 text-slate-400 hover:bg-yellow-300;
+}
+
+.is-favorite {
+  @apply text-white bg-yellow-400 hover:bg-slate-300;
+}
+
+.star-icon {
+  @apply my-0 p-1 w-6 h-6;
+}
+
+.resource-name {
+  @apply p-2 font-semibold text-slate-700 hover:text-slate-600;
+}
+
+.card-content {
+  @apply flex px-1 pb-2;
+}
+
+.administering-org {
+  @apply px-1 font-semibold;
+}
+
+.resource-provides {
+  @apply ml-1 text-slate-500 flex;
+}
+
+.tag-container {
+  @apply flex px-2;
+}
+
+.tags-header {
+  @apply my-1 py-1 mr-2;
+}
+
+.card-text {
+  @apply my-3 px-2;
+}
+
+.help-from-container {
+  @apply mb-3 px-2;
+}
+
+.more-info-link {
+  @apply  mt-auto mb-0 px-2 pb-3 pt-4;
+}
 .flex-container {
   display: flex;
   align-items: center;

@@ -5,12 +5,10 @@ import {
   useOrganizationStore,
   useCategoryStore,
   useTagStore,
-useUserStore,
+  useUserStore,
 } from "@/store";
-import { CategorySelector, TagSelector, ResourceCard, TagMenuToggle, PageHeader } from "@/components";
-import DataError from "../components/DataError.vue";
+import { CategorySelector, SelectCategoryNotification, DataError, TagSelector, ResourceCard, TagMenuToggle, PageHeader } from "@/components";
 import { BIconArrowUp } from "bootstrap-icons-vue";
-import SelectCategoryNotification from "../components/SelectCategoryNotification.vue";
 
 export default defineComponent({
   name: "ResourcesView",
@@ -51,54 +49,42 @@ export default defineComponent({
       class="relative w-fit"
       :tagArray="tagStore.activeCategoryTags"
     />
-    <div class="resourceStore w-full">
+    <div class="resource-container">
       <PageHeader>Resources</PageHeader>
-      <CategorySelector class="justify-center text-center" />
+      <CategorySelector class="category-selector" />
       <div>
         <h3 v-if="resourceStore.loading">Loading...</h3>
-        <DataError v-if="!resourceStore.loading && resourceStore.error && !resourceStore.dataLoaded" class="text-center" />
+        <DataError 
+          v-if="!resourceStore.loading && resourceStore.error && !resourceStore.dataLoaded" 
+          class="text-center" />
         <TransitionGroup
           tag="div"
           name="fade"
           v-if="resourceStore.filteredArray"
-          class="flex flex-wrap justify-start"
+          class="card-group"
         >
           <ResourceCard
             v-for="resource in resourceStore.filteredArray"
-            class="flex mx-auto my-3"
+            class="card"
             :key="resource.id"
             :resource="resource"
           />
         </TransitionGroup>
       </div>
-      <SelectCategoryNotification :show="'resources'" v-if="!resourceStore.loading && resourceStore.filteredArray !== undefined && resourceStore.filteredArray.length === 0" />
+      <SelectCategoryNotification :show="'resources'" 
+        v-if="!resourceStore.loading && resourceStore.filteredArray !== undefined && resourceStore.filteredArray.length === 0" />
     </div>
   </div>
 </template>
 
 <style scoped>
-.resources-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-}
-/* 1. declare transition */
-.fade-move,
-.fade-enter-active,
-.fade-leave-active {
-  transition: all 0.5s cubic-bezier(0.55, 0, 0.1, 1);
+.resource-container {
+  @apply w-full;
 }
 
-/* 2. declare enter from and leave to state */
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-  transform: scaleY(0.01) translate(30px, 0);
+.category-selector {
+  @apply justify-center text-center;
 }
 
-/* 3. ensure leaving items are taken out of layout flow so that moving
-      animations can be calculated correctly. */
-.fade-leave-active {
-  position: absolute;
-}
+
 </style>
