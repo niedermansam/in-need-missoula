@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent, ref, TransitionGroup } from "vue";
+import { defineComponent, ref, TransitionGroup, Teleport } from "vue";
 import type { PropType } from "vue";
 import { useTagStore, useResourceStore, useUserStore } from "@/store";
 import {
@@ -58,7 +58,7 @@ export default defineComponent({
 
   <div
     class="overflow-y-auto overflow-x-visible sticky top-0"
-    style="height: 95vh;"
+    style="height: 100vh;"
   >
     <aside
       v-if="tagArray"
@@ -121,46 +121,7 @@ export default defineComponent({
 
 <style scoped>
 .tag-container {
-  display: grid;
-  grid-template-rows: repeat(calc(var(--n-tags)), auto);
-  grid-gap: 10px;
-  grid-auto-flow: column;
   justify-content: center;
-}
-@media screen and (min-width: 700px) {
-  .tag-container {
-    grid-template-rows: repeat(calc((var(--n-tags) / 2) + 1), auto);
-  }
-}
-
-@media screen and (min-width: 1000px) {
-  .tag-container {
-    grid-template-rows: repeat(calc((var(--n-tags) / 3) + 1), auto);
-  }
-}
-
-@media screen and (min-width: 1400px) {
-  .tag-container {
-    grid-template-rows: repeat(calc((var(--n-tags) / 4) + 1), auto);
-  }
-}
-
-@media screen and (min-width: 1700px) {
-  .tag-container {
-    grid-template-rows: repeat(calc((var(--n-tags) / 5) + 1), auto);
-  }
-}
-
-@media screen and (min-width: 2000px) {
-  .tag-container {
-    grid-template-rows: repeat(calc((var(--n-tags) / 6) + 1), auto);
-  }
-}
-
-@media screen and (min-width: 2300px) {
-  .tag-container {
-    grid-template-rows: repeat(calc((var(--n-tags) / 7) + 1), auto);
-  }
 }
 
 /* 1. declare transition */

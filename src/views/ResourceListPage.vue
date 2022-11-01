@@ -44,11 +44,12 @@ export default defineComponent({
 
 <template>
   <TagMenuToggle />
-  <div class="grid" style="grid-template-columns: max-content 1fr; grid-template-rows: auto;">
+  <div>
+    <Teleport to="#sidebar">
     <TagSelector
       class="relative w-fit"
       :tagArray="tagStore.activeCategoryTags"
-    />
+    /></Teleport>
     <div class="resource-container">
       <PageHeader>Resources</PageHeader>
       <CategorySelector class="category-selector" />

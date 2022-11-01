@@ -10,7 +10,7 @@ const userStore = useUserStore()
 </script>
 
 <template>
-  <div class="nav-section" style="grid-area: header">
+  <div class="nav-section">
     <div class="nav-container">
       <div
         class="link-container"
@@ -46,7 +46,7 @@ const userStore = useUserStore()
   @apply mx-auto max-w-7xl px-4 sm:px-6; }
 
 .nav-section {
-  @apply relative bg-white; }
+  @apply bg-white; }
 
 .link-container {
   @apply flex items-center justify-between border-b-2 border-gray-100 py-6 md:space-x-10; }
