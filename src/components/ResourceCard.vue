@@ -177,7 +177,7 @@ export default {
 }
 
 .is-favorite {
-  @apply text-white bg-yellow-400 hover:bg-slate-300;
+  @apply text-white bg-yellow-400 hover:bg-slate-200 hover:text-yellow-400;
 }
 
 .star-icon {
