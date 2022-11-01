@@ -90,6 +90,7 @@ const useResourceStore = defineStore("resourceStore", {
 
       const tagStore = useTagStore();
       this.arr.forEach((resource) => {
+        if(!resource.Tags) return 0;
         // compute resource priority by summing the priority of each tag associated with the resource
         const newPrioritySum = resource.Tags.reduce(
           (prev, tag) => prev + tagStore.tagLookup[tag].priority,
