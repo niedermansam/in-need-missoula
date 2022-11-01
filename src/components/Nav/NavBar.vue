@@ -3,7 +3,7 @@ import { Transition } from "vue";
 import {RouterLink} from "vue-router";
 // import MainSearchBar from "@/components/MainSearchBar.vue";
 import { NavLinks } from "@/components";
-import { BIconList } from "bootstrap-icons-vue";
+import { BIconList, BIconArrowLeft } from "bootstrap-icons-vue";
 import { useUserStore } from "@/store";
 
 const userStore = useUserStore()
@@ -16,6 +16,7 @@ const userStore = useUserStore()
         class="link-container"
       >
         <div class="logo-container">
+          <a @click="$router.go(-1)" class="text-3xl font-semibold p-3 text-center hover:cursor-pointer"><BIconArrowLeft /></a>
           <a href="#">
             <img class="logo-img" src="@/assets/logo.png" alt="" />
           </a>
@@ -49,10 +50,10 @@ const userStore = useUserStore()
   @apply bg-white; }
 
 .link-container {
-  @apply flex items-center justify-between border-b-2 border-gray-100 py-6 md:space-x-10; }
+  @apply flex items-center justify-between border-b-2 border-gray-100 md:space-x-10; }
 
 .logo-container {
-  @apply flex justify-start lg:w-0 lg:flex-1; }
+  @apply flex justify-start items-center lg:w-0 lg:flex-1 hover:cursor-pointer; }
 
 .logo-img {
   @apply h-8 w-auto sm:h-10; }
