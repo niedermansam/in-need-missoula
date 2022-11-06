@@ -159,6 +159,7 @@ const useResourceStore = defineStore("resourceStore", {
       const tagParam = useRoute().params.tag as string;
       const tagStore = useTagStore();
       const outArr = state.arr.filter((resource) => {
+        if(resource.Tags === undefined) return false;
         const tagIsSelected =
           resource.Tags.indexOf(tagStore.fromUrl(tagParam)) !== -1;
         const noTagsFiltered = !tagStore.isFilterInArray(resource.Tags);

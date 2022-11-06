@@ -515,7 +515,7 @@ const useTagStore = defineStore("tagStore", () => {
   const getRelatedTags = computed(() => (tagOfInterest: string) => {
     let outArr: string[] = [];
     resourceStore.arr?.forEach((resource) => {
-      if (resource.Tags.indexOf(tagOfInterest) === -1) return; // do nothing if the resource does not have the tag of interest
+      if (resource.Tags === undefined || resource.Tags.indexOf(tagOfInterest) === -1) return; // do nothing if the resource does not have the tag of interest
       outArr = [...outArr, ...resource.Tags];
     });
 
