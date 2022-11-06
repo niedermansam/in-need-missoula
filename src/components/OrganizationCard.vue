@@ -17,8 +17,8 @@ export default {
 </script>
 
 <template>
-  <div class="card-container">
-    <div v-if="organization" class="card-body p-2">
+  <div class="card-container flex">
+    <div v-if="organization" class="card-body p-2 flex justify-items-stretch">
       <div class="organization-header">
         <h5 class="text-2xl">{{ organization.Name }}</h5>
 
@@ -40,7 +40,7 @@ export default {
 
       <router-link
         :to="'/organizations/' + organization.id"
-        class="btn-link-lg"
+        class="btn-link-lg mt-auto"
       >
         More Information</router-link
       >
