@@ -15,6 +15,6 @@ export default function useLooseSearch(inputText: string) {
   if (!outputArr) return ""; // this returns all results if the search string is empty
   outputArr.pop();
   const outputStr = `( |^)(${outputArr.join("|")})`;
-  console.log(outputStr);
+  // console.log(outputStr);
   return outputStr;
 }

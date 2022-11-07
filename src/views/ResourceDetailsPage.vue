@@ -46,7 +46,7 @@ export default defineComponent({
     function getFileData() {
       if (resource.value && resource.value["Forms & Files"]) {
         resource.value["Forms & Files"]?.forEach((x) => {
-          console.log(fileStore.lookup[x]);
+          // console.log(fileStore.lookup[x]);
         });
       }
     }
