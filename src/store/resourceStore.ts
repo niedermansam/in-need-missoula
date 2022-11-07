@@ -165,7 +165,6 @@ const useResourceStore = defineStore("resourceStore", {
         const noTagsFiltered = !tagStore.isFilterInArray(resource.Tags);
         return tagIsSelected && noTagsFiltered;
       });
-      console.log(outArr);
       return outArr.sort((a, b) => b.priority - a.priority);
     },
   },

@@ -190,15 +190,16 @@ export default defineComponent({
       <span v-else><BIconArrowUp /></span>
     </button>
 
+    <RouterLink :to="`../tag/${tagStore.toUrl(tag)}`">
     <button
       type="button"
       class="self-stretch w-3/4"
       tabIndex="-1"
       :class="`p-2  ${getButtonStyles().background} ${getButtonStyles().text}`"
-      @click="tagStore.resetPriority(tag)"
     >
       {{ tag }}
     </button>
+    </RouterLink>
 
     <button
       type="button"

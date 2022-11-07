@@ -513,21 +513,24 @@ const useTagStore = defineStore("tagStore", () => {
 
   /** Get all tags related to the tagOfInterest parameter */
   const getRelatedTags = computed(() => (tagOfInterest: string) => {
+    console.log('getting related tags ', tagOfInterest)
+    if(resourceStore.arr === null) return [];
     let outArr: string[] = [];
-    resourceStore.arr?.forEach((resource) => {
-      if (resource.Tags === undefined || resource.Tags.indexOf(tagOfInterest) === -1) return; // do nothing if the resource does not have the tag of interest
+    resourceStore.arr.forEach((resource) => {
+      if (resource.Tags === undefined || resource.Tags.indexOf(fromUrl(tagOfInterest)) === -1) {
+        console.log('bad resource :(')
+        return;
+      } // do nothing if the resource does not have the tag of interest
+      console.log(resource.Tags)
       outArr = [...outArr, ...resource.Tags];
     });
 
     return outArr.filter(onlyUnique).filter((tag) => tag !== tagOfInterest);
   });
 
-  const toUrl = computed(
-    () => (tag: string) => tag.replace(/ /g, "_").replace(/\//g, "+")
-  );
-  const fromUrl = computed(
-    () => (tag: string) => tag.replace(/_/g, " ").replace(/\+/g, "/")
-  );
+  const toUrl = (tag: string) => tag.replace(/ /g, "_").replace(/\//g, "+")
+  
+  const fromUrl = (tag: string) => tag.replace(/_/g, " ").replace(/\+/g, "/")
   /* eslint-disable object-property-newline */
   return {
     allTags,
