@@ -33,10 +33,11 @@ export default defineComponent({
 
     async function loadAllData() {
       await resourceStore.loadData();
-      await tagStore.loadAllTags();
     }
+    
+    tagStore.loadAllTags();
 
-    loadAllData();
+    if(resourceStore.dataLoaded === false) loadAllData();
 
     tagStore.updateActiveCategoryTags();
 

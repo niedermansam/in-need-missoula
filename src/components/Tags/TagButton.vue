@@ -47,10 +47,10 @@ export default defineComponent({
         return buttonStyles;
       switch (tagStore.tagLookup[props.tag].status) {
         case TagStatus.none:
-          buttonStyles.background = "bg-gray-50";
-          buttonStyles.favorite = "hover:bg-green-100";
-          buttonStyles.lessFavorite = "hover:bg-gray-100";
-          buttonStyles.filter = "hover:bg-red-100";
+          buttonStyles.background = "hover:bg-gray-100 bg-gray-50";
+          buttonStyles.favorite = "hover:bg-green-100 bg-gray-50";
+          buttonStyles.lessFavorite = "hover:bg-gray-100 bg-gray-50";
+          buttonStyles.filter = "hover:bg-red-100 bg-gray-50";
           buttonStyles.text = "text-gray";
           break;
         case TagStatus.favorite:
@@ -193,7 +193,7 @@ export default defineComponent({
     <RouterLink :to="`../tag/${tagStore.toUrl(tag)}`">
     <button
       type="button"
-      class="self-stretch w-3/4"
+      class="self-stretch w-40"
       tabIndex="-1"
       :class="`p-2  ${getButtonStyles().background} ${getButtonStyles().text}`"
     >
