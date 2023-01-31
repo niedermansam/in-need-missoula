@@ -7,13 +7,14 @@ import {
   useTagStore,
   useUserStore,
 } from "@/store";
-import { CategorySelector, SelectCategoryNotification, DataError, TagSelector, ResourceCard, TagMenuToggle, PageHeader } from "@/components";
+import { CategorySelector, SelectCategoryNotification, DataError, TagSelector, ResourceCard, TagMenuToggle, PageHeader, ResourceListItem } from "@/components";
 import { BIconArrowUp } from "bootstrap-icons-vue";
 
 export default defineComponent({
   name: "ResourcesView",
   components: {
     ResourceCard,
+    ResourceListItem,
     CategorySelector,
     TagSelector,
     TransitionGroup,
@@ -66,10 +67,16 @@ export default defineComponent({
         >
           <ResourceCard
             v-for="resource in resourceStore.filteredArray"
+            v-if="false"
             class="card"
             :key="resource.id"
             :resource="resource"
           />
+          <ResourceListItem 
+            v-for="resource in resourceStore.filteredArray"
+            class="card"
+            :key="resource.id"
+            :resource="resource"/>
         </TransitionGroup>
       </div>
       <SelectCategoryNotification :show="'resources'" 

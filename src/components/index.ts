@@ -10,6 +10,7 @@ import FileCard from "./FileCard.vue";
 import PageHeader from "./PageHeader.vue";
 import DataError from "./DataError.vue";
 import SelectCategoryNotification from './SelectCategoryNotification.vue'
+import ResourceListItem from "./ResourceListItem.vue";
 
 export {
   CategorySelector,
@@ -17,6 +18,7 @@ export {
   NavLinks,
   OrganizationCard,
   ResourceCard,
+  ResourceListItem,
   TagSelector,
   TagMenuToggle,
   TagLinks,

@@ -6,6 +6,7 @@ import { defineComponent, type PropType } from "vue";
 export default defineComponent({
   props: {
     tagArr: { type: Array as PropType<string[]>, required: true },
+    class: {type: String, required: false}
   },
   setup() {
     const tagStore = useTagStore();
@@ -30,7 +31,7 @@ export default defineComponent({
 });
 </script>
 <template>
-  <span v-for="tag in tagArr.values()" :key="tag">
+  <span v-for="tag in tagArr.values()" :key="tag" :class="class">
     <routerLink :to="`../tag/${tagStore.toUrl(tag)}`"
       ><button class="tag-link" :class="getLinkStyles(tag)">
         {{ tag }}
