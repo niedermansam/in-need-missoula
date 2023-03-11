@@ -12,13 +12,12 @@ import type { Provides } from "@/schemas";
 
 import { onlyUnique } from "@/hooks";
 
-import { CategorySelector, PageHeader } from "@/components";
+import { PageHeader } from "@/components";
 
 export default defineComponent({
   components: {
-    CategorySelector,
-    PageHeader
-},
+    PageHeader,
+  },
   setup() {
     const resourceStore = useResourceStore();
     const orgStore = useOrganizationStore();
@@ -54,10 +53,6 @@ export default defineComponent({
     <PageHeader>Welcome to Need Help Missoula</PageHeader>
 
     <p class="p-2">
-      
-    </p>
-
-    <p class="p-2">
       We hope to provide an accessible, easy to use portal to resources and
       organizations that help those in need in Missoula and Western Montana.
     </p>
@@ -89,9 +84,7 @@ export default defineComponent({
       aria-current="page"
       :to="{ name: 'organizations' }"
     >
-      <h3 class="p-2 text-2xl  hover:text-zinc-500">
-        Organizations
-      </h3>
+      <h3 class="p-2 text-2xl hover:text-zinc-500">Organizations</h3>
     </router-link>
 
     <p class="p-2">
