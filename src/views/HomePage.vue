@@ -56,7 +56,6 @@ export default defineComponent({
     <p class="p-2">
       
     </p>
-    <CategorySelector />
 
     <p class="p-2">
       We hope to provide an accessible, easy to use portal to resources and
